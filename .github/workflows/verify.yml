@@ -1,0 +1,53 @@
+name: Verify wind workbench
+on: [push, pull_request]
+jobs:
+  service:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      COMPOSE_PROJECT_NAME: wind-ci
+      WIND_HTTP_PORT: '18000'
+      WIND_DB_PORT: '15433'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        run: pipx install uv
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Verify replay coordinates and rebuild static assets
+        working-directory: web
+        run: |
+          npm ci
+          npx playwright test tests/chart-data.spec.js
+          npm run build
+          git diff --exit-code -- ../src/power_forecast_service/web_static
+      - name: Create disposable credentials and start real services
+        shell: bash
+        run: |
+          umask 077
+          mkdir -p .local/runtime
+          openssl rand -hex 32 > .local/runtime/postgres-password.txt
+          openssl rand -hex 32 > .local/runtime/app-password.txt
+          # runner owner + application group; no world-readable credentials.
+          sudo chgrp -R 10001 .local/runtime
+          chmod 2770 .local/runtime
+          chmod 640 .local/runtime/*-password.txt
+          mkdir .local/runtime/assistant
+          sudo chgrp 10001 .local/runtime/assistant
+          chmod 2770 .local/runtime/assistant
+          docker compose --profile app up -d --build --wait --wait-timeout 120
+      - name: Same component and ordinary delivery checks as local
+        shell: pwsh
+        run: |
+          & tools/dev/check-service.ps1 -TestPath @('tests/unit','tests/integration','tests/e2e/test_experiment_flow.py') -ReportName ci-service
+      - name: Actual browser checks on the new experiment receipt
+        working-directory: web
+        run: |
+          npx playwright install --with-deps chromium
+          npx playwright test tests/chart-data.spec.js tests/candidate.spec.js tests/navigation.spec.js
+      - name: Stop only this disposable stack
+        if: always()
+        run: docker compose --profile app down --volumes

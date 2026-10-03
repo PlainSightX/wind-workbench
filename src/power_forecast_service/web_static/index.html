@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>风电实验工作台</title>
+    <link rel="stylesheet" href="/assets/app.css" />
+    <script type="module" src="/assets/app.js"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="brand">
+        <i data-lucide="wind"></i><span>风电实验工作台</span
+        ><span class="environment">本地开发</span>
+      </div>
+      <span id="connection" role="status">连接中</span>
+    </header>
+    <nav aria-label="工作区">
+      <a href="#tasks" aria-current="page"
+        ><i data-lucide="list-checks"></i>实验任务</a
+      ><a href="#compare"
+        ><i data-lucide="chart-no-axes-combined"></i>结果比较</a
+      ><a href="#predict"><i data-lucide="activity"></i>历史预测</a
+      ><a class="api-link" href="/docs" target="_blank" rel="noopener"
+        >API<i data-lucide="external-link"></i
+      ></a>
+    </nav>
+    <main>
+      <section id="tasks" class="view">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Q1 2019 / 实验与冻结评价</p>
+            <h1>实验任务</h1>
+          </div>
+          <button
+            id="task-refresh"
+            class="icon"
+            title="刷新任务"
+            aria-label="刷新任务"
+          >
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+        <form id="submit-form" class="submit-band">
+          <label
+            >数据集<select id="dataset">
+              <option value="wind-2019-q1">风电历史数据 · 2019 Q1</option>
+            </select></label
+          >
+          <label
+            >HGB 训练策略<select id="policy">
+              <option value="auto_early_stopping">自动提前停止</option>
+              <option value="fixed_iterations">固定 180 轮</option>
+            </select></label
+          >
+          <label>对照组合<select id="candidate">
+            <option value="none">持续性基线 + HGB</option>
+            <option value="ridge_0_1">增加 Ridge (α=0.1)</option>
+            <option value="transformer_direct">Ridge + Transformer 直接预测</option>
+            <option value="transformer_delta">Ridge + Transformer 功率增量</option>
+            <option value="final_evaluation">正式留出 · 使用冻结选型</option>
+          </select></label>
+          <button id="submit-task" type="submit" class="primary">
+            <i data-lucide="plus"></i><span>提交实验</span>
+          </button>
+          <p id="submit-feedback" class="form-feedback" role="status"></p>
+        </form>
+        <div class="task-layout">
+          <div class="task-browser">
+            <div class="section-heading">
+              <h2>任务记录</h2>
+              <span id="task-page-label" class="muted"></span>
+            </div>
+            <div id="tasks-status" role="status"></div>
+            <div class="table-scroll">
+              <table class="task-table">
+                <thead>
+                  <tr>
+                    <th>提交时间</th>
+                    <th>训练策略</th>
+                    <th>状态</th>
+                    <th><span class="sr-only">打开</span></th>
+                  </tr>
+                </thead>
+                <tbody id="task-rows"></tbody>
+              </table>
+            </div>
+            <div class="pager">
+              <button
+                id="task-prev"
+                class="icon"
+                title="上一页"
+                aria-label="任务上一页"
+              >
+                <i data-lucide="chevron-left"></i></button
+              ><button
+                id="task-next"
+                class="icon"
+                title="下一页"
+                aria-label="任务下一页"
+              >
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <aside id="task-detail" aria-label="任务详情">
+            <h2>任务详情</h2>
+            <p class="empty">选择一条任务查看执行记录。</p>
+          </aside>
+        </div>
+      </section>
+      <section id="compare" class="view" hidden>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">同样本 / 同评分协议</p>
+            <h1>结果比较</h1>
+          </div>
+          <button
+            id="compare-refresh"
+            class="icon"
+            title="刷新运行"
+            aria-label="刷新运行"
+          >
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+        <div class="section-heading">
+          <h2>已登记运行</h2>
+          <div class="pager">
+            <span id="run-page-label" class="muted"></span
+            ><button
+              id="run-prev"
+              class="icon"
+              title="上一批运行"
+              aria-label="上一批运行"
+            >
+              <i data-lucide="chevron-left"></i></button
+            ><button
+              id="run-next"
+              class="icon"
+              title="下一批运行"
+              aria-label="下一批运行"
+            >
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <form id="compare-form" class="compare-controls">
+          <div class="compare-side">
+            <label>左侧运行<select id="left-run"></select></label
+            ><label>左侧模型<select id="left-model"></select></label>
+          </div>
+          <div class="compare-side">
+            <label>右侧运行<select id="right-run"></select></label
+            ><label>右侧模型<select id="right-model"></select></label>
+          </div>
+          <button id="compare-submit" type="submit" class="primary">
+            <i data-lucide="git-compare-arrows"></i>比较结果
+          </button>
+        </form>
+        <p id="compare-status" role="status"></p>
+        <div id="comparison-output" hidden>
+          <div id="metrics" class="metric-strip"></div>
+          <p id="comparison-notes" class="muted"></p>
+          <div class="section-heading">
+            <div>
+              <h2>预测与实际</h2>
+              <p class="muted">
+                所选运行评分集 · 数据源时间（时区未知） · MW（来源标注）
+              </p>
+            </div>
+            <div class="pager">
+              <span id="series-range" class="muted"></span
+              ><button
+                id="series-prev"
+                class="icon"
+                title="前一段"
+                aria-label="曲线前一段"
+              >
+                <i data-lucide="chevron-left"></i></button
+              ><button
+                id="series-next"
+                class="icon"
+                title="后一段"
+                aria-label="曲线后一段"
+              >
+                <i data-lucide="chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas
+              id="comparison-chart"
+              aria-label="预测与实际曲线"
+              role="img"
+            ></canvas>
+          </div>
+          <details>
+            <summary>查看当前区间数值</summary>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>目标时间</th>
+                    <th>实际</th>
+                    <th>左侧预测</th>
+                    <th>右侧预测</th>
+                  </tr>
+                </thead>
+                <tbody id="series-rows"></tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section id="predict" class="view" hidden>
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">已登记模型 / 独立加载</p>
+            <h1>历史预测</h1>
+          </div>
+          <button
+            id="artifact-refresh"
+            class="icon"
+            title="刷新模型"
+            aria-label="刷新模型"
+          >
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+        <p class="notice">
+          历史回放，非实时预测。仅开放所选模型已登记的评分时刻；开发与正式留出模型分别核验。
+        </p>
+        <div class="section-heading">
+          <h2>可用模型</h2>
+          <div class="pager">
+            <span id="artifact-page-label" class="muted"></span
+            ><button
+              id="artifact-prev"
+              class="icon"
+              title="上一批模型"
+              aria-label="上一批模型"
+            >
+              <i data-lucide="chevron-left"></i></button
+            ><button
+              id="artifact-next"
+              class="icon"
+              title="下一批模型"
+              aria-label="下一批模型"
+            >
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <form id="replay-form" class="replay-controls">
+          <label>模型版本<select id="artifact"></select></label
+          ><label
+            >历史截止时间<input
+              id="cutoff"
+              type="datetime-local"
+              step="300"
+              required /></label
+          ><button id="predict-submit" type="submit" class="primary" disabled>
+            <i data-lucide="play"></i>运行预测
+          </button>
+        </form>
+        <p id="artifact-context" class="muted"></p>
+        <p id="replay-status" role="status"></p>
+        <div id="replay-output" hidden>
+          <div id="forecast-metrics" class="metric-strip"></div>
+          <div class="section-heading">
+            <h2>历史输入与一小时后单点</h2>
+            <span class="muted">MW（来源标注）</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas
+              id="replay-chart"
+              aria-label="历史观测与一小时后预测"
+              role="img"
+            ></canvas>
+          </div>
+          <p class="muted">
+            实际值仅用于回放对照，没有传入模型。中间一小时不代表已预测的连续轨迹。
+          </p>
+          <details>
+            <summary>本次输入与模型身份</summary>
+            <div id="replay-details"></div>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer>
+      风电实验分析与结果溯源平台<span>开发结果不代表跨场站泛化或生产收益</span>
+    </footer>
+  </body>
+</html>

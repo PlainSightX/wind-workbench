@@ -1,0 +1,121 @@
+{
+  "frozen_at": "2026-09-24T02:43:04.568953+00:00",
+  "git_base": "6b6c63601dccb597e3d418940eaa1534ebe49eba",
+  "protocol": {
+    "version": "engie-l1-shrinkage-a2-v1",
+    "baseline": {
+      "path": "docs/results/wind-engie-baseline-20260923/baseline.json",
+      "sha256": "b13153210b5037ed92daf6e09d7113afd7fd5918439efcf7be2b733bb2cc88b5",
+      "bytes": 142821
+    },
+    "baseline_protocol": {
+      "path": "docs/results/wind-engie-baseline-20260923/protocol.json",
+      "sha256": "04091c20fe930941a49401e7d87e6d06b07b419ce88ee1d6ddcca468a98b58a8",
+      "bytes": 2791
+    },
+    "source": {
+      "path": ".local/work-packages/wind-engie-baseline-20260923/source/la_haute_borne.zip",
+      "sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "bytes": 36762939
+    },
+    "reference_predictions": {
+      "2014-Q2": {
+        "path": ".local/work-packages/wind-engie-baseline-20260923/artifacts/2014-Q2-predictions.npz",
+        "sha256": "8d816a4a0fa1fa226748c99b2404a6a2fbc5d81a82aa41f7b064a5e7217fe141",
+        "bytes": 5165872
+      },
+      "2014-Q3": {
+        "path": ".local/work-packages/wind-engie-baseline-20260923/artifacts/2014-Q3-predictions.npz",
+        "sha256": "d45b9cd97ff70509ca227a6984c8ed0b946d70395dbb6013b7fc8e842786aba2",
+        "bytes": 4855783
+      },
+      "2014-Q4": {
+        "path": ".local/work-packages/wind-engie-baseline-20260923/artifacts/2014-Q4-predictions.npz",
+        "sha256": "2e25e0ca9cc163d4dc698f726ef6701aa08db4e6b5f2c5e07ba906f873a2f53e",
+        "bytes": 5292478
+      }
+    },
+    "parameters": {
+      "objective": "regression_l1",
+      "metric": "l1",
+      "learning_rate": 0.05,
+      "n_estimators": 400,
+      "num_leaves": 31,
+      "min_child_samples": 50,
+      "n_jobs": 2,
+      "random_state": 42,
+      "deterministic": true,
+      "force_col_wise": true,
+      "verbosity": -1
+    },
+    "lambda_grid": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "selection": "one shared lambda per quarter by inner farm MAE; exact ties choose smaller",
+    "fit_order": "all three inner selections sealed before any outer refit or scoring",
+    "inner_validation_days": 28,
+    "field_data_estimator_fit_budget": 144,
+    "early_stopping": {
+      "rounds": 40,
+      "metric": "l1",
+      "scope": "per turbine and horizon"
+    },
+    "adoption_gates": {
+      "minimum_improved_quarters": 2,
+      "minimum_equal_quarter_mae_gain_percent": 3.0,
+      "maximum_quarter_mae_regression_percent": 2.0,
+      "maximum_equal_quarter_rmse_ratio": 1.0,
+      "complete_legal_input_coverage_required": true
+    },
+    "families": [
+      "persistence",
+      "ridge",
+      "lightgbm",
+      "lightgbm_l1",
+      "lightgbm_l1_shrink"
+    ],
+    "holdout": "2015 labels never enter model/selection/scoring arrays",
+    "outer_usage": "already seen 2014 development; not unseen generalization",
+    "refit": "same purged masks as baseline; source label availability strictly before boundaries",
+    "counterfactual_limits": "no L2 shrinkage ablation; no new features; no causal proof from error groups",
+    "code": [
+      {
+        "path": "src/power_forecast_service/forecasting/engie_l1.py",
+        "sha256": "8d243d436697c1f4259fd5e20d428675c95171ce952723a817869b74795c380b",
+        "bytes": 5736
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_contract.py",
+        "sha256": "7babb5a329544fe5bd3068eed46da144558f240be101d8e6190484664a5d8df3",
+        "bytes": 10898
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_baselines.py",
+        "sha256": "7504bb79f3679587c92ed46c23f2d5714cb22aebf80a17767cbddecc74adc89c",
+        "bytes": 8054
+      },
+      {
+        "path": "tools/diagnostics/run_engie_baseline.py",
+        "sha256": "cc88ed067b72659f840576d6e6df5f3f23a18fac6882b29a8d2f1735180dcf8b",
+        "bytes": 15208
+      },
+      {
+        "path": "tools/diagnostics/run_engie_a2.py",
+        "sha256": "0a802e059c5c9a629c9dee0f058b179f47eb60730a94991ef5e57dd160186ac4",
+        "bytes": 14152
+      }
+    ],
+    "environment": {
+      "numpy": "2.5.2",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.0",
+      "lightgbm": "4.6.0",
+      "joblib": "1.6.0"
+    },
+    "uv_lock_sha256": "8b61f920e6d7e336b0e704ce5f449a413da4d24d1dffd9490d9a735510ee5c22"
+  }
+}

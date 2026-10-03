@@ -1,0 +1,21 @@
+{
+  "q1": {
+    "object_id": "e0f98578-fbca-49a1-9269-07be2ccc2b57",
+    "final_protocol_id": "177366d00abe00776bd9fbad65fedef6912aec00a06f67bc3f0d362dc94a329e",
+    "selection_source": {"path": "docs/results/wind-sequence-round4/selection.json", "sha256": "d61bc6a7719581dc56d9ba7b7ae0e7c15aed26c293f5edfb134fead33cfa5947"},
+    "mean_mae": {"persistence": 193.23054407713502, "ridge_0_1": 181.31763742218516, "transformer_delta": 237.08799800666642, "transformer_direct": 238.7830981860378},
+    "pre_selection_evidence": ["q1-10daf2f9717575c0", "q1-7e03be98f3c7e6eb"],
+    "final_holdout_evidence": ["q1-8268c7c7ac0e2d51", "q1-484d6e44163cdbae"]
+  },
+  "engie": {
+    "result_sha256": "a1dffc413d0e2a1edc24652f17a5f755aa5488165f9e050a9ccffd573c79d962",
+    "protocol_sha256": "e643018e4135f66fe86081a9be5b434149f5974865f0e95c204b17d50e9b3da2",
+    "development_source": {"path": "docs/results/wind-engie-a2-20260923/result.json", "sha256": "69bdb7d9c9ca05a8b6132789d5d1fb2939fa9bb8f83bcac3d6ced5f0273f4263"},
+    "gate_source": {"path": "docs/results/wind-engie-a2-20260923/protocol.json", "sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe"},
+    "development_mae_gain_percent": 1.7999357758374024,
+    "minimum_mae_gain_percent": 3.0,
+    "development_adopted": false,
+    "development_evidence": ["a2-a0e9352d9bbf7d09"],
+    "final_holdout_evidence": ["a3-8f352bd1dee97182"]
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "source_commit": "477afa08ca22bcd671ecaf949c4b00b70bd68147",
+  "sha256": "9d984e03f0d3b5961e605687d486ed86a483d813391d02944af8d7b0c31b0769",
+  "chunks": [
+    {
+      "id": "a3-8f352bd1dee97182",
+      "title": "ENGIE最终留出与预测发布：A3交付 / ",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 2,
+      "text_sha256": "8f352bd1dee971828db727a378c6bb2f7bdd4d7e70d0faaf86cf56b9e410ed55",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "本轮完成事前冻结的2015最终评价、实际评分模型原字节服务交付，以及普通脚本与持久\n发布的正常/故障对照。**共享收缩候选相对持久性等季度MAE改善2.985%，四个季度均\n改善；五个最终模型已可在同一页面选择、回放和发布。**\n\n入口：[历史预测](http://127.0.0.1:18000/#predict)，选择ENGIE的`2015-final`。\n查看五模型对照，选择模型/时刻，运行六点预测；点击“发布本次预测”可获得数据库\n读回的发布身份。处理中可刷新原记录，失败重试沿用请求身份，不延长截止时间。\n\n这构成就业项目的新增实测成果。它不代表跨场站泛化、生产SLA、真实客户收益或全部\n原定功能已经完成。开发期3%采用门仍未通过，默认保持持久性，候选可显式选择。"
+    },
+    {
+      "id": "a3-a1dcda844cc094bb",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 15,
+      "text_sha256": "a1dcda844cc094bb5be0e3d1b98515f12b4205c9716a1d65187c6ce0692888e5",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "- 只使用2014训练，最后28天内层选型。标签加20分钟可得延迟后严格早于边界；\n  内层最后训练起报为12月3日22:30，最终训练最后起报为12月31日22:30 UTC。\n- Ridge在原三个alpha中选1；树仍为原400上限、ES40、seed42、两个CPU线程。\n  L2与L1分别选每台/时距的树数；共享lambda从原五值网格选0.5。\n- 内层选型60次与最终重拟合52次合计112次底层估计器拟合：Ridge16次、L2 48次、\n  L1 48次，累计94.273秒；最终重拟合只在选择封存后进行。收缩复用L1，不新增训练。\n  组件测试使用构造数据，其拟合不混入场站拟合数。2015不更新模型，不再调参。\n- 最终五包先封存，再创建2015目标数组并评分；中断后的曝光标记禁止重新进入训练。"
+    },
+    {
+      "id": "a3-e66678adf4adeb17",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 24,
+      "text_sha256": "e66678adf4adeb17bdc16ba0f312e05594d233277a713daa7b51413add2caeb9",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "[冻结协议](protocol.json)、[选择](selection.json)、[重拟合](refit.json)和\n  [结果](result.json)保留独立身份与时间。此后只能复核，不重新宣称2015未见。\n\n全年52,560个计划起报，51,200个输入合法，51,072个可完整评分（97.169%计划分母）。\n五策略均实际输出全部51,200个合法输入。输入拒绝与没有未来标签分开：最后六个\n起报仍能预测，但六个时距标签不能都在2016前获得；回放实况保留null。\n\n| 策略 | 等季度全场MAE / kW | 等季度RMSE / kW | 相对持久性MAE |\n|---|---:|---:|---:|\n| 持久性 | 449.952 | 736.854 | 参照 |\n| Ridge | 460.582 | 711.652 | 恶化2.36% |"
+    },
+    {
+      "id": "a3-46766d47f35f86f1",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 35,
+      "text_sha256": "46766d47f35f86f1c6d2763716e7978555922d83e77ee9e304c8e44ded7de210",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "| LightGBM L2 | 463.052 | 724.777 | 恶化2.91% |\n| LightGBM L1 | 447.420 | 723.064 | 改善0.56% |\n| L1 + 共享收缩 | **436.520** | **707.103** | **改善2.985%** |\n\n主指标是先四台求和，再计算六时距误差、再对四季度等权；全年混合指标另存在结果中。\nRMSE改善4.038%指表中等季度RMSE，不与全年混合RMSE或旧Q1成绩混写。\n\n| 2015季度 | 持久性MAE | 共享收缩MAE |\n|---|---:|---:|\n| Q1 | 450.117 | 444.887 |\n| Q2 | 426.291 | 409.438 |\n| Q3 | 472.302 | 455.404 |\n| Q4 | 451.097 | 436.351 |"
+    },
+    {
+      "id": "a3-2c998667ab7cddcd",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 49,
+      "text_sha256": "2c998667ab7cddcd757e0349a4b7ebb2a62f3e8dffa72dd037566609a62f59fc",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "不确定性按事前方法：季度内非循环配对时间块、完整日历保留缺测位置、相同索引用于\n全部策略，2000次、seed42、95%百分位区间。主七天块得到MAE改善区间\n**2.747%至3.660%**，绝对差区间-16.465至-12.016kW；一天块敏感性为2.427%至3.501%。\n这些是该场站/年度/抽样假设下的区间，未包含换场站、重新选型或重训练的不确定性。\n\n剩余短板并未隐藏：较小实际变化组四季度仍输持久性；低实际功率组有赢有输；\n共享收缩等季度偏差约-70.24kW。分组由2014训练阈值定义，使用未来变化只作事后诊断，\n没有当成线上决策条件。未按2015结果挑季节最优模型或改采用门。"
+    },
+    {
+      "id": "a3-bf0abc6e3361307e",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 59,
+      "text_sha256": "bf0abc6e3361307e85f13ffa6572f8df2a2f4f508b02e5c35dd311c748bcc461",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "最终来源另设可信hash锚，旧2014信任锚和序列化类不变。先验证来源链，才反序列化，\n在目标Linux CPU新进程禁止fit，全量重放后一次事务登记五包。原始模型字节就是\n生成最终评分的字节；不在服务侧另训一个看似相同的模型。\n\n- [独立复核](verification.json)：五策略完整重放最大差0；Ridge内层三alpha预测、\n  lambda选择、train-only scaler、标签时间、所有指标/分组/分母复算通过。\n  bootstrap另外用显式展开索引复算，不只调用同一个前缀和实现。\n- [Linux CPU导入](cpu-import.json)：五包各51,200个合法起报，最大差4.55e-13kW；\n  事前容差atol=1e-6、rtol=1e-8未放宽。[重复导入](cpu-reimport.json)返回同一身份。"
+    },
+    {
+      "id": "a3-f4a0e6720309a5d7",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 69,
+      "text_sha256": "f4a0e6720309a5d7e0531dfea5427b0f1bd2f2eb13c416ede3bdd4093a3d884a",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "- [HTTP与交付](http-delivery.json)：新五包和旧九包各首/中/末，共42组实际预测，\n  直接输入与历史回放一致；旧Q4仍不开放2015实况。原Q1整行快照不变。\n- [20项后端定向检查](focused-tests.xml)：构造拟合预算、边界/抽样、真实专属PG、\n  迁移、导入、并发与发布、API轻量导入。没有重跑无关旧故障矩阵。\n- [4个浏览器场景](browser-tests.json)：1440/390视口，六点实值/非空曲线/无溢出，\n  发布并读回、选择隔离、可重试错误、pending原记录刷新。pending/错误响应是页面\n  控制测试；真实PG故障证据在后端测试，不能混作生产故障。\n- [重启读回](restart-readback.json)：API进程重启后15条场景记录、全部导入身份和\n  旧Q1快照不变。该15条包含10条已发布和5条过期，不把过期记录计为有效预测。"
+    },
+    {
+      "id": "a3-25e611400659ba23",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 79,
+      "text_sha256": "25e611400659ba2386209c103ee06d69bc543c293936f408b7679a6d4fca11af",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "![桌面最终模型与实际发布](final-1440.png)"
+    },
+    {
+      "id": "a3-8b37a18fc4eb0de9",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 82,
+      "text_sha256": "8b37a18fc4eb0de9dff3fc42b8dcf8094f32c1d8d60348976a65cac4bffbdfb1",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "两边使用相同Linux CPU环境、相同最终模型字节、相同输入与校验函数。五个起报按合法\n索引等距选取，不按评分筛选；五类各5例，seed42打乱顺序，见[计划](delivery-plan.json)。\n普通脚本保留正常输入校验、模型身份和内存去重，未故意删除这些基本保护。\n\n| 场景 | 计划 | 普通脚本 | 持久发布服务 |\n|---|---:|---|---|\n| 正常 | 5 | 5份结果 | 5份有效发布 |\n| 缺机组 | 5 | 全拒绝 | 全422拒绝、不登记发布 |\n| 过期输入 | 5 | 全拒绝 | 全422拒绝、不登记发布 |\n| 迟到结果 | 5 | 算完返回5份、无发布期限策略 | 真实算完，5条过期记录、0份有效发布 |\n| 重复结果 | 5 | 内存去重后5份 | 生产finalizer再次消费相同真实结果，仍仅5份 |"
+    },
+    {
+      "id": "a3-e342fbbe71110cca",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 95,
+      "text_sha256": "e342fbbe71110cca814c4c05bd08c741460954514b489601229e9d72ffc45e11",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "按本次指定发布要求，25例判定全部符合预期：应拒绝15例中误接收0例，应接受10例中\n误拒绝0例，重复有效发布0/5。脚本也正确处理了\n输入和内存去重；新增价值是**可持久查询的身份、截止时间和原结果**。给脚本增加同等\n持久事务合同也能实现这些能力，此结果不是相对成熟预测平台的优越性证明。\n\n正常5例脚本推理合计0.197秒，服务HTTP全程0.325秒；时间边界不同，仅提供实际成本\n观测，不计算虚构加速比、人工节省或队列耗时。迟到用声明的1ms加速故障预算，真实\n推理完成后才拒绝，正常预算60秒；二者都不是生产SLA。\n\n发布期限从PG接收登记开始，不从历史起报时间或HTTP到达时刻开始。事务先锁行，再\n取`clock_timestamp()`，避免等锁后还使用事务开始时刻。相同key/payload重用身份，\n更换payload或budget冲突；相同结果重投不改时间，冲突结果拒绝。幂等范围是一个"
+    },
+    {
+      "id": "a3-8a4042e0f76ae334",
+      "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
+      "source": "docs/results/wind-engie-a3-20260923/README.md",
+      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "start_line": 107,
+      "text_sha256": "8a4042e0f76ae3345c0bbb336ed994bb8cce3e23c4e1cf6181a0181183556de3",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "request_key/delivery_id，不是不同key的同一业务起报全局去重。\n\n推理和终结整体由现有受限任务管理，取消等待方不跳过终结；测试验证真实PG仍发布。\n硬杀进程不承诺自动重新计算：pending可按原ID查询并过期，结果不会静默借用旧预测。\n`completed_at`是PG在取得终结锁后观察到完成的时间，不冒称纯推理结束时间。"
+    },
+    {
+      "id": "a2-e2c569d642c00b4a",
+      "title": "ENGIE A2：L1训练与共享收缩对照 / 问题与实际改造",
+      "source": "docs/results/wind-engie-a2-20260923/README.md",
+      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "start_line": 12,
+      "text_sha256": "e2c569d642c00b4ac4efdd1c1b06d70500c3103d3b94a03f792d1f65a9f3caf0",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "旧LightGBM以MAE做早停，却以平方误差训练。评价指标名称相同不等于训练目标相同。\n本轮仅将`objective=regression`改成`regression_l1`；这里L1是绝对误差损失，不是\nLasso正则。仍使用自身12条历史、相同四机组/六时距、400树上限、seed42与两CPU线程。\n每台机组/时距分别训练，最后按四台功率合计评分；单机L1并不直接等于最小化全场MAE。\n\n第二项是预登记的保守修正：\n\n```text\n输出 = 持久性 + lambda * (L1候选 - 持久性)\nlambda ∈ {0, 0.25, 0.5, 0.75, 1}\n```\n\n每季度在内层28天按全场MAE选一个共享值，所有机组/时距共用，并列选更小值。\n内层也用于早停，所以这是选型，不称独立校准。三个季度的内层预测和选择全部封存后，\n才用边界前可得数据重拟合并评分外层。没有用已包含内层数据的最终模型倒查lambda，"
+    },
+    {
+      "id": "a2-2c7d91afec7ef44f",
+      "title": "ENGIE A2：L1训练与共享收缩对照 / 问题与实际改造",
+      "source": "docs/results/wind-engie-a2-20260923/README.md",
+      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "start_line": 28,
+      "text_sha256": "2c7d91afec7ef44f3ff8f822d8348e3504d2589095f192e584634e3721a88b37",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "没有按未来变化分组选择预测。旧Ridge、L2和持久性逐点输出直接复用，不增加原模型拟合。"
+    },
+    {
+      "id": "a2-a0e9352d9bbf7d09",
+      "title": "ENGIE A2：L1训练与共享收缩对照 / 采用决定与下一轮",
+      "source": "docs/results/wind-engie-a2-20260923/README.md",
+      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "start_line": 80,
+      "text_sha256": "a0e9352d9bbf7d09f823c54fba52036a7fe0dfc51f850fdd05dfab94bafc3436",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "事前协议要求：至少两个季度改善、平均MAE改善至少3%、最差季度回退不超过2%、\n平均RMSE不恶化、完整覆盖不降。两种新策略只有“平均MAE至少3%”未通过。\n这3%是本项目的投入/采用门槛，不是行业标准或统计显著性线；本轮没有事后放宽。\n\n**本轮结论：机制有改善，默认采用门未通过，A2已完成。** 模型包和逐点预测保留，\n工作台继续保持原默认，不把1.80%写成已验证的2015收益或生产收益。\n\n建议下一轮进入原计划A3：冻结L1直接/内层共享收缩规则，保留持久性与原配方参照，\n在2015保留期作一次最终评价；随后把实际评分的最终包经A1路径交付，并完成正常/\n故障对照。先在揭示2015前固定比较成员、时间块区间和预算，失败不重开调参。\n候选未通过开发采用门的状态必须保留，不能靠正式期挑一张好表追认采用。\n\n不建议现在细化lambda或换神经架构。现有分组说明取舍，却没有证明另三台历史能补上"
+    },
+    {
+      "id": "a2-8e50f5cc856769b2",
+      "title": "ENGIE A2：L1训练与共享收缩对照 / 采用决定与下一轮",
+      "source": "docs/results/wind-engie-a2-20260923/README.md",
+      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "start_line": 94,
+      "text_sha256": "8e50f5cc856769b209ca83f1cba9bfd8270b1c43a079e99ebdcd9a30999f706f",
+      "scopes": [
+        "engie_final"
+      ],
+      "text": "剩余误差；条件信息增量分支仍保留，未执行也未被否定。本次不为启动它额外增加拟合。\nStage C结果助手与用户主动失败重跑结对继续保留，不成为本轮完成的隐藏门槛。"
+    },
+    {
+      "id": "engie-69a256f9d3fe0f91",
+      "title": "ENGIE四机组滚动预测：基线结果 / 1. 这轮交付了什么",
+      "source": "docs/results/wind-engie-baseline-20260923/README.md",
+      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "start_line": 8,
+      "text_sha256": "69a256f9d3fe0f914a9e2faa084c08ed6612e5e010ac29da963bd3360ba34be5",
+      "scopes": [
+        "engie_final",
+        "engie_development"
+      ],
+      "text": "每十分钟起报一次，使用模拟可得的四台机组历史，输出未来10至60分钟六点功率，\n包含各机组和固定四台合计。准入、窗口、训练选择、完整输出、评分和保存模型的\n重新加载都已实际运行。不是只下载数据或提出另一份方案，也不是已经上线的实时预测。\n\n本轮使用ENGIE公开原始SCADA，经OpenOA固定版本获取；数据许可为Etalab Open\nLicence 2.0，归属ENGIE。来源地址、版本、ZIP/CSV的SHA及质量统计见\n[数据准入](admission.json)。原始ZIP保留在本地非Git工件区，没有把数据复制进仓库。"
+    },
+    {
+      "id": "engie-1e630b893889c121",
+      "title": "ENGIE四机组滚动预测：基线结果 / 2. 数据合同与真实问题",
+      "source": "docs/results/wind-engie-baseline-20260923/README.md",
+      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "start_line": 18,
+      "text_sha256": "1e630b893889c12173336afd7390b48266e3276646957cf8782213285df85f69",
+      "scopes": [
+        "engie_final",
+        "engie_development"
+      ],
+      "text": "完整文件有420480行，包含2014-2015年四台机组的十分钟记录。每台存在12个重复\nUTC键和12个缺失键；重复键的值相互冲突，集中在春季夏令时切换，秋季有对应断档。\n源字符串的UTC偏移已经被正确解析，不能通过重新猜时区来虚构正确观测。\n\n处理规则是在冲突键上整组判为不可用，对缺测或非有限输入拒绝相应窗口。没有取\n第一行、平均重复值、插值、补零或把四台合计偷偷改成三台。低出力与负功率保留。\n这是一项真实的数据准入问题，不是人为造出来的模型失败。\n\n| 合同项 | 本轮实际使用 |\n|---|---|\n| 机组 | R80711、R80721、R80736、R80790，集合固定 |\n| 信息时间 | 起报t只用标签不晚于t-20分钟的观测；20分钟是模拟假设 |\n| 输入 | 每台连续12条历史，每条功率、风速、风向sin/cos、温度，共60维 |"
+    },
+    {
+      "id": "engie-5571ab3fa3d29383",
+      "title": "ENGIE四机组滚动预测：基线结果 / 2. 数据合同与真实问题",
+      "source": "docs/results/wind-engie-baseline-20260923/README.md",
+      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "start_line": 32,
+      "text_sha256": "5571ab3fa3d2938367b85ad6e1f8f781d7271ed0ca9d0adefada416ce00e1d66",
+      "scopes": [
+        "engie_final",
+        "engie_development"
+      ],
+      "text": "| 目标 | t+10、20、30、40、50、60分钟的原始kW，不作非负裁剪 |\n| 开发 | 2014年Q2/Q3/Q4三个外层窗，使用扩展的过去历史训练 |\n| 内层 | 过去最后28天选参数，训练标签加20分钟可得延迟必须严格早于下一段 |\n| 排名 | 完整覆盖预定可评分集合，三个季度等权的四台合计六时距raw MAE |\n\n四台SCADA之和不是并网净送出或排除限电后的可用功率。真实到达时间、十分钟平均\n区间端点与容量单位注释仍有限制；因此不报告真实SLA、容量归一化误差或经济收益。\n未使用未来再分析天气和包内的合成meter/损失标签。"
+    },
+    {
+      "id": "engie-9e86084950e1342a",
+      "title": "ENGIE四机组滚动预测：基线结果 / 3. 覆盖不是只算成功样本",
+      "source": "docs/results/wind-engie-baseline-20260923/README.md",
+      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "start_line": 43,
+      "text_sha256": "9e86084950e1342aa9b9c6b02eddb8e1e381475fe6ab8df048937cddfa337b21",
+      "scopes": [
+        "engie_final",
+        "engie_development"
+      ],
+      "text": "| 外层窗 | 计划起报 | 合法输入/各模型实际输出 | 完整可评分 | 可评分占计划 |\n|---|---:|---:|---:|---:|\n| 2014-Q2 | 13104 | 12932 | 12880 | 98.291% |\n| 2014-Q3 | 13248 | 13248 | 13248 | 100.000% |\n| 2014-Q4 | 13248 | 13045 | 12991 | 98.060% |\n| 合计 | 39600 | 39225 | 39119 | 98.785% |\n\n三个季度均超过事前80%数据准入线。375次输入不合法；另有106次正常产生了预测，\n但不能完整评分，其中Q4最后六次的目标越过2015边界。未来标签是否齐全没有决定\n当时是否预测。三个模型的合法输入输出覆盖均为100%，占全部计划起报的99.053%。"
+    },
+    {
+      "id": "engie-a5eb5149580623a0",
+      "title": "ENGIE四机组滚动预测：基线结果 / 3. 覆盖不是只算成功样本",
+      "source": "docs/results/wind-engie-baseline-20260923/README.md",
+      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "start_line": 54,
+      "text_sha256": "a5eb5149580623a0ce7f2a2948d5b7fcd122e5e171f9ec7da9c031e584ec43e8",
+      "scopes": [
+        "engie_final",
+        "engie_development"
+      ],
+      "text": "这不是墙钟按时交付率。39119个起报窗口高度重叠，不能当作39119个独立试验。"
+    },
+    {
+      "id": "q1-d8a125035d5c47ee",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / ",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 2,
+      "text_sha256": "d8a125035d5c47ee24cab2107bf9c5a9e0fbc5bd28646ff6d83c2499aa050a5d",
+      "scopes": [
+        "q1"
+      ],
+      "text": "结论：**采用Ridge alpha=0.1。历史Q1留出MAE相对持续性基线下降7.26%，RMSE下降\n9.22%。小型Transformer完成真实训练和交付，但在本轮预算下不值得替代Ridge。**\n这是单序列、一小时后单点预测的历史留出结果，不是跨场站泛化或生产收益。\n采用决定在正式评分前冻结，正式结果没有触发新调参。"
+    },
+    {
+      "id": "q1-10daf2f9717575c0",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 9,
+      "text_sha256": "10daf2f9717575c0dcf2a940a4b1342195a26473649dada4d005330fa966f12d",
+      "scopes": [
+        "q1"
+      ],
+      "text": "同一登记输入、同一三个固定开发时段，每段3872个cutoff；所有方法训练标签严格\n早于评分首cutoff，训练从第24个合法观测开始。与第3轮相比少11个训练起点，故简单\n基线重新拟合，但不重搜参数。测试从2019-03-18 11:15开始，共3885行。\n时间均为数据源时间，时区未知；单位沿来源标注，不用未知场站容量归一化。\n\n序列输入为24×8，使用当时及之前的功率/天气与源时钟特征。训练涉及的唯一历史\n观测决定输入均值/标准差，训练标签决定目标标准化。2层encoder、宽32、4头、\nFF64、dropout0.1、17409参数；AdamW、MSE、固定20epoch、seed42。\n两个配置只区分直接功率或相对当前功率的增量，不另加架构搜索。\n\n| 开发窗口 | 持续性基线 | 固定180轮HGB | Ridge 0.1 | 直接Transformer | 增量Transformer |"
+    },
+    {
+      "id": "q1-7e03be98f3c7e6eb",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 21,
+      "text_sha256": "7e03be98f3c7e6ebab46d80dea31f279dd194d5e0a94be2945aace4dfa134811",
+      "scopes": [
+        "q1"
+      ],
+      "text": "|---|---:|---:|---:|---:|---:|\n| early_1 | 226.440 | 251.469 | 211.091 | 296.249 | 278.393 |\n| early_2 | 177.765 | 216.191 | 167.816 | 219.205 | 219.364 |\n| main | 175.487 | 199.578 | 165.046 | 200.895 | 213.508 |\n| 三窗等权平均MAE | 193.231 | 222.413 | **181.318** | 238.783 | 237.088 |\n\nRidge三窗都优于持续性基线，平均下降6.17%。增量Transformer仅在两个神经配置中\n平均较好，仍差于持续性基线；不采用它，不主张其收益，所以未触发额外种子确认。\n这不是“Transformer普遍无效”的结论，也没有做attention独立贡献的消融。"
+    },
+    {
+      "id": "q1-6423a9af56d6c7b5",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 31,
+      "text_sha256": "6423a9af56d6c7b5c07ee3871fa09ada631cecae89a62444f382a95465a8a9b7",
+      "scopes": [
+        "q1"
+      ],
+      "text": "原始六份CSV/JSON及模型选择见[开发选择](results/wind-sequence-round4/selection.json)。\n[事前冻结文件](../src/power_forecast_service/forecasting/final_selection.json)绑定该文件\nhash、输入、候选、epoch/seed和重拟合规则。文件内test_scored=false是冻结时状态；\n正式run另记录test_scored=true，不回写这个事前证据。"
+    },
+    {
+      "id": "q1-8268c7c7ac0e2d51",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 2. 正式历史留出",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 37,
+      "text_sha256": "8268c7c7ac0e2d5142e5ff55d7f535d724dfc5244fb7e4b6d68df00ba894e3e3",
+      "scopes": [
+        "q1"
+      ],
+      "text": "全部方法统一使用测试开始前标签已可得的21988行重新拟合，scaler一起重拟合。\n训练最后标签为2019-03-18 11:10，早于测试首cutoff；测试并非已完全未见的盲测，\n因为Q1曾用于旧原型。后续再针对该测试调优只能算探索，不能继续当独立测试。\n\n| 方法 | MAE | RMSE | 平均偏差（预测-实际） | 相对基线MAE改善 |\n|---|---:|---:|---:|---:|\n| 持续性基线 | 197.534 | 280.246 | -0.346 | 0 |\n| 固定180轮HGB | 206.642 | 285.773 | -19.561 | -4.61% |\n| **Ridge 0.1** | **183.187** | **254.403** | -42.357 | **7.26%** |"
+    },
+    {
+      "id": "q1-484d6e44163cdbae",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 2. 正式历史留出",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 47,
+      "text_sha256": "484d6e44163cdbae7d15787316cf1ca97f22f80f6e466d856c6b0c7af97c48e8",
+      "scopes": [
+        "q1"
+      ],
+      "text": "| 增量Transformer | 206.826 | 288.740 | -49.192 | -4.70% |\n\n四者都是相同3885行、100%覆盖；没有丢弃模型表现差的时刻。\n[完整汇总](results/wind-sequence-round4/summary.json)由保存结果生成，\n[逐点预测](results/wind-sequence-round4/final-predictions.csv)可重新核算全部指标。"
+    },
+    {
+      "id": "q1-09b9e70d61c59448",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 3. 不能被均值藏起来的问题",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 54,
+      "text_sha256": "09b9e70d61c594487fb572e322b43c0b4fee3c95cc1d93d29869b1b6d581fc5d",
+      "scopes": [
+        "q1"
+      ],
+      "text": "按训练期分位数冻结阈值，正式留出做事后分组。未来实际功率变化只用于误差分析，\n从未作为输入；不能根据这个分组构造可提前知道未来的模型路由器。\n\n| 目标相对当前功率的绝对变化 | 样本数 | 持续性MAE | Ridge MAE | 增量Transformer MAE |\n|---|---:|---:|---:|---:|\n| 小于108 | 1629 | **47.488** | 71.285 | 93.415 |\n| 108至小于408 | 1758 | 219.548 | **193.367** | 230.864 |\n| 至少408 | 498 | 610.637 | 513.289 | **492.943** |\n\nRidge主要在中、大变化组获益，小变化组明显退化；高功率组虽MAE较基线更低，\n平均偏差约-119.22，仍有低估。Transformer大变化组局部较好，但不足以抵消其他"
+    },
+    {
+      "id": "q1-b234acdaacde5317",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 3. 不能被均值藏起来的问题",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 66,
+      "text_sha256": "b234acdaacde531753683d865f4a46a64f7b424f70d0900b308862ee7aff9248",
+      "scopes": [
+        "q1"
+      ],
+      "text": "组的损失，不能只展示这组声称更强。按功率分组的完整结果也保存在汇总中。\n\n两个案例按“Ridge相对基线绝对误差改善最多/退化最多”机械选择，不是典型频率估计：\n\n- 2019-03-19 23:25：一小时后真实1632，持续性2456，Ridge2063.586；绝对误差\n  从824降至431.586，减少392.414。仍然明显高估，不是准确命中的案例。\n- 2019-03-22 00:55：真实3459，持续性3453，Ridge3118.521；误差从6升至340.479，\n  退化334.479。当前水平平稳时，模型修正本身可能伤害预测。\n\n已确认有梯度、参数更新、训练loss下降、独立层初始化及保存重载一致性，因此不是\n“只有框架没有训练”。但本轮没有高置信证据把神经负结果归因于某一个机制。\n不据此临时扩大数据、添加新架构或在测试结果上继续找参数。"
+    },
+    {
+      "id": "q1-fa9f3e312396d759",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 4. 成本与实际交付",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 80,
+      "text_sha256": "fa9f3e312396d759232c5581ae6f62066451ff1bb991084998152dfabc208523",
+      "scopes": [
+        "q1"
+      ],
+      "text": "开发六次神经拟合各27.13至48.39秒，Linux CPU两线程；正式同配置重拟合60.02秒。\n正式HGB拟合0.257秒。神经训练显著更贵却无整体增益，这是本轮采用简单方法的依据\n之一；不是跨机器性能基准，未提供GPU加速结论。\n\n正式任务首次attempt成功，四个完整包约2.45MB，打包1.786秒、禁止fit/联网的独立\n进程验证4.250秒。指标、原始预测和模型来自同次拟合。序列包携带state_dict、配置、\n输入/目标标准化，使用新的history-pyfunc-v3；旧v1/v2指纹未改。\n\n真实链路为HTTP -> PG任务/outbox -> Redis/Celery -> 同次拟合 -> 完整打包 ->\n独立进程校验 -> 原子登记 -> HTTP/页面显式选版回放。开发3872行在线/离线最大\n差异9.1e-13；正式四模型各首/中/末回放在预先定义容差内一致。"
+    },
+    {
+      "id": "q1-62346e3b32226992",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 4. 成本与实际交付",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 92,
+      "text_sha256": "62346e3b32226992f0925aac31f08a5f5c56e4c2edb476462d32c36ab6e52759",
+      "scopes": [
+        "q1"
+      ],
+      "text": "同冻结协议用不同请求键再次提交仍返回原任务，不再次评分或挑结果。"
+    },
+    {
+      "id": "q1-34c01d5201638019",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 5. 验证与保留的边界",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 95,
+      "text_sha256": "34c01d52016380198a370413613b29fdaebbac39f52b33bf6c51bdca052e1e61",
+      "scopes": [
+        "q1"
+      ],
+      "text": "后端167项定向整合检查通过，包含真实PG事务/迁移、包校验和一条普通队列e2e。\n另有本轮真实开发/正式四模型交付。新增正式浏览器检查覆盖桌面1440、手机390、\n曲线像素、24点回放与再次提交去重；旧v1/v2工件部署后回放仍通过。\n不把这些数量累加成生产场景数量，不重跑无改动的完整故障矩阵。\n\n截图审查发现24点图表仍沿用13点横轴，导致历史画入未来区间。已将末输入固定于\ncutoff=0，补13/24点坐标断言，再部署与复验；原错误截图作为负例保留，不能用于\n演示当前行为。这个显示缺陷没有改变训练、预测或正式分数，没有重训覆盖结果。\n\n基础CI配置已落地，服务检查同命令在本地通过；未推送远端，不能说远端CI已绿。\nWindows锁定CUDA环境同步未完成，本轮已停止其专属下载进程，保留缓存与锁文件。\nCPU服务环境已实际验证；没有将未完成的Windows安装说成已可用。"
+    },
+    {
+      "id": "q1-899af21e21832979",
+      "title": "第4轮结果：固定比较、正式留出与模型交付 / 5. 验证与保留的边界",
+      "source": "docs/WIND-SEQUENCE-RESULTS.md",
+      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "start_line": 109,
+      "text_sha256": "899af21e218329790e964fc2f1253f023ef2523875535e36667a6615ed1600cc",
+      "scopes": [
+        "q1"
+      ],
+      "text": "阶段B工程交付入口和简历候选稿见[阶段交付](WIND-STAGE-B-DELIVERY.md)。主动失败\n重跑仍保留用户触发结对；结果助手/24题属于未执行的第5轮，本轮不冒称完整增强版。"
+    }
+  ]
+}
