@@ -1,0 +1,12 @@
+*
+!src/
+!src/**
+!infra/
+!infra/runtime-requirements.txt
+!infra/torch-cpu-requirements.txt
+!infra/migrations/
+!infra/migrations/**
+!alembic.ini
+!Dockerfile
+**/__pycache__/
+**/*.pyc

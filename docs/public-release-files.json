@@ -1,0 +1,39 @@
+{
+  "directories": ["src", "infra", "tests", "web/src", "web/tests", "docs/third-party"],
+  "files": [
+    "Dockerfile", ".dockerignore", ".gitignore", ".gitattributes", "compose.yaml", "alembic.ini", "pyproject.toml", "uv.lock",
+    "LICENSE.candidate", "THIRD-PARTY-NOTICES.md", ".github/workflows/verify.yml",
+    "web/package.json", "web/package-lock.json", "web/build.mjs", "web/index.html", "web/playwright.config.js",
+    "data/README.md", "data/sample/wind_2019_q1.csv",
+    "data/provenance/mendeley_fdfftr3tc2_v1_metadata.json", "data/provenance/mendeley_fdfftr3tc2_v1_files.json",
+    "tools/dev/start-app.ps1", "tools/dev/start-infra.ps1", "tools/dev/compose-context.ps1", "tools/dev/run-local.ps1",
+    "tools/dev/check-service.ps1", "tools/dev/prepare-assistant.ps1", "tools/dev/index-assistant.py",
+    "tools/dev/import_engie.py", "tools/dev/prepare_engie_replay.py", "tools/dev/verify_public_flow.py",
+    "tools/dev/export_public_release.py",
+    "tools/diagnostics/assistant_probe.py", "tools/diagnostics/check_infra.py",
+    "tools/diagnostics/compare_training_policies.py", "tools/diagnostics/run_w1_load.py",
+    "tools/diagnostics/run_engie_baseline.py", "tools/diagnostics/verify_engie_baseline.py",
+    "tools/diagnostics/run_engie_a2.py", "tools/diagnostics/run_engie_a3.py",
+    "docs/public-reproduction.md", "docs/public-architecture.md", "docs/public-results.md", "docs/public-tests.md", "docs/public-assistant-case.md", "docs/public-release-w2.md",
+    "docs/public-release-files.json", "docs/public-data.md",
+    "docs/WIND-SEQUENCE-RESULTS.md",
+    "docs/results/wind-diagnosis-20260922/baseline.json",
+    "docs/results/wind-diagnosis-20260922/baseline-early_1.csv", "docs/results/wind-diagnosis-20260922/baseline-early_2.csv",
+    "docs/results/wind-diagnosis-20260922/baseline-main.csv", "docs/results/wind-diagnosis-20260922/summary.json",
+    "docs/results/wind-sequence-round4/selection.json",
+    "docs/results/wind-engie-baseline-20260923/baseline.json", "docs/results/wind-engie-baseline-20260923/protocol.json",
+    "docs/results/wind-engie-baseline-20260923/README.md",
+    "docs/results/wind-engie-a2-20260923/result.json", "docs/results/wind-engie-a2-20260923/protocol.json",
+    "docs/results/wind-engie-a2-20260923/README.md",
+    "docs/results/wind-engie-a3-20260923/result.json", "docs/results/wind-engie-a3-20260923/protocol.json",
+    "docs/results/wind-engie-a3-20260923/README.md",
+    "docs/results/wind-demo-20260924/workbench-demo.webm"
+  ],
+  "replace": {"README.md": "docs/public-README.md", "data/README.md": "docs/public-data.md"},
+  "exclude_parts": ["__pycache__", ".pytest_cache", "node_modules", ".git", ".local", ".venv"],
+  "attachments": ["engie-original-models.zip", "engie-development-models.zip"],
+  "historical_source_documents": [
+    "docs/WIND-SEQUENCE-RESULTS.md", "docs/results/wind-engie-baseline-20260923/README.md",
+    "docs/results/wind-engie-a2-20260923/README.md", "docs/results/wind-engie-a3-20260923/README.md"
+  ]
+}

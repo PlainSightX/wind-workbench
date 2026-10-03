@@ -1,0 +1,105 @@
+name: wind-stage-20260922
+
+# API、调度器和 worker 是同一应用的不同进程，共享配置，不共享数据库 Session。
+x-application: &application
+  profiles: [app]
+  image: ${COMPOSE_PROJECT_NAME:-wind-stage-20260922}:development
+  build: .
+  environment: &application-environment
+    WIND_DB_HOST: postgres
+    WIND_DB_PORT: "5432"
+    WIND_DB_PASSWORD_FILE: /run/secrets/app_password
+    POWER_FORECAST_DATA: /app/data/wind_2019_q1.csv
+    WIND_ARTIFACT_ROOT: /app/artifacts
+    WIND_BROKER_URL: redis://redis:6379/0
+  secrets: [app_password]
+  volumes:
+    - ./data/sample/wind_2019_q1.csv:/app/data/wind_2019_q1.csv:ro
+    - experiment_artifacts:/app/artifacts
+  depends_on:
+    postgres:
+      condition: service_healthy
+  restart: unless-stopped
+
+x-after-migration: &after-migration
+  postgres:
+    condition: service_healthy
+  migrate:
+    condition: service_completed_successfully
+
+services:
+  migrate:
+    <<: *application
+    command: ["alembic", "upgrade", "head"]
+    restart: "no"
+
+  api:
+    <<: *application
+    environment:
+      <<: *application-environment
+      WIND_ASSISTANT_RUNTIME: /app/assistant-runtime
+    volumes:
+      - ./data/sample/wind_2019_q1.csv:/app/data/wind_2019_q1.csv:ro
+      - experiment_artifacts:/app/artifacts
+      - ${WIND_RUNTIME_ROOT:-./.local/runtime}/assistant:/app/assistant-runtime:ro
+    depends_on: *after-migration
+    ports: ["127.0.0.1:${WIND_HTTP_PORT:-18000}:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+
+  dispatcher:
+    <<: *application
+    depends_on: *after-migration
+    command: ["python", "-m", "power_forecast_service.jobs.dispatcher"]
+
+  worker:
+    <<: *application
+    depends_on: *after-migration
+    command: ["celery", "-A", "power_forecast_service.jobs.worker:app", "worker", "--loglevel=INFO", "--concurrency=1", "--hostname=wind@%h"]
+
+  postgres:
+    image: pgvector/pgvector:pg18@sha256:2ba9ca5f2e7daa0f0e7723cba1ee9167bab54efd3640516a44ac1a928dd67e7a
+    environment:
+      POSTGRES_USER: wind_admin
+      POSTGRES_DB: wind_workbench
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+      - app_password
+    ports:
+      - "127.0.0.1:${WIND_DB_PORT:-15433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./infra/init-database.sh:/docker-entrypoint-initdb.d/10-app.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wind_admin -d wind_workbench"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:8-alpine@sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+secrets:
+  postgres_password:
+    file: ${WIND_RUNTIME_ROOT:-./.local/runtime}/postgres-password.txt
+  app_password:
+    file: ${WIND_RUNTIME_ROOT:-./.local/runtime}/app-password.txt
+
+volumes:
+  postgres_data:
+  redis_data:
+  experiment_artifacts:

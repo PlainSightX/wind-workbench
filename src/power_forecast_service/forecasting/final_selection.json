@@ -1,0 +1,33 @@
+{
+  "protocol_version": "q1-common24-final-selection-v1",
+  "sequence_key": "transformer_delta",
+  "selected_model": "ridge_0_1",
+  "config": {
+    "lookback": 24,
+    "d_model": 32,
+    "heads": 4,
+    "layers": 2,
+    "feedforward": 64,
+    "dropout": 0.1,
+    "epochs": 20,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "gradient_clip": 1.0
+  },
+  "input_sha256": "c4f6cfd2fd412dd203c0aae1fe3f070446874e402c4a82974da1f6e36fa0d47e",
+  "test_start": "2019-03-18T11:15:00",
+  "seed": 42,
+  "test_scored": false,
+  "development_selection_sha256": "d61bc6a7719581dc56d9ba7b7ae0e7c15aed26c293f5edfb134fead33cfa5947",
+  "selection_rule": "equal_mean_of_three_window_mae",
+  "refit_rule": "common_24_point_history_and_target_timestamp_strictly_before_test_start",
+  "baseline_recipes": {
+    "persistence": "current_power",
+    "hist_gradient_boosting": "fixed_iterations_180_existing_recipe",
+    "ridge_0_1": "train_only_standard_scaler_alpha_0.1_svd"
+  },
+  "reason": "Ridge has the lowest mean MAE and beats persistence in all three development windows. Delta is the better of two sequence configurations but is not adopted.",
+  "seed_confirmation": "not_required_sequence_is_not_adopted_or_claimed_as_an_improvement",
+  "scope": "Historical Q1 holdout; not unseen-site generalization, production gain, or an independent attention ablation. No tuning after formal scoring."
+}

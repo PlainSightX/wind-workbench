@@ -1,0 +1,6 @@
+{
+  "baseline_sha256": "b13153210b5037ed92daf6e09d7113afd7fd5918439efcf7be2b733bb2cc88b5",
+  "protocol_sha256": "04091c20fe930941a49401e7d87e6d06b07b419ce88ee1d6ddcca468a98b58a8",
+  "baseline_path": "docs/results/wind-engie-baseline-20260923/baseline.json",
+  "protocol_path": "docs/results/wind-engie-baseline-20260923/protocol.json"
+}

@@ -1,0 +1,66 @@
+{
+  "protocol": {
+    "version": "q1-common24-three-window-v1",
+    "input_sha256": "c4f6cfd2fd412dd203c0aae1fe3f070446874e402c4a82974da1f6e36fa0d47e",
+    "windows": {
+      "early_1": [
+        "2019-02-04T23:35:00",
+        "2019-02-18T10:10:00"
+      ],
+      "early_2": [
+        "2019-02-18T23:35:00",
+        "2019-03-04T10:10:00"
+      ],
+      "main": [
+        "2019-03-04T23:35:00",
+        "2019-03-18T10:10:00"
+      ]
+    },
+    "test_start": "2019-03-18T11:15:00",
+    "lookback": 24,
+    "config": {
+      "lookback": 24,
+      "d_model": 32,
+      "heads": 4,
+      "layers": 2,
+      "feedforward": 64,
+      "dropout": 0.1,
+      "epochs": 20,
+      "batch_size": 256,
+      "learning_rate": 0.001,
+      "weight_decay": 0.01,
+      "gradient_clip": 1.0
+    },
+    "keys": [
+      "transformer_direct",
+      "transformer_delta"
+    ],
+    "seed": 42,
+    "confirmation_seeds": [
+      43,
+      44
+    ],
+    "test_scored": false,
+    "selection": "equal_mean_of_three_window_mae",
+    "train_rule": "common_24_point_history_and_labels_before_evaluation_cutoff"
+  },
+  "mean_mae": {
+    "transformer_direct": 238.7830981860378,
+    "transformer_delta": 237.08799800666642,
+    "persistence": 193.23054407713502,
+    "hist_gradient_boosting": 222.4125708806226,
+    "ridge_0_1": 181.31763742218516
+  },
+  "selected_sequence": "transformer_delta",
+  "selected_model": "ridge_0_1",
+  "needs_seed_confirmation": false,
+  "test_scored": false,
+  "reports": {
+    "transformer_delta-42-early_1.json": "1736421a474a4898bc366606704811cf7c465508a288ecf35ae3eaeda075f0d1",
+    "transformer_delta-42-early_2.json": "5ed7f804b00d50d02c12431f4be486a8259d3ba20139836c3f2d8f7cfc3d5c33",
+    "transformer_delta-42-main.json": "248241749dc60ce44fcfb5206f6da545de699658e2b50060872b69ddf06d1d05",
+    "transformer_direct-42-early_1.json": "5d486f6f41178200c595ee62bb138d59633d5af51f4d31e07155bea7f3c49b6e",
+    "transformer_direct-42-early_2.json": "fdefbc25af571e7cb2c1da6aa9ffa3de76e629b3d4bb089bd463d68e0f362154",
+    "transformer_direct-42-main.json": "7669b13c0519baa89a08833e41f389c7cfb8c572f5bb990643f44c5439da8377"
+  }
+}

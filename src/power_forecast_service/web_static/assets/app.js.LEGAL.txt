@@ -1,0 +1,45 @@
+Bundled license information:
+
+lucide/dist/esm/defaultAttributes.mjs:
+lucide/dist/esm/createElement.mjs:
+lucide/dist/esm/shared/src/utils/mergeClasses.mjs:
+lucide/dist/esm/shared/src/utils/hasA11yProp.mjs:
+lucide/dist/esm/shared/src/utils/toCamelCase.mjs:
+lucide/dist/esm/shared/src/utils/toPascalCase.mjs:
+lucide/dist/esm/replaceElement.mjs:
+lucide/dist/esm/icons/activity.mjs:
+lucide/dist/esm/icons/arrow-right.mjs:
+lucide/dist/esm/icons/chart-no-axes-combined.mjs:
+lucide/dist/esm/icons/chevron-left.mjs:
+lucide/dist/esm/icons/chevron-right.mjs:
+lucide/dist/esm/icons/external-link.mjs:
+lucide/dist/esm/icons/git-compare-arrows.mjs:
+lucide/dist/esm/icons/list-checks.mjs:
+lucide/dist/esm/icons/play.mjs:
+lucide/dist/esm/icons/plus.mjs:
+lucide/dist/esm/icons/refresh-cw.mjs:
+lucide/dist/esm/icons/wind.mjs:
+lucide/dist/esm/lucide.mjs:
+  /**
+   * @license lucide v1.47.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   */
+
+@kurkle/color/dist/color.esm.js:
+  /*!
+   * @kurkle/color v0.3.4
+   * https://github.com/kurkle/color#readme
+   * (c) 2024 Jukka Kurkela
+   * Released under the MIT License
+   */
+
+chart.js/dist/chunks/helpers.dataset.js:
+chart.js/dist/chart.js:
+  /*!
+   * Chart.js v4.5.1
+   * https://www.chartjs.org
+   * (c) 2025 Chart.js Contributors
+   * Released under the MIT License
+   */

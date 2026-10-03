@@ -1,0 +1,97 @@
+{
+  "frozen_at": "2026-09-23T11:52:01.259878+00:00",
+  "git_base": "1be9c801403d25ee984a8adad866b79e5d54b042",
+  "protocol": {
+    "version": "engie-rolling-raw-kw-v1",
+    "source_archive_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+    "scada_sha256": "9be32aabe7e6b911f58ad3a9f292aed1e5b48cdc603b35d3feccb94f4c043cf4",
+    "roster": [
+      "R80711",
+      "R80721",
+      "R80736",
+      "R80790"
+    ],
+    "features": [
+      "power_kw",
+      "wind_speed",
+      "direction_sin",
+      "direction_cos",
+      "temperature"
+    ],
+    "lookback_records": 12,
+    "arrival_lag_minutes": 20,
+    "target_minutes_after_issue": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60
+    ],
+    "quarters": {
+      "2014-Q2": [
+        "2014-04-01",
+        "2014-07-01"
+      ],
+      "2014-Q3": [
+        "2014-07-01",
+        "2014-10-01"
+      ],
+      "2014-Q4": [
+        "2014-10-01",
+        "2015-01-01"
+      ]
+    },
+    "inner_validation_days": 28,
+    "label_purge": "last_target_plus_20min_strictly_before_boundary",
+    "ridge_alphas": [
+      1.0,
+      10.0,
+      100.0
+    ],
+    "lightgbm": {
+      "objective": "regression",
+      "metric": "l1",
+      "learning_rate": 0.05,
+      "n_estimators": 400,
+      "num_leaves": 31,
+      "min_child_samples": 50,
+      "n_jobs": 2,
+      "random_state": 42,
+      "deterministic": true,
+      "force_col_wise": true,
+      "verbosity": -1
+    },
+    "refit": "all_complete_samples_with_labels_available_before_outer_start",
+    "holdout": "2015_unscored_and_not_used_for_selection",
+    "quarter_boundary": "targets_may_cross_development_quarters_but_never_2015",
+    "ranking": "complete_coverage_only_equal_quarter_mean_farm_six_horizon_raw_mae",
+    "units": "raw_kw_no_clipping_or_capacity_normalization",
+    "seed": 42,
+    "code": [
+      {
+        "path": "src/power_forecast_service/forecasting/engie_contract.py",
+        "sha256": "7babb5a329544fe5bd3068eed46da144558f240be101d8e6190484664a5d8df3",
+        "bytes": 10898
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_baselines.py",
+        "sha256": "7504bb79f3679587c92ed46c23f2d5714cb22aebf80a17767cbddecc74adc89c",
+        "bytes": 8054
+      },
+      {
+        "path": "tools/diagnostics/run_engie_baseline.py",
+        "sha256": "cc88ed067b72659f840576d6e6df5f3f23a18fac6882b29a8d2f1735180dcf8b",
+        "bytes": 15208
+      }
+    ],
+    "environment": {
+      "numpy": "2.5.2",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.0",
+      "lightgbm": "4.6.0",
+      "joblib": "1.6.0"
+    },
+    "uv_lock_sha256": "8b61f920e6d7e336b0e704ce5f449a413da4d24d1dffd9490d9a735510ee5c22"
+  }
+}

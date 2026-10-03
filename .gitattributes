@@ -1,0 +1,37 @@
+# 自有源码使用LF；下面的固定输入、信任锚和原始报告保留现有字节。
+* -text
+*.py text eol=lf
+*.ps1 text eol=lf
+*.sh text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.ini text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.lock text eol=lf
+Dockerfile text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.dockerignore text eol=lf
+
+/data/sample/wind_2019_q1.csv -text
+/data/provenance/mendeley_fdfftr3tc2_v1_metadata.json -text
+/data/provenance/mendeley_fdfftr3tc2_v1_files.json -text
+/src/power_forecast_service/assistant/corpus.json -text
+/src/power_forecast_service/assistant/stage_sources.json -text
+/src/power_forecast_service/forecasting/final_selection.json -text
+/src/power_forecast_service/storage/engie_sources.json -text
+/src/power_forecast_service/storage/engie_final_source.json -text
+/docs/WIND-SEQUENCE-RESULTS.md -text
+/docs/results/** -text
+/docs/history/** -text
+/docs/migration/** -text
+/docs/wind-stage-verification-2026-09-22.json -text
+/artifacts/** -text
+/data/DATA-CARD.md -text
+/tests/fixtures/** -text

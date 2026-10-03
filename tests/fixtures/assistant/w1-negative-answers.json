@@ -1,0 +1,12 @@
+{
+  "answers": [
+    {
+      "answer": "Q1 采用 Ridge 0.1，未采用 Transformer，是因为增量 Transformer 在正式留出上未跑赢持续性基线：其 MAE 为 transformer_delta MAE：206.825681 source_reported_unit，基线为 persistence MAE：197.534106 source_reported_unit，相对基线 MAE 改善为 transformer_delta 相对持续性MAE改善：-4.703783 %（即变差）；而 Ridge 的 MAE 为 ridge_0_1 MAE：183.186632 source_reported_unit，相对基线改善 ridge_0_1 相对持续性MAE改善：7.263289 %。文档也说明增量 Transformer 仍差于持续性基线，故不采用、不主张其收益。这是单序列、一小时后单点预测的历史留出结果，不是跨场站泛化或生产收益，也不等于 Transformer 普遍无效。"
+    },
+    {
+      "answer": "开发阶段（A2）两种新策略只有“平均MAE至少3%”未通过，机制有改善但开发采用门未通过，默认保持持久性。最终（A3）共享收缩候选相对持久性等季度MAE改善lightgbm_l1_shrink 相对持续性MAE改善：2.985057 %（持久性原值persistence MAE：449.951515 kW，候选lightgbm_l1_shrink MAE：436.520208 kW，差值lightgbm_l1_shrink 相对持续性MAE差值(候选减基线)：-13.431308 kW），四个季度均改善。但开发采用门仍未通过，默认保持持久性，候选可显式选择；2015最终结果不得用于重新决定开发采用门，区间也不是采用门。"
+    }
+  ],
+  "source_sha256": "dd205688ccfd741f98fcedfa0008f0ece46f22e7320aa3949cd8c415a73f7307",
+  "source": "docs/results/wind-w1-load-20260930/action-responses.jsonl"
+}

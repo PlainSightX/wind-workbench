@@ -1,0 +1,19 @@
+{
+  "name": "wind-workbench-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "playwright test",
+    "format": "prettier --write src tests index.html *.mjs *.js"
+  },
+  "dependencies": {
+    "chart.js": "4.5.1",
+    "lucide": "1.47.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "esbuild": "0.28.2",
+    "prettier": "3.9.8"
+  }
+}

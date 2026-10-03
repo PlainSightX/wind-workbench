@@ -1,0 +1,2263 @@
+{
+  "phase": "baseline",
+  "protocol": {
+    "version": "q1-fixed-three-window-v1",
+    "input_sha256": "c4f6cfd2fd412dd203c0aae1fe3f070446874e402c4a82974da1f6e36fa0d47e",
+    "windows": {
+      "early_1": {
+        "start": "2019-02-04T23:35:00",
+        "end": "2019-02-18T10:10:00",
+        "samples": 3872
+      },
+      "early_2": {
+        "start": "2019-02-18T23:35:00",
+        "end": "2019-03-04T10:10:00",
+        "samples": 3872
+      },
+      "main": {
+        "start": "2019-03-04T23:35:00",
+        "end": "2019-03-18T10:10:00",
+        "samples": 3872
+      }
+    },
+    "test_start": "2019-03-18T11:15:00",
+    "test_scored": false,
+    "selection": "equal_mean_of_three_window_mae",
+    "ridge_alphas": {
+      "ridge_0_1": 0.1,
+      "ridge_1": 1.0,
+      "ridge_10": 10.0
+    },
+    "random_seed": 42,
+    "train_rule": "target_timestamp < evaluation_first_cutoff",
+    "power_quantiles": [
+      0.3333333333333333,
+      0.6666666666666666
+    ],
+    "change_quantiles": [
+      0.5,
+      0.9
+    ],
+    "final_refit": "all_labels_before_test_first_cutoff_with_train_only_preprocessing"
+  },
+  "execution": {
+    "source_tree_sha256": "85a5efae63920eb03c73738f45b6dd23f6bd2ce90c040a09279ab6f0638a1aa3",
+    "source_fingerprint_version": "package-recursive-v2",
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.5.2",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.0",
+      "celery": "5.6.3"
+    },
+    "runtime": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.41"
+  },
+  "test_scored": false,
+  "windows": {
+    "early_1": {
+      "train_samples": 10051,
+      "validation_samples": 3872,
+      "train_label_end": "2019-02-04T23:30:00",
+      "validation_first_cutoff": "2019-02-04T23:35:00",
+      "distribution": {
+        "wind_power_lag_0": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1036.399860710377
+          },
+          "validation": {
+            "min": 45.0,
+            "max": 4567.0,
+            "mean": 1904.7210743801652
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_1": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1036.4927867873844
+          },
+          "validation": {
+            "min": 45.0,
+            "max": 4567.0,
+            "mean": 1904.4207128099174
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_12": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1037.6606307830066
+          },
+          "validation": {
+            "min": 45.0,
+            "max": 4567.0,
+            "mean": 1900.3406508264463
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_speed_lag_1": {
+          "train": {
+            "min": 0.7,
+            "max": 6.920000000000002,
+            "mean": 2.7022584817431103
+          },
+          "validation": {
+            "min": 1.24,
+            "max": 7.2,
+            "mean": 3.560206611570248
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.011880165289256199
+        },
+        "humidity_lag_1": {
+          "train": {
+            "min": 25.860000000000003,
+            "max": 87.226,
+            "mean": 65.43137797234107
+          },
+          "validation": {
+            "min": 42.33,
+            "max": 85.03200000000001,
+            "mean": 67.15970609504133
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "temperature_lag_1": {
+          "train": {
+            "min": 0.6400000000000002,
+            "max": 19.040000000000003,
+            "mean": 10.53618744403542
+          },
+          "validation": {
+            "min": 0.2200000000000001,
+            "max": 12.700000000000005,
+            "mean": 6.491255165289256
+          },
+          "below_train_fraction": 0.022727272727272728,
+          "above_train_fraction": 0.0
+        },
+        "hour_sin": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.0001855786991891756
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.02231270374145877
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "hour_cos": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": -0.0028313838057702372
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.006768484682284622
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_sin": {
+          "train": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": -0.0009334372489918016
+          },
+          "validation": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": 0.0
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_cos": {
+          "train": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.00243576535890013
+          },
+          "validation": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.04132231404958681
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "target_power": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1035.345040294498
+          },
+          "validation": {
+            "min": 45.0,
+            "max": 4567.0,
+            "mean": 1907.161673553719
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        }
+      },
+      "models": {
+        "persistence": {
+          "status": "succeeded",
+          "training": {
+            "fit_elapsed_seconds": 0.0,
+            "fitted": false
+          },
+          "validation": {
+            "mae": 226.4395661157025,
+            "rmse": 328.2521558029074,
+            "samples": 3872,
+            "bias": -2.440599173553719,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 142.66401353099195,
+            "rmse": 222.96286498043247,
+            "samples": 10051,
+            "bias": 1.054820415879017,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 2.2042004275135696e-05
+        },
+        "hist_gradient_boosting": {
+          "status": "succeeded",
+          "training": {
+            "training_policy": "fixed_iterations",
+            "estimator_class": "HistGradientBoostingRegressor",
+            "sklearn_version": "1.9.0",
+            "effective_parameters": {
+              "categorical_features": "from_dtype",
+              "early_stopping": false,
+              "interaction_cst": null,
+              "l2_regularization": 0.2,
+              "learning_rate": 0.06,
+              "loss": "squared_error",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 180,
+              "max_leaf_nodes": 31,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "quantile": null,
+              "random_state": 42,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "input_samples": 10051,
+            "n_features_in": 10,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "n_iter": 180,
+            "max_iter": 180,
+            "early_stopping_enabled": false,
+            "stopped_before_max_iter": false,
+            "internal_validation_mode": "none",
+            "internal_membership_recorded": false,
+            "fit_elapsed_seconds": 0.234818440003437,
+            "objective_score_definition": "negative_half_squared_error",
+            "objective_scores_include_initial_model": false,
+            "train_objective_scores": [],
+            "internal_validation_objective_scores": []
+          },
+          "validation": {
+            "mae": 250.02340327549987,
+            "rmse": 356.8461676834922,
+            "samples": 3872,
+            "bias": -69.54130175536692,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 56.16298451284041,
+            "rmse": 78.10631104461464,
+            "samples": 10051,
+            "bias": -0.0016363907532293252,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.014535078997141682
+        },
+        "ridge_0_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_0_1",
+            "fit_elapsed_seconds": 0.009964220000256319,
+            "input_samples": 10051,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 0.1,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1036.399860710377,
+                1036.4927867873844,
+                1037.6606307830066,
+                2.7022584817431103,
+                65.43137797234107,
+                10.53618744403542,
+                0.0001855786991891756,
+                -0.0028313838057702372,
+                -0.0009334372489918016,
+                -0.00243576535890013
+              ],
+              "scale": [
+                906.9422960263463,
+                907.0564869527348,
+                908.6765365059113,
+                1.2539969698545452,
+                12.36223137829859,
+                3.2526218365109205,
+                0.7080514403626093,
+                0.7061551576153255,
+                0.7076100483952049,
+                0.7065983407510623
+              ],
+              "n_samples_seen": 10051
+            }
+          },
+          "validation": {
+            "mae": 211.08458674528643,
+            "rmse": 307.1734707004138,
+            "samples": 3872,
+            "bias": -31.096399942817442,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 133.99857495376023,
+            "rmse": 206.83480612287008,
+            "samples": 10051,
+            "bias": 0.031223897046746035,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0009961769974324852
+        },
+        "ridge_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_1",
+            "fit_elapsed_seconds": 0.002830985002219677,
+            "input_samples": 10051,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 1.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1036.399860710377,
+                1036.4927867873844,
+                1037.6606307830066,
+                2.7022584817431103,
+                65.43137797234107,
+                10.53618744403542,
+                0.0001855786991891756,
+                -0.0028313838057702372,
+                -0.0009334372489918016,
+                -0.00243576535890013
+              ],
+              "scale": [
+                906.9422960263463,
+                907.0564869527348,
+                908.6765365059113,
+                1.2539969698545452,
+                12.36223137829859,
+                3.2526218365109205,
+                0.7080514403626093,
+                0.7061551576153255,
+                0.7076100483952049,
+                0.7065983407510623
+              ],
+              "n_samples_seen": 10051
+            }
+          },
+          "validation": {
+            "mae": 211.26007233648753,
+            "rmse": 307.09292523066875,
+            "samples": 3872,
+            "bias": -31.483060416047746,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 134.2027105857803,
+            "rmse": 207.07696005103045,
+            "samples": 10051,
+            "bias": 0.025434862404359566,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0007737859996268526
+        },
+        "ridge_10": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_10",
+            "fit_elapsed_seconds": 0.002610638999613002,
+            "input_samples": 10051,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 10.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1036.399860710377,
+                1036.4927867873844,
+                1037.6606307830066,
+                2.7022584817431103,
+                65.43137797234107,
+                10.53618744403542,
+                0.0001855786991891756,
+                -0.0028313838057702372,
+                -0.0009334372489918016,
+                -0.00243576535890013
+              ],
+              "scale": [
+                906.9422960263463,
+                907.0564869527348,
+                908.6765365059113,
+                1.2539969698545452,
+                12.36223137829859,
+                3.2526218365109205,
+                0.7080514403626093,
+                0.7061551576153255,
+                0.7076100483952049,
+                0.7065983407510623
+              ],
+              "n_samples_seen": 10051
+            }
+          },
+          "validation": {
+            "mae": 215.47379337677702,
+            "rmse": 311.96065177941426,
+            "samples": 3872,
+            "bias": -33.152842034595444,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 137.0126263267237,
+            "rmse": 211.23448949021355,
+            "samples": 10051,
+            "bias": 0.00865429755690705,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0007686270037083887
+        }
+      },
+      "grouped_errors": {
+        "power": {
+          "train_quantiles": [
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          "thresholds": [
+            434.0,
+            1204.0
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 510,
+              "metrics": {
+                "persistence": {
+                  "mae": 64.11176470588235,
+                  "rmse": 104.95381804188273,
+                  "samples": 510,
+                  "bias": 16.41764705882353,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 86.3459622767493,
+                  "rmse": 120.88874666790603,
+                  "samples": 510,
+                  "bias": 59.98810380856055,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 61.56558614604947,
+                  "rmse": 90.84389507939314,
+                  "samples": 510,
+                  "bias": 31.604130363658268,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 62.12705472854338,
+                  "rmse": 91.82191772463926,
+                  "samples": 510,
+                  "bias": 32.1967636952733,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 64.99650748210426,
+                  "rmse": 96.74164403368437,
+                  "samples": 510,
+                  "bias": 34.60705648014449,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 634,
+              "metrics": {
+                "persistence": {
+                  "mae": 99.6230283911672,
+                  "rmse": 171.3721438038408,
+                  "samples": 634,
+                  "bias": 10.389589905362776,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 94.70883242874086,
+                  "rmse": 142.62759854822852,
+                  "samples": 634,
+                  "bias": 26.82599608206636,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 92.67776709010832,
+                  "rmse": 143.79211419957997,
+                  "samples": 634,
+                  "bias": 36.19264387115238,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 92.59848391391809,
+                  "rmse": 143.6562322244545,
+                  "samples": 634,
+                  "bias": 36.81674136128403,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 93.71045871198571,
+                  "rmse": 146.26548250063874,
+                  "samples": 634,
+                  "bias": 39.15069444006092,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 2728,
+              "metrics": {
+                "persistence": {
+                  "mae": 286.25953079178885,
+                  "rmse": 379.53929086957913,
+                  "samples": 2728,
+                  "bias": -8.947947214076246,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 316.7187598833474,
+                  "rmse": 416.26873842499646,
+                  "samples": 2728,
+                  "bias": -116.15305529881843,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 266.5554862933047,
+                  "rmse": 357.1777248782133,
+                  "samples": 2728,
+                  "bias": -58.456562785324586,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 266.7180217646255,
+                  "rmse": 357.0453489903059,
+                  "samples": 2728,
+                  "bias": -59.26120727220686,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 271.90391433856615,
+                  "rmse": 362.5040723939836,
+                  "samples": 2728,
+                  "bias": -62.6242461282353,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        },
+        "change": {
+          "train_quantiles": [
+            0.5,
+            0.9
+          ],
+          "thresholds": [
+            78.0,
+            362.0
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 1283,
+              "metrics": {
+                "persistence": {
+                  "mae": 34.05378020265004,
+                  "rmse": 40.68057997258261,
+                  "samples": 1283,
+                  "bias": -2.0709275136399063,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 94.37763138803788,
+                  "rmse": 140.89480100342777,
+                  "samples": 1283,
+                  "bias": -12.597042490183094,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 64.42847583457052,
+                  "rmse": 89.72443449281283,
+                  "samples": 1283,
+                  "bias": -5.317620165114743,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 62.30096356896305,
+                  "rmse": 85.38216009764714,
+                  "samples": 1283,
+                  "bias": -5.536156107412692,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 58.551319038657354,
+                  "rmse": 76.75922539993748,
+                  "samples": 1283,
+                  "bias": -6.430160426976753,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 1775,
+              "metrics": {
+                "persistence": {
+                  "mae": 190.7532394366197,
+                  "rmse": 207.58609277958135,
+                  "samples": 1775,
+                  "bias": 6.3791549295774646,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 224.43626824905655,
+                  "rmse": 289.05330112629576,
+                  "samples": 1775,
+                  "bias": -78.29065851320715,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 168.29904665484827,
+                  "rmse": 203.50395464914723,
+                  "samples": 1775,
+                  "bias": -32.70183494490844,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 167.90779555851435,
+                  "rmse": 201.17114206530354,
+                  "samples": 1775,
+                  "bias": -33.02150120520094,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 170.58831323758824,
+                  "rmse": 200.1262554739948,
+                  "samples": 1775,
+                  "bias": -34.44486440039858,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 814,
+              "metrics": {
+                "persistence": {
+                  "mae": 607.4889434889435,
+                  "rmse": 644.9524809648403,
+                  "samples": 814,
+                  "bias": -22.255528255528255,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 551.1421870636456,
+                  "rmse": 626.2908965217183,
+                  "samples": 814,
+                  "bias": -140.21621132792768,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 535.5368274811295,
+                  "rmse": 588.0738309046269,
+                  "samples": 814,
+                  "bias": -68.22726889377694,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 540.5780426431659,
+                  "rmse": 590.6373539672771,
+                  "samples": 814,
+                  "bias": -69.02500860675029,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 560.6866457390223,
+                  "rmse": 605.2309094191022,
+                  "samples": 814,
+                  "bias": -72.45488233345813,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        }
+      },
+      "predictions_file": "baseline-early_1.csv",
+      "predictions_sha256": "a33a58942ccf97f4b96a0b0016d20384cca9c31bac509d64910d790fa2662221"
+    },
+    "early_2": {
+      "train_samples": 14083,
+      "validation_samples": 3872,
+      "train_label_end": "2019-02-18T23:30:00",
+      "validation_first_cutoff": "2019-02-18T23:35:00",
+      "distribution": {
+        "wind_power_lag_0": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1295.3426826670454
+          },
+          "validation": {
+            "min": 212.0,
+            "max": 3790.0,
+            "mean": 1714.9269111570247
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_1": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1295.3501384648157
+          },
+          "validation": {
+            "min": 212.0,
+            "max": 3790.0,
+            "mean": 1715.1593491735537
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_12": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1295.5255272314137
+          },
+          "validation": {
+            "min": 212.0,
+            "max": 3790.0,
+            "mean": 1717.0253099173553
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_speed_lag_1": {
+          "train": {
+            "min": 0.7,
+            "max": 7.2,
+            "mean": 2.946745721792232
+          },
+          "validation": {
+            "min": 1.04,
+            "max": 4.92,
+            "mean": 2.665686983471075
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "humidity_lag_1": {
+          "train": {
+            "min": 25.860000000000003,
+            "max": 87.226,
+            "mean": 65.81384037492012
+          },
+          "validation": {
+            "min": 38.334,
+            "max": 87.188,
+            "mean": 67.28956508264463
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "temperature_lag_1": {
+          "train": {
+            "min": 0.2200000000000001,
+            "max": 19.040000000000003,
+            "mean": 9.371831285947597
+          },
+          "validation": {
+            "min": -0.5400000000000006,
+            "max": 15.98,
+            "mean": 8.797422520661156
+          },
+          "below_train_fraction": 0.017045454545454544,
+          "above_train_fraction": 0.0
+        },
+        "hour_sin": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.00013244702872614432
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.02231270374145877
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "hour_cos": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": -0.00202075116323205
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.006768484682284622
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_sin": {
+          "train": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": -0.0006661917055752912
+          },
+          "validation": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": 0.0
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_cos": {
+          "train": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.001738399319910896
+          },
+          "validation": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.04132231404958681
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "target_power": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1295.3520556699566
+          },
+          "validation": {
+            "min": 212.0,
+            "max": 3790.0,
+            "mean": 1711.5702479338843
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        }
+      },
+      "models": {
+        "persistence": {
+          "status": "succeeded",
+          "training": {
+            "fit_elapsed_seconds": 0.0,
+            "fitted": false
+          },
+          "validation": {
+            "mae": 177.7652376033058,
+            "rmse": 236.23701754962917,
+            "samples": 3872,
+            "bias": 3.356663223140496,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 166.12483135695518,
+            "rmse": 256.21250993067497,
+            "samples": 14083,
+            "bias": -0.00937300291131151,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 2.0530002075247467e-05
+        },
+        "hist_gradient_boosting": {
+          "status": "succeeded",
+          "training": {
+            "training_policy": "fixed_iterations",
+            "estimator_class": "HistGradientBoostingRegressor",
+            "sklearn_version": "1.9.0",
+            "effective_parameters": {
+              "categorical_features": "from_dtype",
+              "early_stopping": false,
+              "interaction_cst": null,
+              "l2_regularization": 0.2,
+              "learning_rate": 0.06,
+              "loss": "squared_error",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 180,
+              "max_leaf_nodes": 31,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "quantile": null,
+              "random_state": 42,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "input_samples": 14083,
+            "n_features_in": 10,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "n_iter": 180,
+            "max_iter": 180,
+            "early_stopping_enabled": false,
+            "stopped_before_max_iter": false,
+            "internal_validation_mode": "none",
+            "internal_membership_recorded": false,
+            "fit_elapsed_seconds": 0.24265482400369365,
+            "objective_score_definition": "negative_half_squared_error",
+            "objective_scores_include_initial_model": false,
+            "train_objective_scores": [],
+            "internal_validation_objective_scores": []
+          },
+          "validation": {
+            "mae": 218.30997344762366,
+            "rmse": 288.5475481532699,
+            "samples": 3872,
+            "bias": -85.48286914835941,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 77.69799197010882,
+            "rmse": 107.47775143803236,
+            "samples": 14083,
+            "bias": -0.0025665164828643475,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.014245448997826315
+        },
+        "ridge_0_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_0_1",
+            "fit_elapsed_seconds": 0.0046654719990328886,
+            "input_samples": 14083,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 0.1,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1295.3426826670454,
+                1295.3501384648157,
+                1295.5255272314137,
+                2.946745721792232,
+                65.81384037492012,
+                9.371831285947597,
+                0.00013244702872614432,
+                -0.00202075116323205,
+                -0.0006661917055752912,
+                -0.001738399319910896
+              ],
+              "scale": [
+                1053.3477648692888,
+                1053.3567552219556,
+                1053.5947021800657,
+                1.3063312733590424,
+                12.015955505576938,
+                3.7551640626961102,
+                0.707781115736503,
+                0.7064289003355624,
+                0.7074661240710552,
+                0.7067448036231284
+              ],
+              "n_samples_seen": 14083
+            }
+          },
+          "validation": {
+            "mae": 167.82127021982058,
+            "rmse": 222.25152198763095,
+            "samples": 3872,
+            "bias": -40.928302553777975,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 156.52652439098378,
+            "rmse": 237.81593712977713,
+            "samples": 14083,
+            "bias": 0.07281260809785944,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0009250489965779707
+        },
+        "ridge_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_1",
+            "fit_elapsed_seconds": 0.0032818960025906563,
+            "input_samples": 14083,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 1.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1295.3426826670454,
+                1295.3501384648157,
+                1295.5255272314137,
+                2.946745721792232,
+                65.81384037492012,
+                9.371831285947597,
+                0.00013244702872614432,
+                -0.00202075116323205,
+                -0.0006661917055752912,
+                -0.001738399319910896
+              ],
+              "scale": [
+                1053.3477648692888,
+                1053.3567552219556,
+                1053.5947021800657,
+                1.3063312733590424,
+                12.015955505576938,
+                3.7551640626961102,
+                0.707781115736503,
+                0.7064289003355624,
+                0.7074661240710552,
+                0.7067448036231284
+              ],
+              "n_samples_seen": 14083
+            }
+          },
+          "validation": {
+            "mae": 168.07429665668707,
+            "rmse": 222.4826596832942,
+            "samples": 3872,
+            "bias": -41.327203356743496,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 156.70567073463326,
+            "rmse": 237.95510286620282,
+            "samples": 14083,
+            "bias": 0.07119147118305096,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.000769386999309063
+        },
+        "ridge_10": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_10",
+            "fit_elapsed_seconds": 0.0030826709989923984,
+            "input_samples": 14083,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 10.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1295.3426826670454,
+                1295.3501384648157,
+                1295.5255272314137,
+                2.946745721792232,
+                65.81384037492012,
+                9.371831285947597,
+                0.00013244702872614432,
+                -0.00202075116323205,
+                -0.0006661917055752912,
+                -0.001738399319910896
+              ],
+              "scale": [
+                1053.3477648692888,
+                1053.3567552219556,
+                1053.5947021800657,
+                1.3063312733590424,
+                12.015955505576938,
+                3.7551640626961102,
+                0.707781115736503,
+                0.7064289003355624,
+                0.7074661240710552,
+                0.7067448036231284
+              ],
+              "n_samples_seen": 14083
+            }
+          },
+          "validation": {
+            "mae": 171.15006375365886,
+            "rmse": 226.11101622375304,
+            "samples": 3872,
+            "bias": -43.271536822744125,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 159.3348682017963,
+            "rmse": 241.3657529302372,
+            "samples": 14083,
+            "bias": 0.06614933298866985,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0007858399985707365
+        }
+      },
+      "grouped_errors": {
+        "power": {
+          "train_quantiles": [
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          "thresholds": [
+            506.0,
+            1675.0
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 188,
+              "metrics": {
+                "persistence": {
+                  "mae": 68.80851063829788,
+                  "rmse": 103.99565252779009,
+                  "samples": 188,
+                  "bias": 39.755319148936174,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 81.77965062826729,
+                  "rmse": 111.10490603252772,
+                  "samples": 188,
+                  "bias": 73.65651150201195,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 101.39610199195405,
+                  "rmse": 124.80805493027842,
+                  "samples": 188,
+                  "bias": 95.60299545747004,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 102.42148649053958,
+                  "rmse": 126.04467509691976,
+                  "samples": 188,
+                  "bias": 96.75179174619026,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 107.68625944530329,
+                  "rmse": 132.36141076313845,
+                  "samples": 188,
+                  "bias": 102.32477674845588,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 1685,
+              "metrics": {
+                "persistence": {
+                  "mae": 159.75311572700298,
+                  "rmse": 204.649295441321,
+                  "samples": 1685,
+                  "bias": 29.870623145400593,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 177.17965492091284,
+                  "rmse": 228.91972612824821,
+                  "samples": 1685,
+                  "bias": -7.7430088430270105,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 135.66615608285778,
+                  "rmse": 176.10075863861317,
+                  "samples": 1685,
+                  "bias": 14.174174601613254,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 135.57229228106155,
+                  "rmse": 175.52994145372497,
+                  "samples": 1685,
+                  "bias": 14.251729138223629,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 137.2318579461324,
+                  "rmse": 175.91240942116804,
+                  "samples": 1685,
+                  "bias": 14.735181242980847,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 1999,
+              "metrics": {
+                "persistence": {
+                  "mae": 203.19509754877438,
+                  "rmse": 267.9149038367387,
+                  "samples": 1999,
+                  "bias": -22.415707853926964,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 265.8198721007236,
+                  "rmse": 340.4963828235889,
+                  "samples": 1999,
+                  "bias": -165.97805082757648,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 201.1725953561993,
+                  "rmse": 260.9075983027953,
+                  "samples": 1999,
+                  "bias": -100.21572528161632,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 201.6453850429626,
+                  "rmse": 261.5566849819898,
+                  "samples": 1999,
+                  "bias": -101.16179682016077,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 205.70902923422568,
+                  "rmse": 267.01649444233607,
+                  "samples": 1999,
+                  "bias": -105.85954427253512,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        },
+        "change": {
+          "train_quantiles": [
+            0.5,
+            0.9
+          ],
+          "thresholds": [
+            94.0,
+            412.8000000000011
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 1336,
+              "metrics": {
+                "persistence": {
+                  "mae": 44.249251497005986,
+                  "rmse": 51.97721604726394,
+                  "samples": 1336,
+                  "bias": -0.4453592814371258,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 146.4554306731616,
+                  "rmse": 205.48430078217268,
+                  "samples": 1336,
+                  "bias": -67.76590060604524,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 76.78863045355887,
+                  "rmse": 96.86941439214706,
+                  "samples": 1336,
+                  "bias": -29.01945673806933,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 75.80429210099214,
+                  "rmse": 95.40066559506393,
+                  "samples": 1336,
+                  "bias": -29.402987341103266,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 74.03303711228725,
+                  "rmse": 92.67520379748433,
+                  "samples": 1336,
+                  "bias": -31.195341812605406,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 2230,
+              "metrics": {
+                "persistence": {
+                  "mae": 205.12600896860985,
+                  "rmse": 221.72849615908328,
+                  "samples": 2230,
+                  "bias": -1.0246636771300448,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 228.78832211054913,
+                  "rmse": 279.69033613996845,
+                  "samples": 2230,
+                  "bias": -86.83315835958395,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 180.0328717046857,
+                  "rmse": 211.17894909456535,
+                  "samples": 2230,
+                  "bias": -46.463218146759054,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 180.6390796573903,
+                  "rmse": 211.30744972945246,
+                  "samples": 2230,
+                  "bias": -46.895635517178775,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 185.01818781399618,
+                  "rmse": 214.63222586211256,
+                  "samples": 2230,
+                  "bias": -49.02518187064734,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 306,
+              "metrics": {
+                "persistence": {
+                  "mae": 561.3039215686274,
+                  "rmse": 579.7347178988463,
+                  "samples": 306,
+                  "bias": 51.88562091503268,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 455.66602452068753,
+                  "rmse": 546.9015833534418,
+                  "samples": 306,
+                  "bias": -152.99504245391836,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 476.2779219076516,
+                  "rmse": 508.98270056812464,
+                  "samples": 306,
+                  "bias": -52.58632947351314,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 479.35946003851757,
+                  "rmse": 511.078681906664,
+                  "samples": 306,
+                  "bias": -52.8080820466934,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 494.09918446712425,
+                  "rmse": 523.1775923929413,
+                  "samples": 306,
+                  "bias": -54.066203740133595,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        }
+      },
+      "predictions_file": "baseline-early_2.csv",
+      "predictions_sha256": "409803ce00e7088201b089e1d411bd84b20d902c8beb026e78aa74bf73091395"
+    },
+    "main": {
+      "train_samples": 18115,
+      "validation_samples": 3872,
+      "train_label_end": "2019-03-04T23:30:00",
+      "validation_first_cutoff": "2019-03-04T23:35:00",
+      "distribution": {
+        "wind_power_lag_0": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1381.160198730334
+          },
+          "validation": {
+            "min": 33.0,
+            "max": 4408.0,
+            "mean": 1643.297520661157
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_1": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1381.2966050234613
+          },
+          "validation": {
+            "min": 33.0,
+            "max": 4408.0,
+            "mean": 1643.3006198347107
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_power_lag_12": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1382.909246480817
+          },
+          "validation": {
+            "min": 33.0,
+            "max": 4408.0,
+            "mean": 1643.3806818181818
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "wind_speed_lag_1": {
+          "train": {
+            "min": 0.7,
+            "max": 7.2,
+            "mean": 2.8771305547888493
+          },
+          "validation": {
+            "min": 0.78,
+            "max": 5.24,
+            "mean": 2.6691219008264464
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "humidity_lag_1": {
+          "train": {
+            "min": 25.860000000000003,
+            "max": 87.226,
+            "mean": 66.10076224123655
+          },
+          "validation": {
+            "min": 36.394,
+            "max": 82.53399999999999,
+            "mean": 63.90951859504133
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "temperature_lag_1": {
+          "train": {
+            "min": -0.5400000000000006,
+            "max": 19.040000000000003,
+            "mean": 9.27201104057411
+          },
+          "validation": {
+            "min": 3.62,
+            "max": 20.860000000000003,
+            "mean": 10.470211776859506
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.020144628099173553
+        },
+        "hour_sin": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.00010296723740272881
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.02231270374145877
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "hour_cos": {
+          "train": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": -0.0015709764632512828
+          },
+          "validation": {
+            "min": -1.0,
+            "max": 1.0,
+            "mean": 0.006768484682284622
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_sin": {
+          "train": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": -0.0005179121054163241
+          },
+          "validation": {
+            "min": -0.9749279121818236,
+            "max": 0.9749279121818236,
+            "mean": 0.0
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "weekday_cos": {
+          "train": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.0013514699211871805
+          },
+          "validation": {
+            "min": -0.9009688679024191,
+            "max": 1.0,
+            "mean": -0.04132231404958681
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        },
+        "target_power": {
+          "train": {
+            "min": 10.0,
+            "max": 4680.0,
+            "mean": 1379.6081700248412
+          },
+          "validation": {
+            "min": 33.0,
+            "max": 4408.0,
+            "mean": 1643.11027892562
+          },
+          "below_train_fraction": 0.0,
+          "above_train_fraction": 0.0
+        }
+      },
+      "models": {
+        "persistence": {
+          "status": "succeeded",
+          "training": {
+            "fit_elapsed_seconds": 0.0,
+            "fitted": false
+          },
+          "validation": {
+            "mae": 175.4868285123967,
+            "rmse": 250.2638715906747,
+            "samples": 3872,
+            "bias": 0.1872417355371901,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 168.7510350538228,
+            "rmse": 251.85571852422484,
+            "samples": 18115,
+            "bias": 1.5520287054926856,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 2.0819999917875975e-05
+        },
+        "hist_gradient_boosting": {
+          "status": "succeeded",
+          "training": {
+            "training_policy": "fixed_iterations",
+            "estimator_class": "HistGradientBoostingRegressor",
+            "sklearn_version": "1.9.0",
+            "effective_parameters": {
+              "categorical_features": "from_dtype",
+              "early_stopping": false,
+              "interaction_cst": null,
+              "l2_regularization": 0.2,
+              "learning_rate": 0.06,
+              "loss": "squared_error",
+              "max_bins": 255,
+              "max_depth": null,
+              "max_features": 1.0,
+              "max_iter": 180,
+              "max_leaf_nodes": 31,
+              "min_samples_leaf": 20,
+              "monotonic_cst": null,
+              "n_iter_no_change": 10,
+              "quantile": null,
+              "random_state": 42,
+              "scoring": "loss",
+              "tol": 1e-07,
+              "validation_fraction": 0.1,
+              "verbose": 0,
+              "warm_start": false
+            },
+            "input_samples": 18115,
+            "n_features_in": 10,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "n_iter": 180,
+            "max_iter": 180,
+            "early_stopping_enabled": false,
+            "stopped_before_max_iter": false,
+            "internal_validation_mode": "none",
+            "internal_membership_recorded": false,
+            "fit_elapsed_seconds": 0.2663130760047352,
+            "objective_score_definition": "negative_half_squared_error",
+            "objective_scores_include_initial_model": false,
+            "train_objective_scores": [],
+            "internal_validation_objective_scores": []
+          },
+          "validation": {
+            "mae": 198.50203580380767,
+            "rmse": 283.24186933737496,
+            "samples": 3872,
+            "bias": -73.56659274161139,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 91.93574664913974,
+            "rmse": 126.33772762771927,
+            "samples": 18115,
+            "bias": -0.0025274822237598416,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.013965607999125496
+        },
+        "ridge_0_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_0_1",
+            "fit_elapsed_seconds": 0.005798131998744793,
+            "input_samples": 18115,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 0.1,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1381.160198730334,
+                1381.2966050234613,
+                1382.909246480817,
+                2.8771305547888493,
+                66.10076224123655,
+                9.27201104057411,
+                0.00010296723740272881,
+                -0.0015709764632512828,
+                -0.0005179121054163241,
+                -0.0013514699211871805
+              ],
+              "scale": [
+                1004.3053545144758,
+                1004.3055272248677,
+                1004.4993053078005,
+                1.2357039191851258,
+                11.802336102412164,
+                3.8068920157578328,
+                0.7076310814605443,
+                0.7065803379529326,
+                0.7073862123344289,
+                0.7068257578040387
+              ],
+              "n_samples_seen": 18115
+            }
+          },
+          "validation": {
+            "mae": 165.04033057177892,
+            "rmse": 235.91503012450295,
+            "samples": 3872,
+            "bias": -35.12630785061823,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 158.20791053861706,
+            "rmse": 233.70327397413257,
+            "samples": 18115,
+            "bias": 0.035606356234180424,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0009913969988701865
+        },
+        "ridge_1": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_1",
+            "fit_elapsed_seconds": 0.004662205996282864,
+            "input_samples": 18115,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 1.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1381.160198730334,
+                1381.2966050234613,
+                1382.909246480817,
+                2.8771305547888493,
+                66.10076224123655,
+                9.27201104057411,
+                0.00010296723740272881,
+                -0.0015709764632512828,
+                -0.0005179121054163241,
+                -0.0013514699211871805
+              ],
+              "scale": [
+                1004.3053545144758,
+                1004.3055272248677,
+                1004.4993053078005,
+                1.2357039191851258,
+                11.802336102412164,
+                3.8068920157578328,
+                0.7076310814605443,
+                0.7065803379529326,
+                0.7073862123344289,
+                0.7068257578040387
+              ],
+              "n_samples_seen": 18115
+            }
+          },
+          "validation": {
+            "mae": 165.17684144318116,
+            "rmse": 235.97737324665957,
+            "samples": 3872,
+            "bias": -35.449653755712184,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 158.33744940038443,
+            "rmse": 233.78281969697517,
+            "samples": 18115,
+            "bias": 0.03437551337200149,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.000933725998038426
+        },
+        "ridge_10": {
+          "status": "succeeded",
+          "training": {
+            "model_key": "ridge_10",
+            "fit_elapsed_seconds": 0.003873359994031489,
+            "input_samples": 18115,
+            "feature_names": [
+              "wind_power_lag_0",
+              "wind_power_lag_1",
+              "wind_power_lag_12",
+              "wind_speed_lag_1",
+              "humidity_lag_1",
+              "temperature_lag_1",
+              "hour_sin",
+              "hour_cos",
+              "weekday_sin",
+              "weekday_cos"
+            ],
+            "preprocessing": "standard_scaler_train_only",
+            "target_representation": "direct_power",
+            "parameters": {
+              "alpha": 10.0,
+              "solver": "svd"
+            },
+            "scaler": {
+              "mean": [
+                1381.160198730334,
+                1381.2966050234613,
+                1382.909246480817,
+                2.8771305547888493,
+                66.10076224123655,
+                9.27201104057411,
+                0.00010296723740272881,
+                -0.0015709764632512828,
+                -0.0005179121054163241,
+                -0.0013514699211871805
+              ],
+              "scale": [
+                1004.3053545144758,
+                1004.3055272248677,
+                1004.4993053078005,
+                1.2357039191851258,
+                11.802336102412164,
+                3.8068920157578328,
+                0.7076310814605443,
+                0.7065803379529326,
+                0.7073862123344289,
+                0.7068257578040387
+              ],
+              "n_samples_seen": 18115
+            }
+          },
+          "validation": {
+            "mae": 167.19833713165772,
+            "rmse": 237.70458531233314,
+            "samples": 3872,
+            "bias": -36.951300773807894,
+            "coverage": 1.0
+          },
+          "train": {
+            "mae": 160.4206509055413,
+            "rmse": 236.31308133574979,
+            "samples": 18115,
+            "bias": 0.028612758076847006,
+            "coverage": 1.0
+          },
+          "batch_inference_seconds": 0.0009281650054617785
+        }
+      },
+      "grouped_errors": {
+        "power": {
+          "train_quantiles": [
+            0.3333333333333333,
+            0.6666666666666666
+          ],
+          "thresholds": [
+            616.0,
+            1806.0
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 878,
+              "metrics": {
+                "persistence": {
+                  "mae": 62.34510250569476,
+                  "rmse": 84.50825868444453,
+                  "samples": 878,
+                  "bias": 11.265375854214122,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 61.821722234813485,
+                  "rmse": 83.0905902878561,
+                  "samples": 878,
+                  "bias": 21.367090949985165,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 53.145190643814345,
+                  "rmse": 71.23817700109835,
+                  "samples": 878,
+                  "bias": 15.922642261516883,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 53.27032361347389,
+                  "rmse": 71.37061890649314,
+                  "samples": 878,
+                  "bias": 16.003160778031344,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 54.3591024969778,
+                  "rmse": 72.6367546530362,
+                  "samples": 878,
+                  "bias": 16.528910031933012,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 1376,
+              "metrics": {
+                "persistence": {
+                  "mae": 174.98837209302326,
+                  "rmse": 237.01237579305806,
+                  "samples": 1376,
+                  "bias": 34.190406976744185,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 170.2960578958594,
+                  "rmse": 227.64896951739618,
+                  "samples": 1376,
+                  "bias": 5.339503127077088,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 154.0100688137995,
+                  "rmse": 210.94582781402318,
+                  "samples": 1376,
+                  "bias": 5.307670882611178,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 154.07386761537654,
+                  "rmse": 210.93505673540997,
+                  "samples": 1376,
+                  "bias": 5.358494276886211,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 155.53548148017236,
+                  "rmse": 210.5337294985267,
+                  "samples": 1376,
+                  "bias": 6.416150702956069,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 1618,
+              "metrics": {
+                "persistence": {
+                  "mae": 237.30655129789864,
+                  "rmse": 313.42454729641145,
+                  "samples": 1618,
+                  "bias": -34.741656365883806,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 296.6582415608619,
+                  "rmse": 379.69415007187985,
+                  "samples": 1618,
+                  "bias": -192.18622327099155,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 235.14019029720075,
+                  "rmse": 304.2899532914782,
+                  "samples": 1618,
+                  "bias": -97.21415268088913,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 235.34471204982026,
+                  "rmse": 304.39512731686074,
+                  "samples": 1618,
+                  "bias": -98.07485947479884,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 238.34848384716628,
+                  "rmse": 307.6673434786065,
+                  "samples": 1618,
+                  "bias": -102.8531785979536,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        },
+        "change": {
+          "train_quantiles": [
+            0.5,
+            0.9
+          ],
+          "thresholds": [
+            106.0,
+            405.0
+          ],
+          "groups": [
+            {
+              "group": 0,
+              "samples": 1792,
+              "metrics": {
+                "persistence": {
+                  "mae": 46.747767857142854,
+                  "rmse": 55.5223772455755,
+                  "samples": 1792,
+                  "bias": 5.995535714285714,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 99.51854691887023,
+                  "rmse": 168.93583620652217,
+                  "samples": 1792,
+                  "bias": -45.916636443812436,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 62.77740388182159,
+                  "rmse": 89.09715954368458,
+                  "samples": 1792,
+                  "bias": -21.402386293835303,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 61.91351290754493,
+                  "rmse": 87.59987685568206,
+                  "samples": 1792,
+                  "bias": -21.731656017871185,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 58.6201981116108,
+                  "rmse": 77.8668548401883,
+                  "samples": 1792,
+                  "bias": -22.89173275183193,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 1,
+              "samples": 1666,
+              "metrics": {
+                "persistence": {
+                  "mae": 213.8721488595438,
+                  "rmse": 228.09133272096284,
+                  "samples": 1666,
+                  "bias": -4.328331332533013,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 233.25000798223937,
+                  "rmse": 287.7453784025386,
+                  "samples": 1666,
+                  "bias": -93.79174739473738,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 191.95569904649972,
+                  "rmse": 223.37721585307625,
+                  "samples": 1666,
+                  "bias": -45.48253205442179,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 192.50098876120296,
+                  "rmse": 223.09432660100956,
+                  "samples": 1666,
+                  "bias": -45.65365878766944,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 196.94224968451925,
+                  "rmse": 224.17252804637553,
+                  "samples": 1666,
+                  "bias": -46.637696310240514,
+                  "coverage": 1.0
+                }
+              }
+            },
+            {
+              "group": 2,
+              "samples": 414,
+              "metrics": {
+                "persistence": {
+                  "mae": 578.2657004830918,
+                  "rmse": 602.555191209989,
+                  "samples": 414,
+                  "bias": -6.782608695652174,
+                  "coverage": 1.0
+                },
+                "hist_gradient_boosting": {
+                  "mae": 487.1210948196065,
+                  "rmse": 541.852198034126,
+                  "samples": 414,
+                  "bias": -111.86034644583316,
+                  "coverage": 1.0
+                },
+                "ridge_0_1": {
+                  "mae": 499.37405218897374,
+                  "rmse": 534.2048447200087,
+                  "samples": 414,
+                  "bias": -52.85528830042092,
+                  "coverage": 1.0
+                },
+                "ridge_1": {
+                  "mae": 502.1958156075189,
+                  "rmse": 536.0068983183724,
+                  "samples": 414,
+                  "bias": -53.76554641989161,
+                  "coverage": 1.0
+                },
+                "ridge_10": {
+                  "mae": 517.4849719404906,
+                  "rmse": 547.7094631510313,
+                  "samples": 414,
+                  "bias": -58.828621864832485,
+                  "coverage": 1.0
+                }
+              }
+            }
+          ]
+        }
+      },
+      "predictions_file": "baseline-main.csv",
+      "predictions_sha256": "e3ad900d9a9d5e55d018bfb4efdf0d291b7343d999382ec11da0a5c181141337"
+    }
+  }
+}
