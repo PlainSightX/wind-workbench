@@ -3,7 +3,9 @@
 一个可恢复的Python实验服务：显式提交训练任务，按模型版本回放历史预测，并由结果助手解释数值和选型依据。
 数据是公开历史代理场景，项目没有生产客户或电网部署。
 
-**当前为本地发布候选，尚未发布GitHub版本。**
+自有代码采用 [MIT](LICENSE)。仓库为
+[PlainSightX/wind-workbench](https://github.com/PlainSightX/wind-workbench)，首发版本 `v0.1.0`。
+原模型附件见版本 Release；各提交的远端检查结果以对应 Actions 运行记录为准。
 
 ## 开始使用
 

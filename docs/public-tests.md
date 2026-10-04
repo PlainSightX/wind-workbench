@@ -42,5 +42,5 @@ CPU容器没有 `pwsh`，其中八项PowerShell配置/启动边界检查会跳�
 项目uv锁，不下载CUDA或应用依赖，不启动真实Docker。该文件另外两项Python诊断会
 导入psycopg，继续由CPU组件组覆盖。Windows路径使用合成配置，不证明真实服务启动。
 
-目前只有本地对应命令/组件证据；尚未发布仓库、触发远端 workflow，因此不写“GitHub CI
-已通过”。一次原拒答及后续诊断取舍见[困难案例](public-assistant-case.md)。
+本页说明工作流配置与本地组件验证范围；具体提交的远端成绩以对应Actions运行记录为准，
+不将配置本身当作执行通过。一次原拒答及后续诊断取舍见[困难案例](public-assistant-case.md)。

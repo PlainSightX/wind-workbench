@@ -45,7 +45,7 @@ pwsh -File tools/dev/check-service.ps1 -ReportName public-flow
 
 模型附件名为 `engie-original-models.zip`，50,697,203 bytes，SHA-256：
 `ab64ea45ab5138d3b7e47d27d38e3d81a0f13405c33172a6b82c880fa018bcce`。
-这是已导出并核验的本地候选附件，**尚无公开下载链接**；正式发布时必须一并提供该附件，
+这是已导出并核验的原模型附件；正式发布时必须一并提供该附件，
 不能只发布源码后声称外部已可重放。它包含原五模型、原预测数组和冻结result/protocol；
 数组还含起报时间、实况目标值及有效性掩码；不含完整原SCADA ZIP、训练日志、密码或
 私人Git历史。原result中的相对历史路径仅记录出处，
@@ -57,6 +57,13 @@ pwsh -File tools/dev/check-service.ps1 -ReportName public-flow
 其信任锚与最终五包分开，不能互相代替。两个附件都需在正式发布时提供。
 同时发布[模型附件旁说明](third-party/MODEL-ARTIFACT-NOTICE.md)，保留ENGIE来源、更新日、
 许可和加工范围。旁说明独立上传并在Git保留，不添加进原ZIP，不改变严格成员信任锚。
+
+正式版本的固定下载位置如下；下载前核对实际Release的版本与附件列表。
+下载成功后仍须按上述 SHA-256 和源码信任锚核验，不能仅凭文件名信任模型。
+
+- [原评分模型附件](https://github.com/PlainSightX/wind-workbench/releases/download/v0.1.0/engie-original-models.zip)
+- [开发模型附件](https://github.com/PlainSightX/wind-workbench/releases/download/v0.1.0/engie-development-models.zip)
+- [附件内容与许可说明](https://github.com/PlainSightX/wind-workbench/releases/download/v0.1.0/MODEL-ARTIFACT-NOTICE.md)
 
 SCADA数据归属于ENGIE，OpenOA固定提交的数据说明标注Open Licence 2.0及更新日
 2019-10-09。原模型和预测是基于该数据的派生结果，不暗示ENGIE或OpenOA背书。
@@ -159,9 +166,9 @@ docker run --rm --network "container:$api" `
 `WIND_TEST_BASE_URL` 为独立HTTP地址后执行 `npm test`。默认software组需要第1节回执；
 `WIND_UI_SUITE=original` 需要两组原包。分组和付费边界见 [测试说明](public-tests.md)。
 
-当前实测支持Windows PowerShell 7 + Docker Desktop Linux CPU容器；没有在纯Linux宿主
-运行初始化脚本，也没有验证远端CI。附件、许可候选和代码均已整理为本地发布候选，
-具体结果与负例见 [W2记录](public-release-w2.md)；GitHub发布仍是后续阶段。
+本地实测支持Windows PowerShell 7 + Docker Desktop Linux CPU容器；没有在纯Linux宿主
+运行初始化脚本。自有代码的MIT与第三方许可边界已明确，附件原字节不变，
+本地结果与负例见 [W2记录](public-release-w2.md)；远端CI结果以对应提交的Actions为准。
 
 维护者从原件导出附件使用 `prepare_engie_replay.py export --output <新ZIP路径>`，
 开发包另加 `--release development-2014`。它需要历史原件，是维护者入口，不是外部使用前提。
