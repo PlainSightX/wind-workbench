@@ -67,9 +67,8 @@ function mount(parent, prefix, contexts, selectors) {
       if (!response.ok) throw new Error(reasons[data.detail] || "助手暂不可用，请稍后重试。");
       $(`${prefix}-status`).textContent = reasons[data.error] || ({ answered: "回答已生成", insufficient_evidence: "现有证据不足", validation_error: "回答未通过校验，已阻止展示", dependency_error: "助手依赖暂不可用" })[data.status];
       const output = $(`${prefix}-result`);
-      // 正文只去掉服务器重复插入的标签；原始指标身份和值仍完整保留在依据表。
-      const answer = data.facts.reduce((text, f) => text.replaceAll(`${f.label}：`, ""), data.answer);
-      output.innerHTML = `<p class="assistant-answer">${escape(readable(answer))}</p>
+      // 展示服务器校验并渲染的同一份正文；只转义HTML，不能再删标签或替换正文词语。
+      output.innerHTML = `<p class="assistant-answer">${escape(data.answer)}</p>
         ${data.facts.length ? `<details><summary>数值依据</summary><div class="table-scroll"><table><thead><tr><th>指标</th><th>原始值</th><th>统计范围</th></tr></thead><tbody>${data.facts.map(f => `<tr><td>${escape(readable(f.label))}</td><td>${escape(f.value)} ${escape(f.unit)}</td><td>${escape(f.aggregation)}</td></tr>`).join("")}</tbody></table></div></details>` : ""}
         ${data.citations.map((c, i) => `<details class="assistant-source" data-source="${i}"><summary>${escape(c.title.replace(/ \/ \.$/, ""))}</summary><pre>正在读取依据…</pre></details>`).join("")}`;
       for (const element of output.querySelectorAll(".assistant-source")) {

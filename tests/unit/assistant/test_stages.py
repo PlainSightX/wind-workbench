@@ -104,6 +104,7 @@ def setup_question(kind, question=None):
 
 @pytest.mark.parametrize("suffix,code", [
     ("-{{c0.development.ridge_0_1.mae}}", "answer_fact_sign_conflict"),
+    ("-开发 ridge_0_1 MAE：{{c0.development.ridge_0_1.mae}}", "answer_fact_sign_conflict"),
     ("{{c0.development.ridge_0_1.mae}} GW", "answer_fact_unit_conflict"),
 ])
 def test_stage_claim_cannot_change_fact_sign_or_unit(suffix, code):
@@ -111,6 +112,14 @@ def test_stage_claim_cannot_change_fact_sign_or_unit(suffix, code):
     draft = valid_draft("q1", evidence)
     draft.stage_claims[0].text = draft.stage_claims[0].text.replace("{{c0.development.ridge_0_1.mae}}", suffix)
     with pytest.raises(AssistantError, match=code):
+        validate_answer(draft, evidence, documents, Q1_QUESTION)
+
+
+def test_unused_stage_answer_unknown_fact_is_a_classified_error():
+    evidence, documents = setup_question("q1")
+    draft = valid_draft("q1", evidence)
+    draft.answer = "{{unknown}}"
+    with pytest.raises(AssistantError, match="answer_stage_body_mismatch"):
         validate_answer(draft, evidence, documents, Q1_QUESTION)
 
 

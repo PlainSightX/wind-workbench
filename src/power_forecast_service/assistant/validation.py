@@ -10,6 +10,45 @@ FACT_TOKEN = re.compile(r"\{\{([^{}]+)\}\}")
 FACT_SIGN = re.compile(r"[+\-−﹣－＋±∓]\s*(?:[*`_~(（\[]\s*)*$")
 
 
+def canonical_fact_contexts(text, facts):
+    """只移除紧邻占位符的同名重复标签，随后校验并渲染同一份正文。"""
+    parts, end = [], 0
+    for token in FACT_TOKEN.finditer(text):
+        prefix = text[end:token.start()]
+        fact = facts.get(token[1])
+        if fact is None:
+            # 非正文的answer仍由阶段一致性检查拒绝，不能让未知ID变成未分类KeyError。
+            parts.extend((prefix, token[0]))
+            end = token.end()
+            continue
+        label = re.escape(fact["label"])
+        # 标签由可信事实提供；不全局删词，也不把任意自然语言猜成指标身份。
+        prefix = re.sub(r"(?:" + label + r"\s*[：:]\s*)+$", "", prefix)
+        parts.extend((prefix, token[0]))
+        end = token.end()
+    return "".join(parts) + text[end:]
+
+
+def render_facts(text, facts, units):
+    """标签、值和单位在服务器组成完整量；仅消费已校验的同单位后缀。"""
+    parts, end = [], 0
+    for token in FACT_TOKEN.finditer(text):
+        fact = facts[token[1]]
+        value = fact["value"]
+        if isinstance(value, bool):
+            value = "是" if value else "否"
+        elif isinstance(value, (int, float)):
+            value = f"{value:.6f}".rstrip("0").rstrip(".")
+        parts.extend((text[end:token.start()], f"{fact['label']}：{value} {fact['unit']}".strip()))
+        end = token.end()
+        suffix = fact_unit_suffix(text[end:], units)
+        if suffix and suffix[1] == fact["unit"]:
+            # 保留结束括号/Markdown；只去掉这个事实自己的冗余单位，不改其余正文。
+            parts.append(text[end:end + suffix.start(1)].rstrip())
+            end += suffix.end(1)
+    return "".join(parts) + text[end:]
+
+
 def fact_unit_suffix(text, units):
     """占位符是完整量纲；后接的Latin标记不能绕过已知单位列表。"""
     # 中文连词、句读和Markdown结束符仍是正文；紧接Latin词或量纲运算符具有单位歧义，
@@ -65,6 +104,10 @@ def validate_answer(draft, evidence, documents, question=""):
     referenced = re.findall(r"\{\{([^{}]+)\}\}", body)
     if any(f not in facts for f in draft.fact_ids + referenced) or set(referenced) - set(draft.fact_ids):
         raise AssistantError("answer_fact_invalid")
+    draft.answer = canonical_fact_contexts(draft.answer, facts)
+    for claim in draft.stage_claims:
+        claim.text = canonical_fact_contexts(claim.text, facts)
+    body = "\n".join(c.text for c in draft.stage_claims) if draft.stage_claims else draft.answer
     units = {f.get("unit", "") for f in facts.values()} | {"%", "kW", "MW", "W", "kWh", "MWh", "分钟", "小时", "秒", "次", "minutes", "min"}
     validate_fact_boundaries(body, facts, units)
     # 页面是纯文本，不会把Markdown的'- '解释为列表；规范成可见圆点避免误读成负值。
@@ -114,16 +157,7 @@ def validate_answer(draft, evidence, documents, question=""):
     if draft.status == "answered" and not (draft.fact_ids or draft.citations):
         raise AssistantError("answer_evidence_missing")
     validate_stage_claims(draft, evidence)
-    def display(match):
-        fact = facts[match.group(1)]
-        value = fact["value"]
-        if isinstance(value, bool):
-            value = "是" if value else "否"
-        elif isinstance(value, (int, float)):
-            value = f"{value:.6f}".rstrip("0").rstrip(".")
-        return f"{fact['label']}：{value} {fact['unit']}".strip()
-    rendered = re.sub(r"\{\{([^{}]+)\}\}", display, stage_body(draft, evidence))
-    rendered = re.sub(r"(kW|%|次|UTC)\s*\1", r"\1", rendered)
+    rendered = render_facts(stage_body(draft, evidence), facts, units)
     return {"status": draft.status, "answer": rendered,
         "facts": [facts[f] for f in dict.fromkeys(draft.fact_ids)],
         "citations": [{"id": c, "title": docs[c]["title"], "revision": docs[c]["source_sha256"],

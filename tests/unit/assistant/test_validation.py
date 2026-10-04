@@ -19,6 +19,24 @@ def test_numeric_identity_and_plain_output(evidence):
     assert result["answer"] == "该指标为ridge MAE：12.5 kW。"
 
 
+@pytest.mark.parametrize("sign", ["-", "−", "+", "±"])
+@pytest.mark.parametrize("label", ["ridge MAE：", "ridge MAE: ", "ridge MAE：ridge MAE："])
+def test_duplicate_labels_cannot_hide_external_sign(evidence, sign, label):
+    draft = DraftAnswer(status="answered", answer="MAE=" + sign + label + "{{c0.ridge.mae}}。",
+                        fact_ids=["c0.ridge.mae"])
+    with pytest.raises(AssistantError, match="answer_fact_sign_conflict"):
+        validate_answer(draft, evidence, [])
+
+
+@pytest.mark.parametrize("text", [
+    "ridge MAE：{{c0.ridge.mae}}。", "ridge MAE: {{c0.ridge.mae}}。",
+    "ridge MAE：ridge MAE：{{c0.ridge.mae}}。",
+])
+def test_duplicate_labels_render_one_identity(evidence, text):
+    draft = DraftAnswer(status="answered", answer=text, fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, evidence, [])["answer"] == "ridge MAE：12.5 kW。"
+
+
 @pytest.mark.parametrize("text,code", [
     ("MAE=-{{c0.ridge.mae}}.", "answer_fact_sign_conflict"),
     ("MAE=−{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
@@ -85,6 +103,14 @@ def test_placeholder_cannot_be_relabelled_with_wrong_unit(evidence, suffix):
 def test_placeholder_same_unit_suffix_is_redundant_but_valid(evidence):
     draft = DraftAnswer(status="answered", answer="指标为{{c0.ridge.mae}} kW。", fact_ids=["c0.ridge.mae"])
     assert validate_answer(draft, evidence, [])["answer"] == "指标为ridge MAE：12.5 kW。"
+
+
+@pytest.mark.parametrize("unit", ["kW", "MW", "%", "分钟"])
+def test_redundant_unit_consumption_is_bound_to_one_fact(evidence, unit):
+    evidence["facts"][0]["unit"] = unit
+    draft = DraftAnswer(status="answered", answer="**{{c0.ridge.mae}}** " + unit + "，单位说明" + unit + " " + unit + "。",
+                        fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, evidence, [])["answer"] == "**ridge MAE：12.5 " + unit + "**，单位说明" + unit + " " + unit + "。"
 
 
 @pytest.mark.parametrize("literal", ["-12.5 kW", "﹣12.5 kW", "－12.5 kW", "12.5%", "12.5 MW", "12.5 kW/h", "12.5 kW/分钟", "12.5 kW / h", "12.5"])
