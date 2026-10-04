@@ -104,6 +104,8 @@ def test_capture_failure_alone_never_adds_provider_request(monkeypatch):
 
 @pytest.mark.parametrize("bad,code", [
     ("MAE=-{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=-MAE：{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=−MAE：MAE：{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
     ("MAE={{c0.ridge.mae}} GW。", "answer_fact_unit_conflict"),
 ])
 @pytest.mark.parametrize("repaired", [False, True])
