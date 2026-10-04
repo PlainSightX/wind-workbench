@@ -1,6 +1,7 @@
 # 测试与副作用
 
-所有测试随源码保留，按实际输入分组，不因缺真实依赖自动切换mock。
+产品测试随源码保留，按实际输入分组，不因缺真实依赖自动切换mock。维护者的导出工具、
+精选清单和模板导航检查仅在维护仓执行，不属于产品发行包；公开根README不依赖维护模板。
 
 | 入口 | 实际验证 | 必需输入及副作用 |
 | --- | --- | --- |
@@ -34,6 +35,12 @@ workflow 只选择 `test_experiment_flow.py`，没有选择 `test_candidate_deli
 结束只退出 `wind-ci` 自有服务和卷。默认 CI 不载入原 ENGIE 附件、不准备向量模型，也不
 发送真实 provider；对应原模型回放和付费问答由上表显式入口覆盖。结构化回答故障、合法
 阶段回答和可选捕获失败使用注入 provider，不能替代真实模型质量或远端执行成绩。
+
+CPU容器没有 `pwsh`，其中八项PowerShell配置/启动边界检查会跳过。独立
+`windows-entrypoints` job 使用Python 3.12和固定pytest 8.4.2，只运行
+`test_runtime_context.py -k "not direct_diagnostic"` 的八项；先要求pwsh存在，不同步
+项目uv锁，不下载CUDA或应用依赖，不启动真实Docker。该文件另外两项Python诊断会
+导入psycopg，继续由CPU组件组覆盖。Windows路径使用合成配置，不证明真实服务启动。
 
 目前只有本地对应命令/组件证据；尚未发布仓库、触发远端 workflow，因此不写“GitHub CI
 已通过”。一次原拒答及后续诊断取舍见[困难案例](public-assistant-case.md)。

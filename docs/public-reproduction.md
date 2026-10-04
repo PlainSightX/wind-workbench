@@ -47,13 +47,16 @@ pwsh -File tools/dev/check-service.ps1 -ReportName public-flow
 `ab64ea45ab5138d3b7e47d27d38e3d81a0f13405c33172a6b82c880fa018bcce`。
 这是已导出并核验的本地候选附件，**尚无公开下载链接**；正式发布时必须一并提供该附件，
 不能只发布源码后声称外部已可重放。它包含原五模型、原预测数组和冻结result/protocol；
-不含原始数据、训练日志、密码或私人Git历史。原result中的相对历史路径仅记录出处，
+数组还含起报时间、实况目标值及有效性掩码；不含完整原SCADA ZIP、训练日志、密码或
+私人Git历史。原result中的相对历史路径仅记录出处，
 消费者通过平面文件名取资源，不使用那些路径。
 
 开发附件为 `engie-development-models.zip`，24,146,787 bytes，SHA-256：
 `dd1210fff0990a8015a3b3a5b08cd7a597ae08b3af739a33e44448cfb787bd85`。
 它包含2014开发阶段原九包及预测，准备时必须显式指定 `--release development-2014`；
 其信任锚与最终五包分开，不能互相代替。两个附件都需在正式发布时提供。
+同时发布[模型附件旁说明](third-party/MODEL-ARTIFACT-NOTICE.md)，保留ENGIE来源、更新日、
+许可和加工范围。旁说明独立上传并在Git保留，不添加进原ZIP，不改变严格成员信任锚。
 
 SCADA数据归属于ENGIE，OpenOA固定提交的数据说明标注Open Licence 2.0及更新日
 2019-10-09。原模型和预测是基于该数据的派生结果，不暗示ENGIE或OpenOA背书。

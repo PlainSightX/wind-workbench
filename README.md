@@ -29,6 +29,8 @@ pwsh -File tools/dev/prepare-assistant.ps1
 - [测试入口](docs/public-tests.md)：普通软件、原模型、浏览器与显式付费问答。
 - [数据出处](data/README.md) 与 [第三方许可](THIRD-PARTY-NOTICES.md)。
 
-源码包含全部业务模块、迁移、测试和前端源文件；大模型附件单独交付。
+源码包含全部业务模块、迁移、产品测试和前端源文件；原模型附件单独交付，并随附
+[内容与许可说明](docs/third-party/MODEL-ARTIFACT-NOTICE.md)。维护者导出工具、精选清单及
+其导航检查留在维护仓，不作为产品测试分发。
 内部工作包、密码、原始请求/训练日志、旧Git历史和私人运行目录不属于公开树。
 报告中的原始历史路径仅作出处记录，不是外部程序的输入路径。

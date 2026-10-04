@@ -13,6 +13,8 @@
 | ENGIE SCADA | ENGIE La Haute Borne，OpenOA固定提交的数据副本，更新日2019-10-09；外部下载 | Etalab Open Licence 2.0，见 [复现说明](docs/public-reproduction.md) |
 | BGE-small-zh-v1.5 | BAAI固定 revision 7999e1d3359715c523056ef9478215996d62a620；可选下载，不进源码包 | MIT，[固定模型卡](https://huggingface.co/BAAI/bge-small-zh-v1.5/blob/7999e1d3359715c523056ef9478215996d62a620/README.md) |
 
-原模型附件与预测数组是上述公开数据的派生结果，不暗示数据提供方背书。
+原模型附件还含起报时间、实况目标值和有效性掩码；不是只分发预测数组。
+[附件内容与许可](docs/third-party/MODEL-ARTIFACT-NOTICE.md)应随两份原ZIP发布，记录
+ENGIE来源、更新日、Open Licence 2.0及加工范围；ZIP原字节保持，不暗示数据提供方背书。
 其他Python与容器依赖由锁文件安装/拉取，未将其源代码或镜像二进制放入本项目发布树。
 演示画面来自本项目在公开历史数据上的运行，不含客户数据。
