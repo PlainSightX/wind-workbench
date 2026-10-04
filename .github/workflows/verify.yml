@@ -1,6 +1,22 @@
 name: Verify wind workbench
 on: [push, pull_request]
 jobs:
+  windows-entrypoints:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install only the standalone test runner
+        run: python -m pip install pytest==8.4.2
+      - name: Verify eight PowerShell entrypoint boundaries
+        shell: pwsh
+        run: |
+          if (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) { throw 'pwsh is required; do not skip this group.' }
+          $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD = '1'
+          python -m pytest tests/unit/test_runtime_context.py --confcutdir tests/unit -k "not direct_diagnostic" -q
   service:
     runs-on: ubuntu-latest
     timeout-minutes: 30
