@@ -19,6 +19,62 @@ def test_numeric_identity_and_plain_output(evidence):
     assert result["answer"] == "该指标为ridge MAE：12.5 kW。"
 
 
+@pytest.mark.parametrize("text,code", [
+    ("MAE=-{{c0.ridge.mae}}.", "answer_fact_sign_conflict"),
+    ("MAE=−{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=﹣ {{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=－{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=+{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=-**{{c0.ridge.mae}}**。", "answer_fact_sign_conflict"),
+    ("MAE=±{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=-({{c0.ridge.mae}})。", "answer_fact_sign_conflict"),
+    ("MAE=-(**{{c0.ridge.mae}}**)。", "answer_fact_sign_conflict"),
+    ("MAE=−（{{c0.ridge.mae}}）。", "answer_fact_sign_conflict"),
+    ("MAE=-\n{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE=-[{{c0.ridge.mae}}]。", "answer_fact_sign_conflict"),
+    ("{{c0.ridge.mae}} GW。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} kg。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}}joules。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} kWxyz。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} / s。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}}²。", "answer_fact_unit_conflict"),
+    ("**{{c0.ridge.mae}}** GW。", "answer_fact_unit_conflict"),
+    ("**{{c0.ridge.mae}}** * MW。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} kW GW。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} (GW)。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}} kW (GW)。", "answer_fact_unit_conflict"),
+    ("（{{c0.ridge.mae}}） GW。", "answer_fact_unit_conflict"),
+    ("{{c0.ridge.mae}}\nGW。", "answer_fact_unit_conflict"),
+])
+def test_placeholder_modifiers_cannot_change_complete_quantity(evidence, text, code):
+    draft = DraftAnswer(status="answered", answer=text, fact_ids=["c0.ridge.mae"])
+    with pytest.raises(AssistantError, match=code):
+        validate_answer(draft, evidence, [])
+
+
+@pytest.mark.parametrize("text", [
+    "- {{c0.ridge.mae}}。", "+ {{c0.ridge.mae}}。", "* {{c0.ridge.mae}}。",
+    "当前结果：\n  - {{c0.ridge.mae}}。", "**{{c0.ridge.mae}}**，与基线可比。",
+    "{{c0.ridge.mae}}，单位来自原记录。", "{{c0.ridge.mae}}，and the baseline remains selected.",
+    "（{{c0.ridge.mae}}），单位来自原记录。", "{{c0.ridge.mae}}（与基线使用相同单位）。",
+])
+def test_placeholder_complete_quantity_keeps_normal_punctuation(evidence, text):
+    draft = DraftAnswer(status="answered", answer=text, fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, evidence, [])["status"] == "answered"
+
+
+def test_negative_fact_renders_its_own_sign_without_external_sign(evidence):
+    evidence["facts"][0]["value"] = -12.5
+    draft = DraftAnswer(status="answered", answer="偏差为{{c0.ridge.mae}}。", fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, evidence, [])["answer"] == "偏差为ridge MAE：-12.5 kW。"
+
+
+@pytest.mark.parametrize("marker", ["-", "+"])
+def test_plain_text_list_marker_cannot_look_like_fact_sign(evidence, marker):
+    draft = DraftAnswer(status="answered", answer=marker + " {{c0.ridge.mae}}。", fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, evidence, [])["answer"] == "• ridge MAE：12.5 kW。"
+
+
 @pytest.mark.parametrize("suffix", ["%", " MW", "分钟", " kW/h", " kW/分钟", " kW / h"])
 def test_placeholder_cannot_be_relabelled_with_wrong_unit(evidence, suffix):
     draft = DraftAnswer(status="answered", answer="指标为{{c0.ridge.mae}}" + suffix, fact_ids=["c0.ridge.mae"])
