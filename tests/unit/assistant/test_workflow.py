@@ -102,6 +102,26 @@ def test_capture_failure_alone_never_adds_provider_request(monkeypatch):
     assert provider.calls == 1 and len(audit.rows) == 1
 
 
+@pytest.mark.parametrize("bad,code", [
+    ("MAE=-{{c0.ridge.mae}}。", "answer_fact_sign_conflict"),
+    ("MAE={{c0.ridge.mae}} GW。", "answer_fact_unit_conflict"),
+])
+@pytest.mark.parametrize("repaired", [False, True])
+def test_fact_boundary_error_uses_one_repair_and_required_audit(monkeypatch, bad, code, repaired):
+    first = {"status": "answered", "answer": bad, "fact_ids": ["c0.ridge.mae"]}
+    second = {**first, "answer": "MAE为{{c0.ridge.mae}}。"} if repaired else first
+    provider = Provider([first, second])
+    result, audit = run_answer(monkeypatch, provider, None)
+    assert result["status"] == ("answered" if repaired else "validation_error")
+    assert result["trace"]["repair_reason"] == code
+    assert provider.calls == 2 and len(audit.rows) == 1
+    assert len(result["trace"]["validation_errors"]) == (1 if repaired else 2)
+    if repaired:
+        assert result["answer"] == "MAE为MAE：12.5 kW。"
+    else:
+        assert bad not in result["answer"]
+
+
 def test_final_validation_detail_is_bounded_and_audited(monkeypatch):
     provider = Provider([{"status": "answered", "answer": "99999"}] * 2)
     result, audit = run_answer(monkeypatch, provider, None)

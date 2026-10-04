@@ -102,6 +102,30 @@ def setup_question(kind, question=None):
     return prepare_stage_requirements(projected(kind), [], question or (Q1_QUESTION if kind == "q1" else ENGIE_QUESTION))
 
 
+@pytest.mark.parametrize("suffix,code", [
+    ("-{{c0.development.ridge_0_1.mae}}", "answer_fact_sign_conflict"),
+    ("{{c0.development.ridge_0_1.mae}} GW", "answer_fact_unit_conflict"),
+])
+def test_stage_claim_cannot_change_fact_sign_or_unit(suffix, code):
+    evidence, documents = setup_question("q1")
+    draft = valid_draft("q1", evidence)
+    draft.stage_claims[0].text = draft.stage_claims[0].text.replace("{{c0.development.ridge_0_1.mae}}", suffix)
+    with pytest.raises(AssistantError, match=code):
+        validate_answer(draft, evidence, documents, Q1_QUESTION)
+
+
+def test_stage_claim_keeps_legitimate_negative_fact_and_list_intent():
+    evidence, documents = setup_question("q1")
+    metric = next(f for f in evidence["facts"] if f["id"] == "c0.development.ridge_0_1.mae")
+    metric["value"] = -12.5  # 只构造格式边界，非改动原开发成绩或报告。
+    draft = valid_draft("q1", evidence)
+    draft.answer = ""
+    draft.stage_claims[0].text = "- " + draft.stage_claims[0].text.replace("三个开发窗中Ridge均优于持久性，平均MAE为", "{{c0.development.ridge_0_1.mae}}；平均MAE为")
+    result = validate_answer(draft, evidence, documents, Q1_QUESTION)
+    assert "事前开发选型：• " in result["answer"]
+    assert "-12.5 source_reported_unit" in result["answer"]
+
+
 def valid_draft(kind, evidence):
     identity = evidence["records"][0]["id"]
     if kind == "q1":

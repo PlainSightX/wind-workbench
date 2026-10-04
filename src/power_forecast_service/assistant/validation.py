@@ -6,6 +6,37 @@ from .contracts import AssistantError
 from .stages import validate_stage_claims, stage_body
 
 
+FACT_TOKEN = re.compile(r"\{\{([^{}]+)\}\}")
+FACT_SIGN = re.compile(r"[+\-−﹣－＋±∓]\s*(?:[*`_~(（\[]\s*)*$")
+
+
+def fact_unit_suffix(text, units):
+    """占位符是完整量纲；后接的Latin标记不能绕过已知单位列表。"""
+    # 中文连词、句读和Markdown结束符仍是正文；紧接Latin词或量纲运算符具有单位歧义，
+    # 应由一次repair删除多余后缀，不能把未知GW/kg悄悄当作可信事实的一部分。
+    wrappers = r"[\s*`_~()（）\[\]]*"
+    unknown = r"[A-Za-zµμΩ°℃℉][A-Za-z0-9µμΩ°℃℉/%·*^²³⁻+\-]*"
+    operation = r"[/·^²³⁻][^\s，。；,;！？!?()\[\]{}]*"
+    return re.match(wrappers + "(" + unit_pattern(units) + "|" + unknown + "|" + operation + ")", text)
+
+
+def validate_fact_boundaries(body, facts, units):
+    """先检查完整事实周边，再去占位符；否则外加负号会从数字检查中消失。"""
+    for token in FACT_TOKEN.finditer(body):
+        fact = facts[token[1]]
+        if type(fact["value"]) in {int, float}:
+            prefix = body[:token.start()]
+            sign = FACT_SIGN.search(prefix)
+            # 行首Markdown列表的'- ' / '+ '不是一元运算；句内和紧贴负号必须拒绝。
+            bullet = re.search(r"(?:^|\n)[ \t]*[+\-][ \t]+(?:[*`_~(（\[][ \t]*)*$", prefix)
+            if sign and not bullet:
+                raise AssistantError("answer_fact_sign_conflict", "占位符已含原事实符号，不可另加符号：" + token[1])
+        explicit = fact_unit_suffix(body[token.end():], units)
+        if explicit and (explicit[1] != fact["unit"] or
+                         fact_unit_suffix(body[token.end() + explicit.end():], units)):
+            raise AssistantError("answer_fact_unit_conflict", "占位符后单位与原事实不一致：" + token[1])
+
+
 def unit_pattern(units):
     known = "|".join(re.escape(unit) for unit in sorted(units, key=len, reverse=True) if unit)
     # kW/h不能只消费kW前缀；只识别显式复合后缀，不尝试理解自然语言单位换算。
@@ -35,10 +66,12 @@ def validate_answer(draft, evidence, documents, question=""):
     if any(f not in facts for f in draft.fact_ids + referenced) or set(referenced) - set(draft.fact_ids):
         raise AssistantError("answer_fact_invalid")
     units = {f.get("unit", "") for f in facts.values()} | {"%", "kW", "MW", "W", "kWh", "MWh", "分钟", "小时", "秒", "次", "minutes", "min"}
-    for token in re.finditer(r"\{\{([^{}]+)\}\}", body):
-        explicit = re.match(r"\s*(" + unit_pattern(units) + r")", body[token.end():])
-        if explicit and explicit[1] != facts[token[1]]["unit"]:
-            raise AssistantError("answer_fact_unit_conflict", "占位符后单位与原事实不一致：" + token[1])
+    validate_fact_boundaries(body, facts, units)
+    # 页面是纯文本，不会把Markdown的'- '解释为列表；规范成可见圆点避免误读成负值。
+    normalize_bullets = lambda text: re.sub(r"(?m)^([ \t]*)[+\-]([ \t]+)(?=(?:[*`_~(（\[][ \t]*)*\{\{)", r"\1•\2", text)
+    draft.answer = normalize_bullets(draft.answer)
+    for claim in draft.stage_claims:
+        claim.text = normalize_bullets(claim.text)
     # 未在正文用到的facts不展示、不计入评分，防止附上正确列表却没有回答问题。
     draft.fact_ids = list(dict.fromkeys(referenced))
     if any(c not in docs for c in draft.citations) or set(draft.quotes) - set(draft.citations):
