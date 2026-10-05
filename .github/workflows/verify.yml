@@ -78,7 +78,7 @@ jobs:
         working-directory: web
         run: |
           npx playwright install --with-deps chromium
-          npx playwright test tests/chart-data.spec.js tests/candidate.spec.js tests/navigation.spec.js
+          npx playwright test tests/chart-data.spec.js tests/candidate.spec.js tests/navigation.spec.js tests/layout.spec.js
       - name: Retain only bounded browser failure evidence
         if: failure()
         uses: actions/upload-artifact@v4
