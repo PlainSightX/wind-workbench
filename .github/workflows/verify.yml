@@ -47,6 +47,9 @@ jobs:
           mkdir -p .local/runtime
           openssl rand -hex 32 > .local/runtime/postgres-password.txt
           openssl rand -hex 32 > .local/runtime/app-password.txt
+          # 先登记脱敏，启动或失败诊断均不得公开临时密码。
+          printf '::add-mask::%s\n' "$(cat .local/runtime/postgres-password.txt)"
+          printf '::add-mask::%s\n' "$(cat .local/runtime/app-password.txt)"
           # runner owner + application group; no world-readable credentials.
           sudo chgrp -R 10001 .local/runtime
           chmod 2770 .local/runtime
@@ -64,6 +67,12 @@ jobs:
         run: |
           npx playwright install --with-deps chromium
           npx playwright test tests/chart-data.spec.js tests/candidate.spec.js tests/navigation.spec.js
+      - name: Bounded failure diagnostics before disposable cleanup
+        if: failure()
+        shell: bash
+        run: |
+          docker compose --profile app ps --all
+          docker compose --profile app logs --no-color --tail 120 postgres migrate api dispatcher worker
       - name: Stop only this disposable stack
         if: always()
         run: docker compose --profile app down --volumes
