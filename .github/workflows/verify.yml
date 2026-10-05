@@ -57,6 +57,18 @@ jobs:
           mkdir .local/runtime/assistant
           sudo chgrp 10001 .local/runtime/assistant
           chmod 2770 .local/runtime/assistant
+          # 文件型 secret 保留宿主权限：runner 和 app group 之外，只给实际 PG 身份读权。
+          if ! command -v setfacl >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends acl
+          fi
+          postgres_uid=$(docker compose --profile app run --rm --no-deps -T --entrypoint id postgres -u postgres)
+          case "$postgres_uid" in
+            ''|*[!0-9]*) printf 'Cannot resolve postgres image identity\n' >&2; exit 1 ;;
+          esac
+          sudo setfacl -m "u:${postgres_uid}:r" .local/runtime/app-password.txt
+          docker compose --profile app run --rm --no-deps -T --user "$postgres_uid" --entrypoint sh postgres \
+            -c 'test -r /run/secrets/app_password && test -s /run/secrets/app_password'
           docker compose --profile app up -d --build --wait --wait-timeout 120
       - name: Same component and ordinary delivery checks as local
         shell: pwsh
