@@ -56,8 +56,25 @@ test("@software Ridge组合、真实结果与显式选版回放", async ({ page 
   expect(replay.forecast.model_key).toBe("ridge_0_1");
   await expect(page.locator("#replay-status")).toContainText("预测完成");
   await page.setViewportSize({ width: 390, height: 844 });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  const measureLayout = () => page.evaluate(() => ({
+    viewport: innerWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+    overflowing: [...document.querySelectorAll("#predict *")].map(element => {
+      const box = element.getBoundingClientRect();
+      return {
+        tag: element.tagName, id: element.id, className: element.className,
+        left: box.left, right: box.right, width: box.width,
+        scrollWidth: element.scrollWidth, cssWidth: getComputedStyle(element).width,
+      };
+    }).filter(row => row.right > innerWidth + 1 || row.left < -1).slice(0, 20),
+  }));
+  // 保留原断言时点的尺寸，截图完成后的尺寸不能掩盖先前溢出。
+  const initialLayout = await measureLayout();
   await page.screenshot({ path: `${out}/predict-mobile.png`, fullPage: true });
+  await writeFile(`${out}/mobile-layout.json`, JSON.stringify({
+    initial: initialLayout, afterScreenshot: await measureLayout(),
+  }, null, 2));
+  expect(initialLayout.scrollWidth <= initialLayout.viewport + 1).toBe(true);
   expect(errors).toEqual([]);
   await writeFile(`${out}/evidence.json`, JSON.stringify({
     status: "passed", submission_check: "intercepted_no_training", submitted,
