@@ -17,6 +17,11 @@
 容器入口会将它们挂到独立只读目录，消费者不去维护者的历史`.local`找模型。
 原模型joblib只可加载通过源码信任锚校验的附件，不能运行来源不明的模型。
 
+固定模型延迟监测的`tests/integration/postgres/test_engie_monitor.py`归入`original_replay`，
+使用最终附件、随机PG库；其中实际TCP检查启动/停止自己的API进程和独立CLI，不接管
+运行服务。离线时间/计数规则在`tests/unit/test_engie_monitor.py`。具体消费与限制见
+[延迟监测](engie-monitor.md)。不将该本地原模型组算入默认远端CI成绩。
+
 浏览器默认Playwright Chromium；Windows可显式设置 `WIND_BROWSER_CHANNEL=msedge`。
 独立端口设置 `WIND_TEST_BASE_URL`，浏览器输出全部写`.local/runtime`，不覆盖原历史报告。
 本机Python锁包含Windows CUDA开发依赖；推荐公开运行使用固定CPU Docker路径。

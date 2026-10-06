@@ -25,6 +25,13 @@ flowchart LR
 模型包在 `storage/model_packages.py` 校验，在 `forecasting/predictor.py` 消费；
 ENGIE原模型使用独立导入身份，禁止重新拟合后冒充原评分包。
 
+## 预测后的持续评价
+
+[延迟监测](engie-monitor.md)以固定persistence为主用、同源候选为影子，先预测后消费模拟到达的
+实况。`api/engie_monitor.py`提供登记/推进/标签/报告入口，`experiments/engie_monitor.py`将每步
+预测、评分及游标作为一个PG事务。四张独立表不改变训练任务和模型发布；复合残差主键防止
+重复计分。CLI通过HTTP消费，API进程重启后从数据库继续。窗口复核不自动切换模型。
+
 ## 助手
 
 [api/assistant.py](../src/power_forecast_service/api/assistant.py) 管容量及HTTP状态；

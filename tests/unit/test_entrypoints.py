@@ -37,6 +37,8 @@ if sys.argv[1] == "api":
         "/runs", "/runs/compare-series", "/artifacts/{artifact_id}/replay-windows", "/replays",
         "/engie/imports", "/engie/artifacts/{artifact_id}/windows", "/engie/forecasts", "/engie/replays",
         "/engie/deliveries", "/engie/deliveries/{delivery_id}",
+        "/engie/monitors", "/engie/monitors/{monitor_id}",
+        "/engie/monitors/{monitor_id}/advance", "/engie/monitors/{monitor_id}/labels",
         "/assistant/answers", "/assistant/documents/{document_id}"
     }
     for dependency in ("numpy", "pandas", "sklearn", "power_forecast_service.forecasting.pipeline"):

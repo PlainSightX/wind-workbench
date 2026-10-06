@@ -19,6 +19,7 @@ from .routes import router
 from .forecasts import router as forecast_router
 from .workbench import router as workbench_router
 from .engie import router as engie_router
+from .engie_monitor import router as monitor_router
 from .assistant import router as assistant_router
 
 
@@ -78,6 +79,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(router)
     app.include_router(forecast_router)
     app.include_router(engie_router)
+    app.include_router(monitor_router)
     app.include_router(assistant_router)
     static = Path(__file__).resolve().parents[1] / "web_static"
     app.mount("/assets", StaticFiles(directory=static / "assets", check_dir=False), name="assets")
