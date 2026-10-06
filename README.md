@@ -26,6 +26,7 @@ pwsh -File tools/dev/prepare-assistant.ps1
 ## 结构与证据
 
 - [架构与代码阅读路径](docs/public-architecture.md)：任务、事务、模型包、结果助手职责。
+- [延迟实况监测](docs/engie-monitor.md)：固定模型的预测后评分、影子比较与中断续跑；历史到达为模拟。
 - [助手困难案例](docs/public-assistant-case.md)：一次保留边界的失败、诊断和可复核路径。
 - [精选结果与限制](docs/public-results.md)：效果、负结果与独立复现的区别。
 - [测试入口](docs/public-tests.md)：普通软件、原模型、浏览器与显式付费问答。

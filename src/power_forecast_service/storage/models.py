@@ -7,6 +7,8 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
+    ForeignKeyConstraint,
+    Float,
     Integer,
     Index,
     String,
@@ -176,3 +178,66 @@ class AnswerAudit(Base):
     status: Mapped[str] = mapped_column(String(32))
     trace: Mapped[dict] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class EngieMonitor(Base):
+    """一次固定模型比较的身份与已提交模拟时钟；不改变发布模型。"""
+
+    __tablename__ = "engie_monitors"
+    __table_args__ = (
+        CheckConstraint("end_time > start_time", name="engie_monitor_interval"),
+        CheckConstraint("champion_id != shadow_id", name="engie_monitor_models"),
+    )
+    id: Mapped[UUID] = mapped_column(primary_key=True)
+    request_key: Mapped[str] = mapped_column(String(128), unique=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    champion_id: Mapped[UUID] = mapped_column(ForeignKey("imported_artifacts.id"))
+    shadow_id: Mapped[UUID] = mapped_column(ForeignKey("imported_artifacts.id"))
+    start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    end_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    processed_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    contract: Mapped[dict] = mapped_column(JSONB)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class EngieMonitorIssue(Base):
+    __tablename__ = "engie_monitor_issues"
+    __table_args__ = (
+        CheckConstraint("status IN ('predicted','invalid_input','failed')", name="engie_monitor_issue_status"),
+    )
+    monitor_id: Mapped[UUID] = mapped_column(ForeignKey("engie_monitors.id"), primary_key=True)
+    issue_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    status: Mapped[str] = mapped_column(String(16))
+    reason: Mapped[str | None] = mapped_column(String(80))
+    predictions: Mapped[dict | None] = mapped_column(JSONB(none_as_null=True))
+
+
+class EngieMonitorObservation(Base):
+    """四机组实况可以缺失；已收到的有限值不可被后续重投改写。"""
+
+    __tablename__ = "engie_monitor_observations"
+    monitor_id: Mapped[UUID] = mapped_column(ForeignKey("engie_monitors.id"), primary_key=True)
+    target_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    available_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    turbines: Mapped[dict] = mapped_column(JSONB)
+
+
+class EngieMonitorResidual(Base):
+    """一个起报/时距只计分一次；两个模型始终使用同一完整全场标签。"""
+
+    __tablename__ = "engie_monitor_residuals"
+    __table_args__ = (
+        ForeignKeyConstraint(["monitor_id", "issue_time"],
+                             ["engie_monitor_issues.monitor_id", "engie_monitor_issues.issue_time"]),
+        ForeignKeyConstraint(["monitor_id", "target_time"],
+                             ["engie_monitor_observations.monitor_id", "engie_monitor_observations.target_time"]),
+        CheckConstraint("horizon_minutes IN (10,20,30,40,50,60)", name="engie_monitor_horizon"),
+        CheckConstraint("target_time = issue_time + horizon_minutes * INTERVAL '1 minute'",
+                        name="engie_monitor_residual_target"),
+    )
+    monitor_id: Mapped[UUID] = mapped_column(primary_key=True)
+    issue_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    horizon_minutes: Mapped[int] = mapped_column(Integer, primary_key=True)
+    target_time: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    champion_error_kw: Mapped[float] = mapped_column(Float)
+    shadow_error_kw: Mapped[float] = mapped_column(Float)

@@ -110,3 +110,48 @@ def replay(root, registration, issue):
     result = forecast(root, registration, body)
     return {"mode": "imported_final_replay" if registration["run"].get("scope") == "final_2015" else "imported_development_replay", "forecast": result, "actual": actual,
             "history": [row.model_dump(mode="json") for row in body.history]}
+
+
+class MonitorReplaySource:
+    """回放适配器只向调用者暴露当时可得的数据，不读取保存的未来 targets。"""
+
+    def __init__(self, root, registration):
+        self.registration = registration
+        run = registration["run"]
+        payload = checked_bytes(root, run["predictions_path"], run["predictions_sha256"])
+        with np.load(BytesIO(payload), allow_pickle=False) as arrays:
+            self.issues = pd.Index(arrays["issue_ns"])
+            self.valid = arrays["input_valid"]
+        payload = checked_bytes(root, run["history_path"], run["history_sha256"])
+        with np.load(BytesIO(payload), allow_pickle=False) as arrays:
+            self.times = pd.Index(arrays["time_ns"])
+            self.values = arrays["values"]
+
+    def inputs(self, issue, artifact_id):
+        check_issue(self.registration, issue)
+        position = self.issues.get_indexer([pd.Timestamp(issue).value])[0]
+        if position < 0 or not self.valid[position]:
+            raise PackageError("engie_history_unavailable")
+        expected = pd.date_range(issue - timedelta(minutes=130), periods=12, freq="10min")
+        positions = self.times.get_indexer(expected.asi8)
+        if (positions < 0).any():
+            raise PackageError("engie_history_unavailable")
+        raw = self.values[positions]
+        if not np.isfinite(raw).all():
+            raise PackageError("engie_history_unavailable")
+        fields = ("power_kw", "wind_speed", "direction_degrees", "temperature")
+        history = [{"timestamp": stamp.isoformat(), "turbines": {
+            name: dict(zip(fields, raw[i, j].tolist(), strict=True))
+            for j, name in enumerate(ROSTER)
+        }} for i, stamp in enumerate(expected)]
+        return EngieForecastRequest(artifact_id=artifact_id, issue_time=issue, history=history)
+
+    def observation(self, target, *, clock):
+        from .engie_monitor_contract import LABEL_DELAY
+
+        if target + LABEL_DELAY > clock:
+            raise PackageError("engie_monitor_label_not_arrived")
+        position = self.times.get_indexer([pd.Timestamp(target).value])[0]
+        return {name: (float(self.values[position, index, 0])
+                       if position >= 0 and np.isfinite(self.values[position, index, 0]) else None)
+                for index, name in enumerate(ROSTER)}
