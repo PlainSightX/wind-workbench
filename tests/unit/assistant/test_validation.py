@@ -164,6 +164,31 @@ def test_normalized_quote_still_requires_same_source(evidence):
     assert result["citations"][0]["quote"] == docs[0]["text"]
 
 
+@pytest.mark.parametrize("literal,value", [("2.985%", 2.985056638210959), ("12.50 kW", 12.5),
+                                          ("-12.5 kW", -12.5)])
+def test_document_metric_does_not_replace_body_fact_binding(evidence, literal, value):
+    fact = evidence["facts"][0]
+    fact.update(value=value, unit="%" if literal.endswith("%") else "kW")
+    docs = [{"id": "metric-doc", "text": "报告指标为" + literal + "，采用二十分钟输入。",
+             "source_sha256": "a" * 64, "title": "结果"}]
+    draft = DraftAnswer(status="answered", answer="结果为" + literal, citations=["metric-doc"],
+                        quotes={"metric-doc": docs[0]["text"]}, fact_ids=[fact["id"]])
+    with pytest.raises(AssistantError, match="answer_number_unbound"):
+        validate_answer(draft, evidence, docs)
+    # 附件中列正确ID不算回答；正文绑定后，原签名/单位的重复显示才可接受。
+    draft.answer = "{{" + fact["id"] + "}}，即" + literal
+    draft.fact_ids = [fact["id"]]
+    assert validate_answer(draft, evidence, docs)["status"] == "answered"
+
+
+def test_same_value_method_parameter_requires_explicit_identity_when_ambiguous(evidence):
+    evidence["facts"][0].update(value=3, unit="%", label="开发门")
+    docs = [{"id": "method", "text": "方法参数为3%。", "title": "方法", "source_sha256": "a" * 64}]
+    draft = DraftAnswer(status="answered", answer="方法采用3%。", citations=["method"], quotes={"method": docs[0]["text"]})
+    with pytest.raises(AssistantError, match="answer_number_unbound"):
+        validate_answer(draft, evidence, docs)
+
+
 @pytest.mark.parametrize("draft,code", [
     ({"answer":"MAE为13.5", "fact_ids":["c0.ridge.mae"]}, "answer_number_unbound"),
     ({"answer":"MAE为{{c0.other.mae}}", "fact_ids":["c0.other.mae"]}, "answer_fact_invalid"),

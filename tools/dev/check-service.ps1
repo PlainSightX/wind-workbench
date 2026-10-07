@@ -58,7 +58,8 @@ if ($OriginalReplay) {
         $replayArguments += @('--volume', "$([IO.Path]::GetFullPath($path)):${target}:ro", '--env', "${name}=$target")
     }
 }
-$check = 'pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --target /tmp/wind-test-deps --require-hashes -r .local/runtime/test-requirements.txt > /tmp/test-install.log 2>&1 || { cat /tmp/test-install.log; exit 1; }; python -m pytest ' + $selectors + " -m '$group' --junitxml=.local/runtime/$ReportName.xml"
+# 测量器的指标解析依赖显式固定，不能借宿主 Jupyter 的间接安装掩盖缺项。
+$check = 'pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --target /tmp/wind-test-deps --require-hashes -r .local/runtime/test-requirements.txt -r infra/inference-tools-requirements.txt > /tmp/test-install.log 2>&1 || { cat /tmp/test-install.log; exit 1; }; python -m pytest ' + $selectors + " -m '$group' --junitxml=.local/runtime/$ReportName.xml"
 docker run --rm --network "container:$apiContainer" `
     --label "com.docker.compose.project.working_dir=$projectRoot" --label 'wind.role=verification' `
     --volume "${projectRoot}:/workspace" `
