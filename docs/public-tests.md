@@ -6,6 +6,7 @@
 | 入口 | 实际验证 | 必需输入及副作用 |
 | --- | --- | --- |
 | `python -m pytest tests/unit` | 局部校验与规则 | 已安装Python依赖；不发provider请求；PowerShell入口测试需pwsh |
+| `tests/integration/postgres/test_inference_entrypoint.py` | 只读迁移/模型目录检查、旧迁移与缺表拒绝、真实CLI/TCP生命周期 | 随机PG库；注入模型目录、不生成回答；只结束自有API |
 | `pwsh -File tools/dev/check-service.ps1` | unit、真实PG/模型组件与三个HTTP实验流程 | 已启动独立Compose；随机测试数据库；e2e实际训练并登记新任务 |
 | 同命令加 `-OriginalReplay` | 九个2014原包及五个2015原包的真实PG导入/回放/故障边界 | 显式准备两个附件；未设置路径直接失败；不训练 |
 | `npm test`，默认software组 | 前端坐标、新Ridge对象与导航 | `npm ci`、Playwright浏览器、上述e2e生成的ui-delivery.json |
@@ -49,3 +50,16 @@ CPU容器没有 `pwsh`，其中八项PowerShell配置/启动边界检查会跳�
 
 本页说明工作流配置与本地组件验证范围；具体提交的远端成绩以对应Actions运行记录为准，
 不将配置本身当作执行通过。一次原拒答及后续诊断取舍见[困难案例](public-assistant-case.md)。
+
+## 可选推理覆盖
+
+上述service job选择所有unit/integration，因此也会收集推理模块、provider协议、
+请求登记和可选入口测试；不需要额外下载vLLM或GPU模型。真实PG组包含迁移head/
+请求表检查与CLI启动，provider响应为显式注入，不能算真实14B质量或性能。
+本地导出候选另验证其自身src和测量器依赖，不从维护仓补文件；对应结果见
+[I4](results/inference-i4-20261007/README.md)。未发布新提交前，没有这版远端CI成绩。
+
+[可选后端说明](inference-backend.md)中的`inference_service.py`才是显式真实模型
+故障入口，会读现有导入、创建/删除随机库、强杀自己的API并留下私有回答/日志。
+默认pytest仅测试其纯验证规则，不运行这套演练。历史baseline capture依赖未公开
+题源，其他测量命令需要冻结输入，不宣称发行包可直接重跑历史六题性能。

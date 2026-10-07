@@ -39,7 +39,7 @@ if sys.argv[1] == "api":
         "/engie/deliveries", "/engie/deliveries/{delivery_id}",
         "/engie/monitors", "/engie/monitors/{monitor_id}",
         "/engie/monitors/{monitor_id}/advance", "/engie/monitors/{monitor_id}/labels",
-        "/assistant/answers", "/assistant/documents/{document_id}"
+        "/assistant/answers", "/assistant/requests/{request_id}", "/assistant/documents/{document_id}"
     }
     for dependency in ("numpy", "pandas", "sklearn", "power_forecast_service.forecasting.pipeline"):
         assert dependency not in sys.modules, dependency

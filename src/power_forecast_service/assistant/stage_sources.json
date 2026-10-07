@@ -16,6 +16,14 @@
     "minimum_mae_gain_percent": 3.0,
     "development_adopted": false,
     "development_evidence": ["a2-a0e9352d9bbf7d09"],
-    "final_holdout_evidence": ["a3-8f352bd1dee97182"]
+    "final_holdout_evidence": ["a3-8f352bd1dee97182"],
+    "time_contract": {
+      "source": {"path": "docs/results/wind-engie-baseline-20260923/protocol.json", "sha256": "04091c20fe930941a49401e7d87e6d06b07b419ce88ee1d6ddcca468a98b58a8"},
+      "arrival_lag_minutes": 20,
+      "target_minutes_after_issue": [10, 20, 30, 40, 50, 60],
+      "delay_basis": "模拟假设，非真实到达延迟测量",
+      "method_source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "citations": ["engie-1e630b893889c121", "engie-5571ab3fa3d29383"]
+    }
   }
 }

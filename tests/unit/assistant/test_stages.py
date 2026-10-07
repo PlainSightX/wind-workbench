@@ -11,7 +11,7 @@ import pytest
 from power_forecast_service.assistant.contracts import AssistantError, DraftAnswer, Fact, StageClaim
 from power_forecast_service.assistant.evidence import compare_results
 from power_forecast_service.assistant.retrieval import corpus
-from power_forecast_service.assistant.stages import bind_stages, prepare_stage_requirements, stage_sources, validate_stage_claims
+from power_forecast_service.assistant.stages import bind_stages, prepare_stage_requirements, stage_sources, validate_stage_claims, restrict_adoption_output
 from power_forecast_service.assistant.validation import validate_answer
 
 
@@ -100,6 +100,62 @@ def projected(kind):
 
 def setup_question(kind, question=None):
     return prepare_stage_requirements(projected(kind), [], question or (Q1_QUESTION if kind == "q1" else ENGIE_QUESTION))
+
+
+def interval_projection():
+    data = projected("engie")
+    identity = data["records"][0]["id"]
+    for suffix, value in (("low", 2.7), ("high", 3.6)):
+        data["facts"].append(Fact(id="c0.gain_ci_" + suffix, label="七天配对区间" + suffix,
+            value=value, unit="%", object_id=identity, aggregation="正式留出",
+            source_sha256="a" * 64, pointer="/interval/" + suffix, stage="final_holdout").model_dump())
+    return data
+
+
+def test_reference_adoption_question_keeps_full_evidence_but_not_unrequested_interval_output():
+    from power_forecast_service.assistant.references import reference_schema
+    question = "开发采用门与最终留出结果的改善如何区分？"
+    data, documents = prepare_stage_requirements(interval_projection(), [], question)
+    data = restrict_adoption_output(data, question)
+    final = next(option for option in data["stage_options"] if option["role"] == "final_holdout_result")
+    assert {"c0.gain_ci_low", "c0.gain_ci_high"} <= {fact["id"] for fact in data["facts"]}
+    assert not any("gain_ci" in key for key in final["allowed_fact_ids"])
+    schema = reference_schema(data, documents)
+    claim = schema["$defs"]["StagedReferenceBody"]["properties"]["claims"]["prefixItems"][-1]
+    assert "gain_ci" not in claim["properties"]["text"]["pattern"]
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    draft.stage_claims[-1].text += "区间{{c0.gain_ci_low}}。"
+    with pytest.raises(AssistantError, match="answer_stage_fact_conflict"):
+        validate_stage_claims(draft, data)
+
+
+@pytest.mark.parametrize("incorrect", [True, False])
+def test_requested_interval_remains_available_but_not_adoption_gate_definition(incorrect):
+    question = "开发采用门与最终MAE改善的置信区间如何区分？"
+    data, _ = prepare_stage_requirements(interval_projection(), [], question)
+    data = restrict_adoption_output(data, question)
+    final = next(option for option in data["stage_options"] if option["role"] == "final_holdout_result")
+    assert "c0.gain_ci_low" in final["allowed_fact_ids"]
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    suffix = ("该改善率未达到开发采用门的{{c0.gain_ci_low}}至{{c0.gain_ci_high}}区间。" if incorrect
+        else "置信区间不是开发采用门。区间为{{c0.gain_ci_low}}至{{c0.gain_ci_high}}。")
+    draft.stage_claims[-1].text += suffix
+    if incorrect:
+        with pytest.raises(AssistantError, match="answer_stage_interval_gate_conflict"):
+            validate_stage_claims(draft, data)
+    else:
+        validate_stage_claims(draft, data)
+
+
+def test_interval_gate_guard_does_not_reject_explicit_negation():
+    question = "开发采用门与最终MAE改善的置信区间如何区分？"
+    data, _ = prepare_stage_requirements(interval_projection(), [], question)
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    draft.stage_claims[-1].text += "置信区间并非开发采用门的{{c0.gain_ci_low}}至{{c0.gain_ci_high}}范围。"
+    validate_stage_claims(draft, data)
 
 
 @pytest.mark.parametrize("suffix,code", [
@@ -213,6 +269,28 @@ def test_final_metric_cannot_be_relabelled_as_development(kind):
     draft.answer = "\n".join(c.text for c in draft.stage_claims)
     with pytest.raises(AssistantError, match="answer_stage_fact_conflict"):
         validate_stage_claims(draft, evidence)
+
+
+def test_pre_adoption_numeric_threshold_is_valid_development_comparison():
+    evidence, docs = setup_question("engie")
+    draft = valid_draft("engie", evidence)
+    draft.stage_claims[0].text += "这低于事前门槛{{c0.development.mae_gain_gate}}。"
+    draft.answer = ""
+    assert validate_answer(draft, evidence, docs)["status"] == "answered"
+
+
+def test_stage_conflict_identifies_role_wrong_source_and_required_replacement():
+    evidence, _ = setup_question("engie")
+    draft = valid_draft("engie", evidence)
+    draft.answer = ""
+    draft.stage_claims[0].text = "开发改善{{c0.lightgbm_l1_shrink.mae_gain}}。"
+    with pytest.raises(AssistantError) as error:
+        validate_stage_claims(draft, evidence)
+    from power_forecast_service.assistant.workflow import validation_detail
+    feedback = validation_detail(error.value)
+    assert "development_result" in feedback and "final_holdout" in feedback
+    assert "c0.lightgbm_l1_shrink.mae_gain" in feedback
+    assert "c0.development.lightgbm_l1_shrink.mae_gain" in feedback
 
 
 def test_development_value_only_in_fact_list_is_not_coverage():

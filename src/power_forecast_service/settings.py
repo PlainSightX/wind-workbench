@@ -22,6 +22,10 @@ class Settings:
     dispatch_interval_seconds: int = 3
     redelivery_seconds: int = 30
     max_attempts: int = 3
+    assistant_backend: str = "default"
+    assistant_vllm_url: str = ""
+    assistant_vllm_model: str = ""
+    assistant_capacity: int = 1
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -45,4 +49,8 @@ class Settings:
             ),
             artifact_root=Path(os.getenv("WIND_ARTIFACT_ROOT", str(ROOT / "artifacts/tasks"))),
             broker_url=os.getenv("WIND_BROKER_URL", "redis://redis:6379/0"),
+            assistant_backend=os.getenv("WIND_ASSISTANT_BACKEND", "default"),
+            assistant_vllm_url=os.getenv("WIND_ASSISTANT_VLLM_URL", ""),
+            assistant_vllm_model=os.getenv("WIND_ASSISTANT_VLLM_MODEL", ""),
+            assistant_capacity=int(os.getenv("WIND_ASSISTANT_CAPACITY", "1")),
         )

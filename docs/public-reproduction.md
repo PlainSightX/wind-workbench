@@ -156,6 +156,10 @@ docker run --rm --network "container:$api" `
 
 ## 5. 助手与浏览器
 
+可选自托管vLLM路径见[推理后端](inference-backend.md)：独立GPU引擎、SSH loopback
+隧道和显式宿主API，启动前只读检查迁移与模型名，不改变下面的默认provider路径。
+不要把容器内部localhost当成宿主隧道，也不要为试用自动迁移已有业务库。
+
 设置环境变量 `DEEPSEEK_API_KEY` 后执行 `pwsh -File tools/dev/prepare-assistant.ps1`。
 默认只保存配置，不下载模型、不请求provider；在页面选择已导入/已完成对象后提问才收费。
 它消费实际Compose运行目录，支持自定义 `WIND_RUNTIME_ROOT`，不会另写到默认目录。

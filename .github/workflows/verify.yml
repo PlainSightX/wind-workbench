@@ -70,7 +70,7 @@ jobs:
           docker compose --profile app run --rm --no-deps -T --user "$postgres_uid" --entrypoint sh postgres \
             -c 'test -r /run/secrets/app_password && test -s /run/secrets/app_password'
           docker compose --profile app up -d --build --wait --wait-timeout 120
-      - name: Same component and ordinary delivery checks as local
+      - name: Components, optional inference preflight and ordinary delivery (no real provider)
         shell: pwsh
         run: |
           & tools/dev/check-service.ps1 -TestPath @('tests/unit','tests/integration','tests/e2e/test_experiment_flow.py') -ReportName ci-service
