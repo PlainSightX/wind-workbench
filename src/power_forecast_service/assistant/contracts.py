@@ -1,9 +1,12 @@
 """助手的输入、事实和回答合同；对象范围由HTTP请求固定，模型不能扩大。"""
 
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
+
+MAX_ANSWER_FACTS = 15
+MAX_ANSWER_CITATIONS = 8
 
 
 class ContextRef(BaseModel):
@@ -48,10 +51,46 @@ class DraftAnswer(BaseModel):
     model_config = ConfigDict(extra="forbid")
     status: Literal["answered", "insufficient_evidence"]
     answer: str = Field(default="", max_length=3500)
-    fact_ids: list[str] = Field(default_factory=list, max_length=15)
-    citations: list[str] = Field(default_factory=list, max_length=8)
-    quotes: dict[str, str] = Field(default_factory=dict, max_length=8)
+    fact_ids: list[str] = Field(default_factory=list, max_length=MAX_ANSWER_FACTS)
+    citations: list[str] = Field(default_factory=list, max_length=MAX_ANSWER_CITATIONS)
+    quotes: dict[str, str] = Field(default_factory=dict, max_length=MAX_ANSWER_CITATIONS)
     stage_claims: list[StageClaim] = Field(default_factory=list, max_length=8)
+
+
+class CitationSelection(BaseModel):
+    """模型只选本次请求内的原文块，版本由可信文档映射持有。"""
+
+    model_config = ConfigDict(extra="forbid")
+    document_id: str = Field(min_length=1, max_length=160)
+
+
+class PlainReferenceBody(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    kind: Literal["plain"]
+    text: str = Field(min_length=1, max_length=3500)
+    citations: list[CitationSelection] = Field(default_factory=list, max_length=MAX_ANSWER_CITATIONS)
+
+
+class ReferenceStageClaim(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    object_id: UUID
+    role: Literal["selection_basis", "development_result", "adoption_decision", "final_holdout_result"]
+    text: str = Field(min_length=1, max_length=1500)
+    citations: list[CitationSelection] = Field(default_factory=list, max_length=4)
+
+
+class StagedReferenceBody(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    kind: Literal["staged"]
+    claims: list[ReferenceStageClaim] = Field(min_length=1, max_length=8)
+
+
+class ReferenceAnswer(BaseModel):
+    """可选生成合同；正文只能选一种表示，事实列表和原文由程序解析。"""
+
+    model_config = ConfigDict(extra="forbid")
+    status: Literal["answered", "insufficient_evidence"]
+    body: Annotated[PlainReferenceBody | StagedReferenceBody, Field(discriminator="kind")]
 
 
 class AssistantError(Exception):

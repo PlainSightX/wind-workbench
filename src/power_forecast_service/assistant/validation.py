@@ -10,6 +10,12 @@ FACT_TOKEN = re.compile(r"\{\{([^{}]+)\}\}")
 FACT_SIGN = re.compile(r"[+\-−﹣－＋±∓]\s*(?:[*`_~(（\[]\s*)*$")
 
 
+def normalize_fact_tokens(text):
+    """只规范化无歧义占位符语法，不推测或替换事实身份。"""
+    return re.sub(r"\{\{\s*(?:fact_id:\s*)?([^{}]+?)\s*\}\}",
+                  lambda match: "{{" + match[1].strip() + "}}", text)
+
+
 def canonical_fact_contexts(text, facts):
     """只移除紧邻占位符的同名重复标签，随后校验并渲染同一份正文。"""
     parts, end = [], 0
@@ -93,7 +99,6 @@ def validate_answer(draft, evidence, documents, question=""):
     facts = {f["id"]: f for f in evidence["facts"]}
     docs = {d["id"]: d for d in documents}
     # 规范化已知的无歧义占位符写法；不能把未知ID猜成最近的事实。
-    normalize_fact_tokens = lambda text: re.sub(r"\{\{\s*(?:fact_id:\s*)?([^{}]+?)\s*\}\}", lambda m:"{{"+m.group(1).strip()+"}}", text)
     draft.answer = normalize_fact_tokens(draft.answer)
     for claim in draft.stage_claims:
         claim.text = normalize_fact_tokens(claim.text)
@@ -147,11 +152,18 @@ def validate_answer(draft, evidence, documents, question=""):
     for clock in re.findall(r"(?<!\d)\d{1,2}:\d{2}(?!\d)", question):
         raw = raw.replace(clock, "")
     numeric_facts = [facts[f] for f in referenced if type(facts[f]["value"]) in {int,float}]
-    def matched(token):
+    all_numeric_facts = [fact for fact in facts.values() if type(fact["value"]) in {int, float}]
+    def matched(token, candidates):
         value, unit = token
         digits = len(value.split(".")[1]) if "." in value else 0
-        return any(unit == fact["unit"] and abs(float(value)-round(fact["value"],digits)) < 1e-8 for fact in numeric_facts)
-    unsupported = sorted(value + unit for value, unit in numbers(raw) - supported if not matched((value, unit)))
+        return any(unit == fact["unit"] and abs(float(value)-round(fact["value"],digits)) < 1e-8 for fact in candidates)
+    raw_numbers = numbers(raw)
+    # 结果事实也可能被原文复述；出现过该数字不等于绑定了对象/指标/阶段。
+    # 与事实同值同单位（含显示精度）的数字必须在正文绑定；同值方法参数有歧义时也不猜。
+    metric_unbound = {token for token in raw_numbers
+                      if matched(token, all_numeric_facts) and not matched(token, numeric_facts)}
+    unsupported = sorted(value + unit for value, unit in metric_unbound |
+                         {token for token in raw_numbers - supported if not matched(token, numeric_facts)})
     if unsupported:
         raise AssistantError("answer_number_unbound", "缺少对应引用或facts绑定的数字：" + ", ".join(unsupported))
     if draft.status == "answered" and not (draft.fact_ids or draft.citations):

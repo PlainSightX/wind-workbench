@@ -14,7 +14,7 @@ flowchart LR
   Worker --> Files[校验后的模型包]
   API --> Files
   API --> Assistant[结果助手]
-  Assistant --> Provider[DeepSeek]
+  Assistant --> Provider[默认provider 或显式vLLM]
 ```
 
 ## 任务与预测
@@ -43,6 +43,12 @@ ENGIE原模型使用独立导入身份，禁止重新拟合后冒充原评分包
 模型不接收SQL/命令执行权，不决定对象范围。至多两次模型请求，整体有时间预算；
 未通过机器校验的回答不作为成功交付。校验不能证明自然语言的全部语义，因此保留人工语义复核。
 助手故障不会停掉预测服务，前端切换对象/问题后旧答案失效。
+
+可选[推理后端](inference-backend.md)由独立宿主入口显式启用，保持loopback通信与
+原布局。`provider.py`检查SSE完整性和服务名，`requests.py`在发送前提交PG请求身份，
+`references.py`让模型选择本次来源/事实，再由程序渲染可信数值和引文。
+PG只留状态/指纹/结果hash，不留答案正文；未知状态阻止盲目重发，不能恢复丢失正文。
+进程容量不等于全局调度；APC由vLLM承担，缓存加速不能代替完整任务质量。
 
 ## 修改与验证
 
