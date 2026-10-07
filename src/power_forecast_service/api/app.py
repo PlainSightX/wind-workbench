@@ -31,8 +31,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.sessions = async_sessionmaker(engine, expire_on_commit=False)
         app.state.forecast_gate = asyncio.Semaphore(1)
         app.state.forecast_tasks = set()
-        from ..assistant.workflow import Assistant
-        app.state.assistant = Assistant(app.state.sessions)
+        from ..assistant.provider import make_assistant
+        app.state.assistant = make_assistant(app.state.sessions, app.state.settings)
         app.state.assistant_tasks = set()
         try:
             yield
@@ -41,6 +41,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             await asyncio.gather(*app.state.forecast_tasks, return_exceptions=True)
             await asyncio.gather(*app.state.assistant_tasks, return_exceptions=True)
             await asyncio.to_thread(app.state.assistant.close)
+            provider = app.state.assistant.provider
+            if provider is not None and hasattr(provider, "aclose"):
+                await provider.aclose()
             await engine.dispose()
 
     app = FastAPI(title="Wind Experiment Workbench", version="0.2.0", lifespan=lifespan)

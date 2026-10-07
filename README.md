@@ -23,6 +23,10 @@ pwsh -File tools/dev/prepare-assistant.ps1
 可选向量路径使用 `-Vector` 下载固定embedding并建立真实PG索引；`-ProbeProvider`才额外发送探针请求。
 密钥只在忽略提交的运行目录保存，不写入源码或报告。
 
+已有独立GPU环境时，可显式启用[可选vLLM后端](docs/inference-backend.md)：
+宿主API通过loopback隧道消费模型，启动前只读检查迁移和模型名；不会改普通服务默认配置。
+该路径需要单独的宿主Python开发环境，不是CPU容器的一项环境变量开关。
+
 ## 结构与证据
 
 - [架构与代码阅读路径](docs/public-architecture.md)：任务、事务、模型包、结果助手职责。
@@ -30,6 +34,7 @@ pwsh -File tools/dev/prepare-assistant.ps1
 - [助手困难案例](docs/public-assistant-case.md)：一次保留边界的失败、诊断和可复核路径。
 - [精选结果与限制](docs/public-results.md)：效果、负结果与独立复现的区别。
 - [测试入口](docs/public-tests.md)：普通软件、原模型、浏览器与显式付费问答。
+- [推理交付](docs/results/inference-i4-20261007/README.md)：可选后端与公开复现的验证范围。
 - [数据出处](data/README.md) 与 [第三方许可](THIRD-PARTY-NOTICES.md)。
 
 源码包含全部业务模块、迁移、产品测试和前端源文件；原模型附件单独交付，并随附

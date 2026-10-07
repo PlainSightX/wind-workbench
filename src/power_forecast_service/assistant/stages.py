@@ -91,7 +91,10 @@ def prepare_stage_requirements(evidence, documents, question):
             dev_question = gain and any(word in query for word in ("开发", "a2", "事前", "当时"))
             gate_question = any(word in query for word in ("采用门", "开发门", "采用门槛")) or (
                 causal and any(word in query for word in ("默认", "不采用", "采用候选", "采用模型", "采用共享收缩")))
-            add("development_result", "开发评价（2014三季度汇总）", dev, [prefix + "development.lightgbm_l1_shrink.mae_gain"],
+            # 事前门槛可用于解释开发改善，不等于允许正式结果或采用状态混入开发指标。
+            thresholds = [f["id"] for f in facts if f["stage"] == "adoption_gate"
+                          and f["id"] == prefix + "development.mae_gain_gate"]
+            add("development_result", "开发评价（2014三季度汇总）", dev + thresholds, [prefix + "development.lightgbm_l1_shrink.mae_gain"],
                 record["development_evidence"], record["development_evidence"], dev_question or gate_question)
             gates = [f["id"] for f in facts if f["stage"] == "adoption_gate"]
             add("adoption_decision", "开发采用决定（未通过，默认持久性）", dev + gates,
@@ -111,6 +114,23 @@ def prepare_stage_requirements(evidence, documents, question):
     return {**evidence, "stage_options": options, "stage_requirements": required}, documents
 
 
+def restrict_adoption_output(evidence, question):
+    """可选 references 输出范围；完整事实/文档输入与默认旧合同均保持不变。"""
+    objects = {item["object_id"] for item in evidence.get("stage_requirements", [])
+               if item["role"] == "adoption_decision"}
+    if not objects or any(word in question.lower() for word in (
+            "区间", "置信", "不确定", "bootstrap", "confidence", "时间块")):
+        return evidence
+    options = []
+    for option in evidence["stage_options"]:
+        if option["object_id"] in objects and option["role"] == "final_holdout_result":
+            # 只限制不相关的输出绑定；不让模型失去看到原始区间证据的机会。
+            option = {**option, "allowed_fact_ids": [key for key in option["allowed_fact_ids"]
+                                                      if ".gain_ci_" not in key]}
+        options.append(option)
+    return {**evidence, "stage_options": options}
+
+
 def validate_stage_claims(draft, evidence):
     required = {(r["object_id"], r["role"]) for r in evidence.get("stage_requirements", [])}
     if not required and not draft.stage_claims:
@@ -128,11 +148,26 @@ def validate_stage_claims(draft, evidence):
             raise AssistantError("answer_stage_identity_invalid")
         seen.add(identity)
         option = options[identity]
+        if claim.role == "final_holdout_result" and any(".gain_ci_" in key for key in option["allowed_fact_ids"]):
+            # 合法引用身份不证明区间与采用门的关系；只拦截本项目有确切反证的混淆。
+            pattern = r"(?:开发采用门|采用门槛|采用门|开发门)(?:的|为|是|区间为|范围为|：)[^。！？;；\n]{0,60}\{\{c\d+\.gain_ci_(?:low|high)\}\}"
+            for match in re.finditer(pattern, claim.text):
+                before = re.sub(r"\s+", "", claim.text[:match.start()])
+                if before.endswith(("不是", "并非", "不属于", "不同于", "不等于", "不能作为", "不能当作")):
+                    continue
+                raise AssistantError("answer_stage_interval_gate_conflict", "置信区间是正式结果的不确定性，不是开发采用门；不能用区间判断采用。")
         used = set(re.findall(r"\{\{([^{}]+)\}\}", claim.text))
-        if used - set(option["allowed_fact_ids"]):
-            raise AssistantError("answer_stage_fact_conflict", "正式指标不能进入事前依据，开发指标不能冒充正式结果。")
+        invalid = used - set(option["allowed_fact_ids"])
+        if invalid:
+            stages = {f["id"]: f.get("stage", "unknown") for f in evidence["facts"]}
+            bad = ",".join(f"{key}({stages.get(key, 'unknown')})" for key in sorted(invalid))
+            raise AssistantError("answer_stage_fact_conflict",
+                f"{claim.role}不能使用{bad}；该段必须使用" + ",".join(option["required_fact_ids"]))
         if set(option["required_fact_ids"]) - used:
-            raise AssistantError("answer_stage_metric_missing", "此阶段正文缺少事实：" + ",".join(sorted(set(option["required_fact_ids"]) - used)))
+            missing = sorted(set(option["required_fact_ids"]) - used)
+            raise AssistantError("answer_stage_metric_missing",
+                claim.role + "的text缺少" + ",".join("{{" + key + "}}" for key in missing) +
+                "；请在该段用占位符解释事实，纯文字结论不代替绑定。")
         if set(claim.citations) - set(option["allowed_citations"]) or set(option["required_citations"]) - set(claim.citations):
             raise AssistantError("answer_stage_citation_conflict", "此阶段必须引用对应阶段原文，不能只附正式结果。")
         cited.update(claim.citations)
