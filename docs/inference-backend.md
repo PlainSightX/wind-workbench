@@ -102,6 +102,10 @@ PG只存输入指纹、调用状态及结果hash，**不保存答案用于重放
 ## 5. 验证和公开边界
 
 [测试说明](public-tests.md)区分默认离线/真实PG与显式真实GPU检查。
+测量器使用 Prometheus 的官方文本解析器；其版本/哈希在
+`infra/inference-tools-requirements.txt` 中与既有 `uv.lock` 绑定。
+`check-service.ps1` 仅将它装入临时验证容器的测试依赖目录，不修改运行中API或生产镜像。
+不能依靠维护者环境里Jupyter的间接安装证明公开CPU路径依赖齐全。
 `test_inference_entrypoint.py` 使用真实PG、TCP和宿主CLI，但模型目录由测试注入，
 不证明真实14B质量。I3的[真实服务结果](results/inference-i3-20261007/README.md)
 单独保留；I2的[配对缓存结果](results/inference-i2-20261006/README.md)请求合同不同，

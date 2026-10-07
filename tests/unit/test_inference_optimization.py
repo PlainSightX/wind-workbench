@@ -5,6 +5,8 @@ from copy import deepcopy
 import importlib.util
 import json
 from pathlib import Path
+import re
+import tomllib
 from types import SimpleNamespace
 from uuid import UUID
 
@@ -18,6 +20,19 @@ spec = importlib.util.spec_from_file_location("inference_optimization",
     Path(__file__).parents[2] / "tools/diagnostics/inference_optimization.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
+
+
+def test_metrics_tool_dependency_matches_the_checked_in_lock():
+    """工具依赖取自已有锁，测试容器显式消费；生产镜像不借 Jupyter 安装它。"""
+    root = Path(__file__).resolve().parents[2]
+    packages = tomllib.loads((root / "uv.lock").read_text("utf-8"))["package"]
+    package = next(row for row in packages if row["name"] == "prometheus-client")
+    requirements = (root / "infra/inference-tools-requirements.txt").read_text("utf-8")
+    assert f'prometheus-client=={package["version"]} \\' in requirements
+    assert set(re.findall(r"sha256:[a-f0-9]{64}", requirements)) == {
+        package["sdist"]["hash"], *[wheel["hash"] for wheel in package["wheels"]]}
+    check = (root / "tools/dev/check-service.ps1").read_text("utf-8")
+    assert "--require-hashes -r .local/runtime/test-requirements.txt -r infra/inference-tools-requirements.txt" in check
 
 
 def item():
