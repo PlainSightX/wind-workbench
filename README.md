@@ -35,6 +35,7 @@ pwsh -File tools/dev/prepare-assistant.ps1
 - [精选结果与限制](docs/public-results.md)：效果、负结果与独立复现的区别。
 - [测试入口](docs/public-tests.md)：普通软件、原模型、浏览器与显式付费问答。
 - [推理交付](docs/results/inference-i4-20261007/README.md)：可选后端与公开复现的验证范围。
+- [查询规划微调](docs/results/sft-obligation-8b-20261017/README.md)：8B LoRA与32B、DeepSeek-Flash的首答规划对照及局限。
 - [数据出处](data/README.md) 与 [第三方许可](THIRD-PARTY-NOTICES.md)。
 
 源码包含全部业务模块、迁移、产品测试和前端源文件；原模型附件单独交付，并随附
