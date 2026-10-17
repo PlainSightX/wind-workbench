@@ -1,0 +1,42 @@
+{
+  "status": "verified",
+  "verified_at": "2026-09-24T02:45:18.192274+00:00",
+  "result": {
+    "path": "docs/results/wind-engie-a2-20260923/result.json",
+    "sha256": "69bdb7d9c9ca05a8b6132789d5d1fb2939fa9bb8f83bcac3d6ced5f0273f4263",
+    "bytes": 150582
+  },
+  "protocol": {
+    "path": "docs/results/wind-engie-a2-20260923/protocol.json",
+    "sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe",
+    "bytes": 4473
+  },
+  "verifier": {
+    "path": "tools/diagnostics/verify_engie_a2.py",
+    "sha256": "766f405b2175e4015cc870f52333690471522ec26da171d6d2c7e2e61b196588",
+    "bytes": 9645
+  },
+  "fit_forbidden": true,
+  "windows": {
+    "2014-Q2": {
+      "max_reload_difference_kw": 0.0,
+      "legal_input_issues": 12932,
+      "scoreable_issues": 12880,
+      "selected_lambda": 0.5
+    },
+    "2014-Q3": {
+      "max_reload_difference_kw": 0.0,
+      "legal_input_issues": 13248,
+      "scoreable_issues": 13248,
+      "selected_lambda": 0.5
+    },
+    "2014-Q4": {
+      "max_reload_difference_kw": 0.0,
+      "legal_input_issues": 13045,
+      "scoreable_issues": 12991,
+      "selected_lambda": 1.0
+    }
+  },
+  "field_data_estimator_fits": 144,
+  "limits": "2014 development only; no 2015 scoring, CPU container/HTTP/UI integration or service update in A2"
+}

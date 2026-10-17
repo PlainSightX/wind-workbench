@@ -1,0 +1,2241 @@
+{
+  "status": "passed",
+  "training_forbidden": true,
+  "imports": [
+    {
+      "import_id": "eee2d6a7-0fa0-52b9-a008-a4e5c7af7a11",
+      "quarter": "2014-Q2",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-03-31T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "cc73d887-a3e5-5d7d-930b-7aca6a32bdae",
+          "family": "lightgbm",
+          "model_version": "2014-Q2-lightgbm-cdca24495c17",
+          "metrics": {
+            "mae": 475.29102670019495,
+            "bias": 131.08051488594407,
+            "rmse": 721.4737750330553,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "d90b5697-b486-5f97-b314-10c299c17f39",
+          "family": "persistence",
+          "model_version": "2014-Q2-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 431.0681527572765,
+            "bias": -0.13918801764460106,
+            "rmse": 705.3975790143735,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "5994bebf-e1e6-5948-a976-d11e667892fd",
+          "family": "ridge",
+          "model_version": "2014-Q2-ridge-17711bef78ec",
+          "metrics": {
+            "mae": 460.2694752884625,
+            "bias": 73.60471647036783,
+            "rmse": 682.0936710972162,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        }
+      ],
+      "families": [
+        "persistence",
+        "ridge",
+        "lightgbm"
+      ],
+      "scope": "development",
+      "evaluation": null
+    },
+    {
+      "import_id": "d44d3043-120c-509a-9c6f-22579696aec1",
+      "quarter": "2014-Q3",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-06-30T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "976bf767-51cc-51e3-bfc1-6e51adfe70e7",
+          "family": "lightgbm",
+          "model_version": "2014-Q3-lightgbm-9bd363437639",
+          "metrics": {
+            "mae": 365.56591453719705,
+            "bias": 85.69709036826764,
+            "rmse": 543.6277497854736,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "054925d4-ce7c-5301-b687-070924ce71c6",
+          "family": "persistence",
+          "model_version": "2014-Q3-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 338.277593092227,
+            "bias": 0.27716699313042176,
+            "rmse": 571.5340340806096,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "8da1cfab-6fee-553d-a008-3b06be9cc029",
+          "family": "ridge",
+          "model_version": "2014-Q3-ridge-241e0ca69ea0",
+          "metrics": {
+            "mae": 357.7406090625253,
+            "bias": 60.38198452295172,
+            "rmse": 545.690233542987,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        }
+      ],
+      "families": [
+        "persistence",
+        "ridge",
+        "lightgbm"
+      ],
+      "scope": "development",
+      "evaluation": null
+    },
+    {
+      "import_id": "2090728f-d80e-5d05-bba1-8d2e5a2fc230",
+      "quarter": "2014-Q4",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-09-30T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "9b8a628b-80b8-553e-b591-9a835d7d315c",
+          "family": "lightgbm",
+          "model_version": "2014-Q4-lightgbm-597fe2903c73",
+          "metrics": {
+            "mae": 415.30400839453216,
+            "bias": -34.66481548739831,
+            "rmse": 671.411863477402,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "a7b046af-3f9c-510d-9688-046b75237820",
+          "family": "persistence",
+          "model_version": "2014-Q4-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 398.60563091367425,
+            "bias": -0.6660314821509118,
+            "rmse": 682.0351257379134,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "e0ad242c-1f82-5169-9cd0-17b1d25ff736",
+          "family": "ridge",
+          "model_version": "2014-Q4-ridge-e7614101fc83",
+          "metrics": {
+            "mae": 415.6656137291707,
+            "bias": 5.32455761500868,
+            "rmse": 657.0638723609568,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        }
+      ],
+      "families": [
+        "persistence",
+        "ridge",
+        "lightgbm"
+      ],
+      "scope": "development",
+      "evaluation": null
+    },
+    {
+      "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+      "quarter": "2015-final",
+      "protocol_version": "engie-final-2015-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-12-31T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "7501cc0c-716a-5b89-a5ea-6dc53c726d36",
+          "family": "lightgbm",
+          "model_version": "2015-final-lightgbm-ef69f7b13225",
+          "metrics": {
+            "mae": 463.05233865238296,
+            "bias": -69.73659568757449,
+            "rmse": 724.7774600563396
+          },
+          "coverage": {
+            "planned": 52560,
+            "scoreable": 51072,
+            "input_valid": 51200,
+            "output_count": 51200,
+            "labels_complete": 51294,
+            "conflicting_input": 17,
+            "unavailable_input": 1360,
+            "scoreable_fraction": 0.971689497716895,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "9b25d61d-4322-58cc-a7a7-0bba4f5e8853",
+          "family": "lightgbm_l1",
+          "model_version": "2015-final-lightgbm_l1-cc375c57bd02",
+          "metrics": {
+            "mae": 447.42001429755425,
+            "bias": -140.6602330522849,
+            "rmse": 723.063841275754
+          },
+          "coverage": {
+            "planned": 52560,
+            "scoreable": 51072,
+            "input_valid": 51200,
+            "output_count": 51200,
+            "labels_complete": 51294,
+            "conflicting_input": 17,
+            "unavailable_input": 1360,
+            "scoreable_fraction": 0.971689497716895,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "family": "lightgbm_l1_shrink",
+          "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+          "metrics": {
+            "mae": 436.5202077610797,
+            "bias": -70.2365686765796,
+            "rmse": 707.1028646810985
+          },
+          "coverage": {
+            "planned": 52560,
+            "scoreable": 51072,
+            "input_valid": 51200,
+            "output_count": 51200,
+            "labels_complete": 51294,
+            "conflicting_input": 17,
+            "unavailable_input": 1360,
+            "scoreable_fraction": 0.971689497716895,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "f86ee5d0-c5df-53a1-8f85-ba53f1ad09d4",
+          "family": "persistence",
+          "model_version": "2015-final-persistence-d93a8e8bf49b",
+          "metrics": {
+            "mae": 449.95151533842,
+            "bias": 0.1870956991257094,
+            "rmse": 736.854000212656
+          },
+          "coverage": {
+            "planned": 52560,
+            "scoreable": 51072,
+            "input_valid": 51200,
+            "output_count": 51200,
+            "labels_complete": 51294,
+            "conflicting_input": 17,
+            "unavailable_input": 1360,
+            "scoreable_fraction": 0.971689497716895,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "87a332c2-ab22-5c45-9531-d5d654e2e6c1",
+          "family": "ridge",
+          "model_version": "2015-final-ridge-90bae565c1c4",
+          "metrics": {
+            "mae": 460.5817576537023,
+            "bias": -32.26032031911704,
+            "rmse": 711.6523897822855
+          },
+          "coverage": {
+            "planned": 52560,
+            "scoreable": 51072,
+            "input_valid": 51200,
+            "output_count": 51200,
+            "labels_complete": 51294,
+            "conflicting_input": 17,
+            "unavailable_input": 1360,
+            "scoreable_fraction": 0.971689497716895,
+            "protected_label_boundary": 6
+          }
+        }
+      ],
+      "families": [
+        "persistence",
+        "ridge",
+        "lightgbm",
+        "lightgbm_l1",
+        "lightgbm_l1_shrink"
+      ],
+      "scope": "final_2015",
+      "evaluation": {
+        "metric": "equal_quarter_farm_raw_kw_mae",
+        "bootstrap": {
+          "seven_day": {
+            "seed": 42,
+            "method": "paired_non_circular_quarter_stratified_percentile_equal_quarter_mae",
+            "samples": 2000,
+            "families": {
+              "ridge": {
+                "delta_mae_kw_95ci": [
+                  3.4675069469890487,
+                  14.981153623227856
+                ],
+                "gain_percent_95ci": [
+                  -3.499331207017349,
+                  -0.7671093447146528
+                ]
+              },
+              "lightgbm": {
+                "delta_mae_kw_95ci": [
+                  0.5668665092031858,
+                  21.94422846020918
+                ],
+                "gain_percent_95ci": [
+                  -4.955405935562016,
+                  -0.12784481570014394
+                ]
+              },
+              "lightgbm_l1": {
+                "delta_mae_kw_95ci": [
+                  -11.265893036593535,
+                  1.067431930754019
+                ],
+                "gain_percent_95ci": [
+                  -0.2410427446812502,
+                  2.586905083527374
+                ]
+              },
+              "persistence": {
+                "delta_mae_kw_95ci": [
+                  0.0,
+                  0.0
+                ],
+                "gain_percent_95ci": [
+                  0.0,
+                  0.0
+                ]
+              },
+              "lightgbm_l1_shrink": {
+                "delta_mae_kw_95ci": [
+                  -16.464990071062402,
+                  -12.015608536288239
+                ],
+                "gain_percent_95ci": [
+                  2.7470715729011412,
+                  3.6603999879727
+                ]
+              }
+            },
+            "block_steps": 1008
+          },
+          "one_day_sensitivity": {
+            "seed": 42,
+            "method": "paired_non_circular_quarter_stratified_percentile_equal_quarter_mae",
+            "samples": 2000,
+            "families": {
+              "ridge": {
+                "delta_mae_kw_95ci": [
+                  5.259887692499103,
+                  16.80314899913854
+                ],
+                "gain_percent_95ci": [
+                  -3.8533210333930312,
+                  -1.1545383330679329
+                ]
+              },
+              "lightgbm": {
+                "delta_mae_kw_95ci": [
+                  3.776345248593347,
+                  23.450848313019858
+                ],
+                "gain_percent_95ci": [
+                  -5.315228198382976,
+                  -0.844553322528367
+                ]
+              },
+              "lightgbm_l1": {
+                "delta_mae_kw_95ci": [
+                  -8.680239621998092,
+                  4.106339846691538
+                ],
+                "gain_percent_95ci": [
+                  -0.8966104903398864,
+                  1.9429915600444996
+                ]
+              },
+              "persistence": {
+                "delta_mae_kw_95ci": [
+                  0.0,
+                  0.0
+                ],
+                "gain_percent_95ci": [
+                  0.0,
+                  0.0
+                ]
+              },
+              "lightgbm_l1_shrink": {
+                "delta_mae_kw_95ci": [
+                  -15.846732648153075,
+                  -10.736432331184586
+                ],
+                "gain_percent_95ci": [
+                  2.4272519579729197,
+                  3.5007634690094673
+                ]
+              }
+            },
+            "block_steps": 144
+          }
+        },
+        "pooled_year": {
+          "ridge": {
+            "mae": 460.432503998789,
+            "bias": -31.509335604585218,
+            "rmse": 712.6022814871267,
+            "samples": 306432
+          },
+          "lightgbm": {
+            "mae": 462.8166006394826,
+            "bias": -69.3918919825324,
+            "rmse": 726.0593322897466,
+            "samples": 306432
+          },
+          "lightgbm_l1": {
+            "mae": 447.4071842452896,
+            "bias": -140.75182224366208,
+            "rmse": 724.3605710005163,
+            "samples": 306432
+          },
+          "persistence": {
+            "mae": 450.2184873215168,
+            "bias": 0.19048592519929852,
+            "rmse": 738.3701743936995,
+            "samples": 306432
+          },
+          "lightgbm_l1_shrink": {
+            "mae": 436.63560248010634,
+            "bias": -70.28066815923138,
+            "rmse": 708.1820449950649,
+            "samples": 306432
+          }
+        },
+        "result_sha256": "a1dffc413d0e2a1edc24652f17a5f755aa5488165f9e050a9ccffd573c79d962",
+        "primary_candidate": "lightgbm_l1_shrink",
+        "automatic_adoption": false,
+        "development_adoption_gate_passed": false
+      }
+    }
+  ],
+  "http_replay_checks": [
+    {
+      "scope": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-04-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-05-16T16:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-06-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-04-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-05-16T16:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-06-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-04-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-05-16T16:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-06-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-07-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-08-16T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-09-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-07-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-08-16T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-09-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-07-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-08-16T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-09-30T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-10-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-11-16T01:20:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-10-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-11-16T01:20:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-10-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-11-16T01:20:00+00:00"
+    },
+    {
+      "scope": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm",
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm",
+      "issue_time": "2015-07-06T19:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm",
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1",
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1",
+      "issue_time": "2015-07-06T19:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1",
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1_shrink",
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1_shrink",
+      "issue_time": "2015-07-06T19:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "lightgbm_l1_shrink",
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "persistence",
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "persistence",
+      "issue_time": "2015-07-06T19:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "persistence",
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "ridge",
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "ridge",
+      "issue_time": "2015-07-06T19:50:00+00:00"
+    },
+    {
+      "scope": "2015-final",
+      "family": "ridge",
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    }
+  ],
+  "cases": [
+    {
+      "kind": "late_result",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.05630368600031943,
+        "result_count": 1,
+        "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06825813000068592,
+        "status": "expired",
+        "accepted": false,
+        "record": {
+          "id": "7c85f37e-12b8-4632-9f87-52287235e226",
+          "request_key": "a3-v1-late_result-0",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-01-01T00:00:00+00:00",
+          "input_sha256": "2bd222808c027d350eecf9c6c77304e6036fdffefdfa3682a793a76aed44c3e5",
+          "budget_ms": 1,
+          "status": "expired",
+          "created_at": "2026-09-24T03:32:52.525219+00:00",
+          "deadline_at": "2026-09-24T03:32:52.526219+00:00",
+          "completed_at": "2026-09-24T03:32:52.574070+00:00",
+          "finalized_at": "2026-09-24T03:32:52.574070+00:00",
+          "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b",
+          "result": null,
+          "reason": "delivery_deadline_exceeded"
+        },
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "late_result",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.04217037199941842,
+        "result_count": 1,
+        "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.0640074659995662,
+        "status": "expired",
+        "accepted": false,
+        "record": {
+          "id": "5e6a0c62-e009-402c-aae7-3fd4ffce505d",
+          "request_key": "a3-v1-late_result-1",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-04-06T02:00:00+00:00",
+          "input_sha256": "f1de1f5e383241afa13e766a0b9a653ea1297208cffe73db103974f7a3ff6e8f",
+          "budget_ms": 1,
+          "status": "expired",
+          "created_at": "2026-09-24T03:32:52.785245+00:00",
+          "deadline_at": "2026-09-24T03:32:52.786245+00:00",
+          "completed_at": "2026-09-24T03:32:52.831634+00:00",
+          "finalized_at": "2026-09-24T03:32:52.831634+00:00",
+          "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f",
+          "result": null,
+          "reason": "delivery_deadline_exceeded"
+        },
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "late_result",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03842304499994498,
+        "result_count": 1,
+        "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06558091799979593,
+        "status": "expired",
+        "accepted": false,
+        "record": {
+          "id": "9700369f-7f71-474a-bd87-d6e120fdf06a",
+          "request_key": "a3-v1-late_result-4",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-12-31T23:50:00+00:00",
+          "input_sha256": "8fddee5af96610096e6867cb585f8b09706b161d621450cc09ab14a39becbffd",
+          "budget_ms": 1,
+          "status": "expired",
+          "created_at": "2026-09-24T03:32:53.038384+00:00",
+          "deadline_at": "2026-09-24T03:32:53.039384+00:00",
+          "completed_at": "2026-09-24T03:32:53.086305+00:00",
+          "finalized_at": "2026-09-24T03:32:53.086305+00:00",
+          "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2",
+          "result": null,
+          "reason": "delivery_deadline_exceeded"
+        },
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03917611599990778,
+        "result_count": 1,
+        "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06432156499977282,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "d56284aa-ba34-4864-a4dd-a464e756cd0e",
+          "request_key": "a3-v1-duplicate_result-0",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-01-01T00:00:00+00:00",
+          "input_sha256": "2bd222808c027d350eecf9c6c77304e6036fdffefdfa3682a793a76aed44c3e5",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:53.291398+00:00",
+          "deadline_at": "2026-09-24T03:33:53.291398+00:00",
+          "completed_at": "2026-09-24T03:32:53.337774+00:00",
+          "finalized_at": "2026-09-24T03:32:53.337774+00:00",
+          "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-01-01T00:00:00+00:00",
+            "source_cutoff": "2014-12-31T23:40:00+00:00",
+            "target_times": [
+              "2015-01-01T00:10:00+00:00",
+              "2015-01-01T00:20:00+00:00",
+              "2015-01-01T00:30:00+00:00",
+              "2015-01-01T00:40:00+00:00",
+              "2015-01-01T00:50:00+00:00",
+              "2015-01-01T01:00:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                223.13059828897013,
+                220.62303746319435,
+                228.59103140335202,
+                220.21049355500682,
+                223.2191769203485,
+                228.14708980250998
+              ],
+              [
+                238.1439814500785,
+                241.14335311756224,
+                241.39356392613053,
+                235.35127470262785,
+                229.5919249465586,
+                245.4003132188644
+              ],
+              [
+                207.15138924783656,
+                204.04412041978438,
+                201.4668954301336,
+                196.3089750978769,
+                193.6944031585427,
+                195.01923247234367
+              ],
+              [
+                268.5535295520517,
+                273.31625370169695,
+                270.50840204082584,
+                272.8021272607831,
+                270.36456965518016,
+                265.11872729006774
+              ]
+            ],
+            "farm_predictions": [
+              936.9794985389369,
+              939.1267647022379,
+              941.959892800442,
+              924.6728706162946,
+              916.87007468063,
+              933.6853627837859
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "2bd222808c027d350eecf9c6c77304e6036fdffefdfa3682a793a76aed44c3e5"
+          },
+          "reason": null
+        },
+        "result_count": 1,
+        "duplicate_result_finalizer_called": true
+      }
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00012371899993013358,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0015201829992292915,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00030620400048064766,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0014408939996428671,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "late_result",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03895666000062192,
+        "result_count": 1,
+        "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.0647943199992369,
+        "status": "expired",
+        "accepted": false,
+        "record": {
+          "id": "4d026910-0999-4e12-91c7-d8bac1b6dd32",
+          "request_key": "a3-v1-late_result-2",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-07-06T19:40:00+00:00",
+          "input_sha256": "504e40603154a0bb8dd275d90252f8e4a4ba194ed0a02a7a0b160e571773d4b3",
+          "budget_ms": 1,
+          "status": "expired",
+          "created_at": "2026-09-24T03:32:53.793495+00:00",
+          "deadline_at": "2026-09-24T03:32:53.794495+00:00",
+          "completed_at": "2026-09-24T03:32:53.840938+00:00",
+          "finalized_at": "2026-09-24T03:32:53.840938+00:00",
+          "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328",
+          "result": null,
+          "reason": "delivery_deadline_exceeded"
+        },
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.04124010699979408,
+        "result_count": 1,
+        "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06484802200066042,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "ddf1aba5-786d-41bf-bb3d-584684bb2e16",
+          "request_key": "a3-v1-duplicate_result-4",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-12-31T23:50:00+00:00",
+          "input_sha256": "8fddee5af96610096e6867cb585f8b09706b161d621450cc09ab14a39becbffd",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:54.051035+00:00",
+          "deadline_at": "2026-09-24T03:33:54.051035+00:00",
+          "completed_at": "2026-09-24T03:32:54.097848+00:00",
+          "finalized_at": "2026-09-24T03:32:54.097848+00:00",
+          "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-12-31T23:50:00+00:00",
+            "source_cutoff": "2015-12-31T23:30:00+00:00",
+            "target_times": [
+              "2016-01-01T00:00:00+00:00",
+              "2016-01-01T00:10:00+00:00",
+              "2016-01-01T00:20:00+00:00",
+              "2016-01-01T00:30:00+00:00",
+              "2016-01-01T00:40:00+00:00",
+              "2016-01-01T00:50:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                418.52859874958017,
+                403.22220207653595,
+                407.12836777696583,
+                415.4690029224015,
+                416.0405369308094,
+                406.0045990239198
+              ],
+              [
+                255.58180877963758,
+                259.0206709123763,
+                259.81890305718593,
+                261.4893846815728,
+                249.9705229525536,
+                265.465170475469
+              ],
+              [
+                143.88545368692544,
+                148.7438858851474,
+                142.01348726648598,
+                148.70390502702134,
+                142.18627126044743,
+                149.69321233544616
+              ],
+              [
+                267.4949310812003,
+                270.0289286606299,
+                261.80976618074817,
+                262.65696582761313,
+                260.31862326260074,
+                257.2685695415748
+              ]
+            ],
+            "farm_predictions": [
+              1085.4907922973434,
+              1081.0156875346895,
+              1070.7705242813859,
+              1088.3192584586086,
+              1068.5159544064113,
+              1078.4315513764097
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "8fddee5af96610096e6867cb585f8b09706b161d621450cc09ab14a39becbffd"
+          },
+          "reason": null
+        },
+        "result_count": 1,
+        "duplicate_result_finalizer_called": true
+      }
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.0001263250005649752,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0016144209994308767,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "stale_input",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00013135500012140255,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0013822999999320018,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "normal",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03852123599972401,
+        "result_count": 1,
+        "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06485497999983636,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "15b9fe8b-a651-41cc-aaef-95ec42a22017",
+          "request_key": "a3-v1-normal-3",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-10-03T20:40:00+00:00",
+          "input_sha256": "5ece404da12e5d6b229d55a46d7b459146e6282f19a652bc3e1030f6989705e1",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:54.565497+00:00",
+          "deadline_at": "2026-09-24T03:33:54.565497+00:00",
+          "completed_at": "2026-09-24T03:32:54.611463+00:00",
+          "finalized_at": "2026-09-24T03:32:54.611463+00:00",
+          "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-10-03T20:40:00+00:00",
+            "source_cutoff": "2015-10-03T20:20:00+00:00",
+            "target_times": [
+              "2015-10-03T20:50:00+00:00",
+              "2015-10-03T21:00:00+00:00",
+              "2015-10-03T21:10:00+00:00",
+              "2015-10-03T21:20:00+00:00",
+              "2015-10-03T21:30:00+00:00",
+              "2015-10-03T21:40:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                15.6634488947305,
+                24.58939282356731,
+                29.5284361065526,
+                29.096111676706087,
+                27.319346529781445,
+                19.2453606300097
+              ],
+              [
+                2.165046483938002,
+                3.392879584672671,
+                0.4415973790866248,
+                0.2943860696013012,
+                0.9848760824100149,
+                2.6067478681602205
+              ],
+              [
+                14.642282149281163,
+                28.947497543171504,
+                36.622934332025295,
+                26.29217981007315,
+                30.75093919210005,
+                24.885528141310278
+              ],
+              [
+                -1.2126097598036618,
+                1.4860243303096514,
+                -0.0058418986920230065,
+                1.811099305652225,
+                4.61723077976993,
+                8.798557090929094
+              ]
+            ],
+            "farm_predictions": [
+              31.258167768146002,
+              58.41579428172114,
+              66.58712591897249,
+              57.49377686203277,
+              63.67239258406144,
+              55.536193730409295
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "5ece404da12e5d6b229d55a46d7b459146e6282f19a652bc3e1030f6989705e1"
+          },
+          "reason": null
+        },
+        "result_count": 1
+      }
+    },
+    {
+      "kind": "normal",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03937519099963538,
+        "result_count": 1,
+        "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06398282400004973,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "f37b788e-0ecd-4481-8211-bbcc14271e78",
+          "request_key": "a3-v1-normal-0",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-01-01T00:00:00+00:00",
+          "input_sha256": "2bd222808c027d350eecf9c6c77304e6036fdffefdfa3682a793a76aed44c3e5",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:54.817642+00:00",
+          "deadline_at": "2026-09-24T03:33:54.817642+00:00",
+          "completed_at": "2026-09-24T03:32:54.863822+00:00",
+          "finalized_at": "2026-09-24T03:32:54.863822+00:00",
+          "result_sha256": "2c3203c7fcceb48defa1ff225f829ba20465a4a2242aa921d4fa95a03d02a84b",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-01-01T00:00:00+00:00",
+            "source_cutoff": "2014-12-31T23:40:00+00:00",
+            "target_times": [
+              "2015-01-01T00:10:00+00:00",
+              "2015-01-01T00:20:00+00:00",
+              "2015-01-01T00:30:00+00:00",
+              "2015-01-01T00:40:00+00:00",
+              "2015-01-01T00:50:00+00:00",
+              "2015-01-01T01:00:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                223.13059828897013,
+                220.62303746319435,
+                228.59103140335202,
+                220.21049355500682,
+                223.2191769203485,
+                228.14708980250998
+              ],
+              [
+                238.1439814500785,
+                241.14335311756224,
+                241.39356392613053,
+                235.35127470262785,
+                229.5919249465586,
+                245.4003132188644
+              ],
+              [
+                207.15138924783656,
+                204.04412041978438,
+                201.4668954301336,
+                196.3089750978769,
+                193.6944031585427,
+                195.01923247234367
+              ],
+              [
+                268.5535295520517,
+                273.31625370169695,
+                270.50840204082584,
+                272.8021272607831,
+                270.36456965518016,
+                265.11872729006774
+              ]
+            ],
+            "farm_predictions": [
+              936.9794985389369,
+              939.1267647022379,
+              941.959892800442,
+              924.6728706162946,
+              916.87007468063,
+              933.6853627837859
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "2bd222808c027d350eecf9c6c77304e6036fdffefdfa3682a793a76aed44c3e5"
+          },
+          "reason": null
+        },
+        "result_count": 1
+      }
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03959989699978905,
+        "result_count": 1,
+        "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06258743200032768,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "16399cbc-d5d8-4956-ba03-47e080b85de8",
+          "request_key": "a3-v1-duplicate_result-1",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-04-06T02:00:00+00:00",
+          "input_sha256": "f1de1f5e383241afa13e766a0b9a653ea1297208cffe73db103974f7a3ff6e8f",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:55.073065+00:00",
+          "deadline_at": "2026-09-24T03:33:55.073065+00:00",
+          "completed_at": "2026-09-24T03:32:55.118971+00:00",
+          "finalized_at": "2026-09-24T03:32:55.118971+00:00",
+          "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-04-06T02:00:00+00:00",
+            "source_cutoff": "2015-04-06T01:40:00+00:00",
+            "target_times": [
+              "2015-04-06T02:10:00+00:00",
+              "2015-04-06T02:20:00+00:00",
+              "2015-04-06T02:30:00+00:00",
+              "2015-04-06T02:40:00+00:00",
+              "2015-04-06T02:50:00+00:00",
+              "2015-04-06T03:00:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                292.84193856300544,
+                295.50769288262194,
+                294.0077368886899,
+                300.4830370526572,
+                291.3121782126971,
+                278.3779662353304
+              ],
+              [
+                172.790148302106,
+                173.4894781563264,
+                174.07707803171465,
+                174.9068259139196,
+                172.60225936781958,
+                168.79628201599638
+              ],
+              [
+                122.51094778432764,
+                123.74299672822072,
+                128.30112662019957,
+                127.54175679485061,
+                125.23941721666827,
+                128.61135675904424
+              ],
+              [
+                271.0917682612245,
+                267.2529778523766,
+                267.7275094685499,
+                268.8932287758887,
+                268.4038573534374,
+                265.5097256802572
+              ]
+            ],
+            "farm_predictions": [
+              859.2348029106636,
+              859.9931456195457,
+              864.113451009154,
+              871.8248485373161,
+              857.5577121506224,
+              841.2953306906281
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "f1de1f5e383241afa13e766a0b9a653ea1297208cffe73db103974f7a3ff6e8f"
+          },
+          "reason": null
+        },
+        "result_count": 1,
+        "duplicate_result_finalizer_called": true
+      }
+    },
+    {
+      "kind": "late_result",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03886612899987085,
+        "result_count": 1,
+        "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06539101900034439,
+        "status": "expired",
+        "accepted": false,
+        "record": {
+          "id": "966fd4e2-5a2b-4ea7-ba8e-5182170d7f47",
+          "request_key": "a3-v1-late_result-3",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-10-03T20:40:00+00:00",
+          "input_sha256": "5ece404da12e5d6b229d55a46d7b459146e6282f19a652bc3e1030f6989705e1",
+          "budget_ms": 1,
+          "status": "expired",
+          "created_at": "2026-09-24T03:32:55.333181+00:00",
+          "deadline_at": "2026-09-24T03:32:55.334181+00:00",
+          "completed_at": "2026-09-24T03:32:55.380265+00:00",
+          "finalized_at": "2026-09-24T03:32:55.380265+00:00",
+          "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7",
+          "result": null,
+          "reason": "delivery_deadline_exceeded"
+        },
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "stale_input",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00015841799995541805,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0015149979999478091,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00012911999965581344,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0013675320005859248,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "stale_input",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.00013042299997323425,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0014401079997696797,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "stale_input",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.0002842009998857975,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0013931319999755942,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.04044289699959336,
+        "result_count": 1,
+        "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06382992599992576,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "5df34ae6-5055-48d0-8b16-7534e136eef4",
+          "request_key": "a3-v1-duplicate_result-3",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-10-03T20:40:00+00:00",
+          "input_sha256": "5ece404da12e5d6b229d55a46d7b459146e6282f19a652bc3e1030f6989705e1",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:56.097959+00:00",
+          "deadline_at": "2026-09-24T03:33:56.097959+00:00",
+          "completed_at": "2026-09-24T03:32:56.143973+00:00",
+          "finalized_at": "2026-09-24T03:32:56.143973+00:00",
+          "result_sha256": "52fd9db657daba61dc6433d20cb012ddaec8659cb7d3ddc0cdb26e25a1024bf7",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-10-03T20:40:00+00:00",
+            "source_cutoff": "2015-10-03T20:20:00+00:00",
+            "target_times": [
+              "2015-10-03T20:50:00+00:00",
+              "2015-10-03T21:00:00+00:00",
+              "2015-10-03T21:10:00+00:00",
+              "2015-10-03T21:20:00+00:00",
+              "2015-10-03T21:30:00+00:00",
+              "2015-10-03T21:40:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                15.6634488947305,
+                24.58939282356731,
+                29.5284361065526,
+                29.096111676706087,
+                27.319346529781445,
+                19.2453606300097
+              ],
+              [
+                2.165046483938002,
+                3.392879584672671,
+                0.4415973790866248,
+                0.2943860696013012,
+                0.9848760824100149,
+                2.6067478681602205
+              ],
+              [
+                14.642282149281163,
+                28.947497543171504,
+                36.622934332025295,
+                26.29217981007315,
+                30.75093919210005,
+                24.885528141310278
+              ],
+              [
+                -1.2126097598036618,
+                1.4860243303096514,
+                -0.0058418986920230065,
+                1.811099305652225,
+                4.61723077976993,
+                8.798557090929094
+              ]
+            ],
+            "farm_predictions": [
+              31.258167768146002,
+              58.41579428172114,
+              66.58712591897249,
+              57.49377686203277,
+              63.67239258406144,
+              55.536193730409295
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "5ece404da12e5d6b229d55a46d7b459146e6282f19a652bc3e1030f6989705e1"
+          },
+          "reason": null
+        },
+        "result_count": 1,
+        "duplicate_result_finalizer_called": true
+      }
+    },
+    {
+      "kind": "normal",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03920131000086258,
+        "result_count": 1,
+        "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06503310500011139,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "7862da1f-a12f-4d89-a538-5ccb5d9790bf",
+          "request_key": "a3-v1-normal-2",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-07-06T19:40:00+00:00",
+          "input_sha256": "504e40603154a0bb8dd275d90252f8e4a4ba194ed0a02a7a0b160e571773d4b3",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:56.360777+00:00",
+          "deadline_at": "2026-09-24T03:33:56.360777+00:00",
+          "completed_at": "2026-09-24T03:32:56.407528+00:00",
+          "finalized_at": "2026-09-24T03:32:56.407528+00:00",
+          "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-07-06T19:40:00+00:00",
+            "source_cutoff": "2015-07-06T19:20:00+00:00",
+            "target_times": [
+              "2015-07-06T19:50:00+00:00",
+              "2015-07-06T20:00:00+00:00",
+              "2015-07-06T20:10:00+00:00",
+              "2015-07-06T20:20:00+00:00",
+              "2015-07-06T20:30:00+00:00",
+              "2015-07-06T20:40:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                109.6583789032634,
+                106.04704906570925,
+                112.79942678050105,
+                107.5777485596711,
+                109.19910707755184,
+                118.30412715894539
+              ],
+              [
+                83.7069960871149,
+                81.22743384762757,
+                81.18945640774953,
+                83.02891368053486,
+                85.22945526981954,
+                83.82489128449879
+              ],
+              [
+                72.86353065439093,
+                69.42279350476163,
+                73.63793914190762,
+                73.37881845213533,
+                77.85458381357046,
+                78.00286968888264
+              ],
+              [
+                100.89284565939221,
+                96.18961047575641,
+                94.69118026216901,
+                96.18093742948474,
+                95.07635887070079,
+                98.53901275438649
+              ]
+            ],
+            "farm_predictions": [
+              367.1217513041615,
+              352.88688689385486,
+              362.3180025923273,
+              360.16641812182604,
+              367.35950503164264,
+              378.6709008867133
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "504e40603154a0bb8dd275d90252f8e4a4ba194ed0a02a7a0b160e571773d4b3"
+          },
+          "reason": null
+        },
+        "result_count": 1
+      }
+    },
+    {
+      "kind": "normal",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.04048471299938683,
+        "result_count": 1,
+        "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.06677448800019192,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "3afcbe03-3a50-4d96-a06a-54ff8e862a3b",
+          "request_key": "a3-v1-normal-4",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-12-31T23:50:00+00:00",
+          "input_sha256": "8fddee5af96610096e6867cb585f8b09706b161d621450cc09ab14a39becbffd",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:56.616014+00:00",
+          "deadline_at": "2026-09-24T03:33:56.616014+00:00",
+          "completed_at": "2026-09-24T03:32:56.664303+00:00",
+          "finalized_at": "2026-09-24T03:32:56.664303+00:00",
+          "result_sha256": "4fac0ae09247cd9c7e4559c7755019450fe7410191bd15697ff80ca0e80611c2",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-12-31T23:50:00+00:00",
+            "source_cutoff": "2015-12-31T23:30:00+00:00",
+            "target_times": [
+              "2016-01-01T00:00:00+00:00",
+              "2016-01-01T00:10:00+00:00",
+              "2016-01-01T00:20:00+00:00",
+              "2016-01-01T00:30:00+00:00",
+              "2016-01-01T00:40:00+00:00",
+              "2016-01-01T00:50:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                418.52859874958017,
+                403.22220207653595,
+                407.12836777696583,
+                415.4690029224015,
+                416.0405369308094,
+                406.0045990239198
+              ],
+              [
+                255.58180877963758,
+                259.0206709123763,
+                259.81890305718593,
+                261.4893846815728,
+                249.9705229525536,
+                265.465170475469
+              ],
+              [
+                143.88545368692544,
+                148.7438858851474,
+                142.01348726648598,
+                148.70390502702134,
+                142.18627126044743,
+                149.69321233544616
+              ],
+              [
+                267.4949310812003,
+                270.0289286606299,
+                261.80976618074817,
+                262.65696582761313,
+                260.31862326260074,
+                257.2685695415748
+              ]
+            ],
+            "farm_predictions": [
+              1085.4907922973434,
+              1081.0156875346895,
+              1070.7705242813859,
+              1088.3192584586086,
+              1068.5159544064113,
+              1078.4315513764097
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "8fddee5af96610096e6867cb585f8b09706b161d621450cc09ab14a39becbffd"
+          },
+          "reason": null
+        },
+        "result_count": 1
+      }
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.04369491400029801,
+        "result_count": 1,
+        "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.07284690400047111,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "73987bab-3c1b-4177-b0ae-e6f2d28fa6d2",
+          "request_key": "a3-v1-duplicate_result-2",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-07-06T19:40:00+00:00",
+          "input_sha256": "504e40603154a0bb8dd275d90252f8e4a4ba194ed0a02a7a0b160e571773d4b3",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:56.885796+00:00",
+          "deadline_at": "2026-09-24T03:33:56.885796+00:00",
+          "completed_at": "2026-09-24T03:32:56.938877+00:00",
+          "finalized_at": "2026-09-24T03:32:56.938877+00:00",
+          "result_sha256": "7fd3e4ee4f0258340a57f9581b1a2dca3cce3f796ce9be8670b8469ff649b328",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-07-06T19:40:00+00:00",
+            "source_cutoff": "2015-07-06T19:20:00+00:00",
+            "target_times": [
+              "2015-07-06T19:50:00+00:00",
+              "2015-07-06T20:00:00+00:00",
+              "2015-07-06T20:10:00+00:00",
+              "2015-07-06T20:20:00+00:00",
+              "2015-07-06T20:30:00+00:00",
+              "2015-07-06T20:40:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                109.6583789032634,
+                106.04704906570925,
+                112.79942678050105,
+                107.5777485596711,
+                109.19910707755184,
+                118.30412715894539
+              ],
+              [
+                83.7069960871149,
+                81.22743384762757,
+                81.18945640774953,
+                83.02891368053486,
+                85.22945526981954,
+                83.82489128449879
+              ],
+              [
+                72.86353065439093,
+                69.42279350476163,
+                73.63793914190762,
+                73.37881845213533,
+                77.85458381357046,
+                78.00286968888264
+              ],
+              [
+                100.89284565939221,
+                96.18961047575641,
+                94.69118026216901,
+                96.18093742948474,
+                95.07635887070079,
+                98.53901275438649
+              ]
+            ],
+            "farm_predictions": [
+              367.1217513041615,
+              352.88688689385486,
+              362.3180025923273,
+              360.16641812182604,
+              367.35950503164264,
+              378.6709008867133
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "504e40603154a0bb8dd275d90252f8e4a4ba194ed0a02a7a0b160e571773d4b3"
+          },
+          "reason": null
+        },
+        "result_count": 1,
+        "duplicate_result_finalizer_called": true
+      }
+    },
+    {
+      "kind": "normal",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00",
+      "baseline": {
+        "accepted": true,
+        "status": "returned",
+        "seconds": 0.03972286999942298,
+        "result_count": 1,
+        "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f"
+      },
+      "service": {
+        "http_status": 200,
+        "seconds": 0.0647848589997011,
+        "status": "published",
+        "accepted": true,
+        "record": {
+          "id": "0fa605d2-4bff-423f-a30a-a3a1211394d3",
+          "request_key": "a3-v1-normal-1",
+          "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+          "issue_time": "2015-04-06T02:00:00+00:00",
+          "input_sha256": "f1de1f5e383241afa13e766a0b9a653ea1297208cffe73db103974f7a3ff6e8f",
+          "budget_ms": 60000,
+          "status": "published",
+          "created_at": "2026-09-24T03:32:57.169603+00:00",
+          "deadline_at": "2026-09-24T03:33:57.169603+00:00",
+          "completed_at": "2026-09-24T03:32:57.216463+00:00",
+          "finalized_at": "2026-09-24T03:32:57.216463+00:00",
+          "result_sha256": "c0be9702e9d9beaa01dae879e23e40c2f636d8b47c47c9036af868175797f31f",
+          "result": {
+            "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+            "import_id": "b9ae2524-9abb-5ba1-98c7-e80c066e15d9",
+            "family": "lightgbm_l1_shrink",
+            "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+            "issue_time": "2015-04-06T02:00:00+00:00",
+            "source_cutoff": "2015-04-06T01:40:00+00:00",
+            "target_times": [
+              "2015-04-06T02:10:00+00:00",
+              "2015-04-06T02:20:00+00:00",
+              "2015-04-06T02:30:00+00:00",
+              "2015-04-06T02:40:00+00:00",
+              "2015-04-06T02:50:00+00:00",
+              "2015-04-06T03:00:00+00:00"
+            ],
+            "roster": [
+              "R80711",
+              "R80721",
+              "R80736",
+              "R80790"
+            ],
+            "predictions": [
+              [
+                292.84193856300544,
+                295.50769288262194,
+                294.0077368886899,
+                300.4830370526572,
+                291.3121782126971,
+                278.3779662353304
+              ],
+              [
+                172.790148302106,
+                173.4894781563264,
+                174.07707803171465,
+                174.9068259139196,
+                172.60225936781958,
+                168.79628201599638
+              ],
+              [
+                122.51094778432764,
+                123.74299672822072,
+                128.30112662019957,
+                127.54175679485061,
+                125.23941721666827,
+                128.61135675904424
+              ],
+              [
+                271.0917682612245,
+                267.2529778523766,
+                267.7275094685499,
+                268.8932287758887,
+                268.4038573534374,
+                265.5097256802572
+              ]
+            ],
+            "farm_predictions": [
+              859.2348029106636,
+              859.9931456195457,
+              864.113451009154,
+              871.8248485373161,
+              857.5577121506224,
+              841.2953306906281
+            ],
+            "unit": "kW",
+            "clock": "UTC",
+            "training_label_available": "2014-12-31T23:50:00+00:00",
+            "input_sha256": "f1de1f5e383241afa13e766a0b9a653ea1297208cffe73db103974f7a3ff6e8f"
+          },
+          "reason": null
+        },
+        "result_count": 1
+      }
+    },
+    {
+      "kind": "stale_input",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.0001151630003732862,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0014305849999800557,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00",
+      "baseline": {
+        "accepted": false,
+        "status": "invalid_input",
+        "seconds": 0.0001458730002923403,
+        "result_count": 0
+      },
+      "service": {
+        "http_status": 422,
+        "seconds": 0.0016444140001112828,
+        "status": "invalid_input",
+        "accepted": false,
+        "result_count": 0
+      }
+    }
+  ],
+  "summary": {
+    "normal": {
+      "planned": 5,
+      "baseline": {
+        "accepted": 5,
+        "results": 5,
+        "total_seconds": 0.19730531999903178
+      },
+      "service": {
+        "accepted": 5,
+        "results": 5,
+        "total_seconds": 0.3254302559998905
+      }
+    },
+    "missing_turbine": {
+      "planned": 5,
+      "baseline": {
+        "accepted": 0,
+        "results": 0,
+        "total_seconds": 0.0008312410009239102
+      },
+      "service": {
+        "accepted": 0,
+        "results": 0,
+        "total_seconds": 0.007587443999000243
+      }
+    },
+    "stale_input": {
+      "planned": 5,
+      "baseline": {
+        "accepted": 0,
+        "results": 0,
+        "total_seconds": 0.0008195600003091386
+      },
+      "service": {
+        "accepted": 0,
+        "results": 0,
+        "total_seconds": 0.007161122999605141
+      }
+    },
+    "late_result": {
+      "planned": 5,
+      "baseline": {
+        "accepted": 5,
+        "results": 5,
+        "total_seconds": 0.2147198920001756
+      },
+      "service": {
+        "accepted": 0,
+        "results": 0,
+        "total_seconds": 0.32803185299962934
+      }
+    },
+    "duplicate_result": {
+      "planned": 5,
+      "baseline": {
+        "accepted": 5,
+        "results": 5,
+        "total_seconds": 0.20415393099938228
+      },
+      "service": {
+        "accepted": 5,
+        "results": 5,
+        "total_seconds": 0.3284338490011578
+      }
+    }
+  },
+  "q1_snapshot_unchanged": {
+    "experiment_tasks": {
+      "count": 17,
+      "sha256": "8adc208c8c2a22c45fd6b53a356fe0a65c7d00d4052a72ba34a4c8bac8a2a1f5"
+    },
+    "experiment_attempts": {
+      "count": 18,
+      "sha256": "2c8ebd12fa76487607b639c9265874af68ed3a8093cff6e675d406e34b1e1b95"
+    },
+    "experiment_runs": {
+      "count": 17,
+      "sha256": "e98f55adea8427c4e213b78d85bbd95388f0f86a31caf1992782e5591e284517"
+    },
+    "model_artifacts": {
+      "count": 23,
+      "sha256": "fed86b1f9cfc88dde5a2e3e2a962c8c726d1fbea5f721437edbed4a2c8145b51"
+    }
+  },
+  "scope": "same Linux CPU, same final scored bytes, same input validator and predictor; script retains in-memory dedup; service adds durable deadline publication",
+  "limits": "1ms accelerated fault not production SLA; baseline compute and HTTP total timings are different boundaries; no superiority claim against mature serving systems; completed_at is PG observation after finalizer lock"
+}

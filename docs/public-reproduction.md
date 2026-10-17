@@ -37,7 +37,7 @@ pwsh -File tools/dev/check-service.ps1 -ReportName public-flow
 [数据说明](../data/README.md)及[架构](public-architecture.md)。
 
 任务失败时先保留 task/attempt 身份和错误码，不以相同页面操作反复提交替代恢复。
-系统处理允许的投递/租约恢复；“原样重跑”用户主动结对入口仍未实现，不能声称已可点击。
+系统处理允许的投递/租约恢复；“原样重跑”入口尚未实现。
 结果助手需要单独配置 provider，失败或证据不足会明确返回状态；它不决定预测或模型采用。
 用户负责选择实验/模型/问题及审阅结论，系统负责冻结配置、调度、身份校验和持久交付。
 
@@ -172,7 +172,7 @@ docker run --rm --network "container:$api" `
 
 本地实测支持Windows PowerShell 7 + Docker Desktop Linux CPU容器；没有在纯Linux宿主
 运行初始化脚本。自有代码的MIT与第三方许可边界已明确，附件原字节不变，
-本地结果与负例见 [W2记录](public-release-w2.md)；远端CI结果以对应提交的Actions为准。
+本地结果与负例见 [复现核验记录](public-verification.md)；远端CI结果以对应提交的Actions为准。
 
 维护者从原件导出附件使用 `prepare_engie_replay.py export --output <新ZIP路径>`，
 开发包另加 `--release development-2014`。它需要历史原件，是维护者入口，不是外部使用前提。

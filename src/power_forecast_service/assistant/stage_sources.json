@@ -5,7 +5,7 @@
     "selection_source": {"path": "docs/results/wind-sequence-round4/selection.json", "sha256": "d61bc6a7719581dc56d9ba7b7ae0e7c15aed26c293f5edfb134fead33cfa5947"},
     "mean_mae": {"persistence": 193.23054407713502, "ridge_0_1": 181.31763742218516, "transformer_delta": 237.08799800666642, "transformer_direct": 238.7830981860378},
     "pre_selection_evidence": ["q1-10daf2f9717575c0", "q1-7e03be98f3c7e6eb"],
-    "final_holdout_evidence": ["q1-8268c7c7ac0e2d51", "q1-484d6e44163cdbae"]
+    "final_holdout_evidence": ["q1-8268c7c7ac0e2d51", "q1-43778078645cf643"]
   },
   "engie": {
     "result_sha256": "a1dffc413d0e2a1edc24652f17a5f755aa5488165f9e050a9ccffd573c79d962",
@@ -15,14 +15,14 @@
     "development_mae_gain_percent": 1.7999357758374024,
     "minimum_mae_gain_percent": 3.0,
     "development_adopted": false,
-    "development_evidence": ["a2-a0e9352d9bbf7d09"],
-    "final_holdout_evidence": ["a3-8f352bd1dee97182"],
+    "development_evidence": ["a2-451a752e0f6e463c"],
+    "final_holdout_evidence": ["a3-d818e5a8b0e2945c"],
     "time_contract": {
       "source": {"path": "docs/results/wind-engie-baseline-20260923/protocol.json", "sha256": "04091c20fe930941a49401e7d87e6d06b07b419ce88ee1d6ddcca468a98b58a8"},
       "arrival_lag_minutes": 20,
       "target_minutes_after_issue": [10, 20, 30, 40, 50, 60],
       "delay_basis": "模拟假设，非真实到达延迟测量",
-      "method_source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "method_source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "citations": ["engie-1e630b893889c121", "engie-5571ab3fa3d29383"]
     }
   }

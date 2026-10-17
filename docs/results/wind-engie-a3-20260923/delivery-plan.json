@@ -1,0 +1,177 @@
+{
+  "plan": [
+    {
+      "kind": "late_result",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "kind": "late_result",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00"
+    },
+    {
+      "kind": "late_result",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00"
+    },
+    {
+      "kind": "late_result",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00"
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00"
+    },
+    {
+      "kind": "stale_input",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "kind": "normal",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00"
+    },
+    {
+      "kind": "normal",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00"
+    },
+    {
+      "kind": "late_result",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00"
+    },
+    {
+      "kind": "stale_input",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00"
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 0,
+      "case": 0,
+      "issue_time": "2015-01-01T00:00:00+00:00"
+    },
+    {
+      "kind": "stale_input",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00"
+    },
+    {
+      "kind": "stale_input",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00"
+    },
+    {
+      "kind": "normal",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00"
+    },
+    {
+      "kind": "normal",
+      "position": 51199,
+      "case": 4,
+      "issue_time": "2015-12-31T23:50:00+00:00"
+    },
+    {
+      "kind": "duplicate_result",
+      "position": 25599,
+      "case": 2,
+      "issue_time": "2015-07-06T19:40:00+00:00"
+    },
+    {
+      "kind": "normal",
+      "position": 12799,
+      "case": 1,
+      "issue_time": "2015-04-06T02:00:00+00:00"
+    },
+    {
+      "kind": "stale_input",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00"
+    },
+    {
+      "kind": "missing_turbine",
+      "position": 38399,
+      "case": 3,
+      "issue_time": "2015-10-03T20:40:00+00:00"
+    }
+  ],
+  "model": {
+    "artifact_id": "2b0c50a8-f73f-5c64-b1ba-2524edbc28c1",
+    "family": "lightgbm_l1_shrink",
+    "model_version": "2015-final-lightgbm_l1_shrink-f0bd5a9a08c5",
+    "metrics": {
+      "mae": 436.5202077610797,
+      "bias": -70.2365686765796,
+      "rmse": 707.1028646810985
+    },
+    "coverage": {
+      "planned": 52560,
+      "scoreable": 51072,
+      "input_valid": 51200,
+      "output_count": 51200,
+      "labels_complete": 51294,
+      "conflicting_input": 17,
+      "unavailable_input": 1360,
+      "scoreable_fraction": 0.971689497716895,
+      "protected_label_boundary": 6
+    }
+  },
+  "selection": "five evenly spaced legal indices; no score filtering",
+  "seed": 42
+}

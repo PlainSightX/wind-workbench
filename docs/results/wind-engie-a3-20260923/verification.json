@@ -1,0 +1,22 @@
+{
+  "verified_at": "2026-09-24T03:21:13.993565+00:00",
+  "training_forbidden": true,
+  "result": {
+    "path": "docs/results/wind-engie-a3-20260923/result.json",
+    "sha256": "a1dffc413d0e2a1edc24652f17a5f755aa5488165f9e050a9ccffd573c79d962",
+    "bytes": 228454
+  },
+  "protocol_sha256": "e643018e4135f66fe86081a9be5b434149f5974865f0e95c204b17d50e9b3da2",
+  "legal_issues": 51200,
+  "scoreable_issues": 51072,
+  "max_abs_difference_kw": {
+    "persistence": 0.0,
+    "ridge": 0.0,
+    "lightgbm": 0.0,
+    "lightgbm_l1": 0.0,
+    "lightgbm_l1_shrink": 0.0
+  },
+  "all_metrics_groups_denominators": "passed",
+  "bootstrap_independent_expanded_indices": "passed",
+  "selection_scaler_and_temporal_boundary": "passed"
+}

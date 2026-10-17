@@ -1,0 +1,30 @@
+{
+  "result": "passed",
+  "scoreable_issue_count": 39119,
+  "scored_turbine_horizon_values_per_model": 938856,
+  "reload_max_differences": {
+    "2014-Q2/persistence": 0.0,
+    "2014-Q2/ridge": 0.0,
+    "2014-Q2/lightgbm": 0.0,
+    "2014-Q3/persistence": 0.0,
+    "2014-Q3/ridge": 0.0,
+    "2014-Q3/lightgbm": 0.0,
+    "2014-Q4/persistence": 0.0,
+    "2014-Q4/ridge": 0.0,
+    "2014-Q4/lightgbm": 0.0
+  },
+  "estimator_fit_counts": {
+    "2014-Q2/persistence": 0,
+    "2014-Q2/ridge": 16,
+    "2014-Q2/lightgbm": 48,
+    "2014-Q3/persistence": 0,
+    "2014-Q3/ridge": 16,
+    "2014-Q3/lightgbm": 48,
+    "2014-Q4/persistence": 0,
+    "2014-Q4/ridge": 16,
+    "2014-Q4/lightgbm": 48
+  },
+  "verification_fits": 0,
+  "holdout_scored": false,
+  "scope": "same_source_contract_denominators_raw_metrics_frozen_selections_fresh_process_no_fit_reload"
+}

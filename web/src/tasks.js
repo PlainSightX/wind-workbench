@@ -77,7 +77,7 @@ async function showTask(id) {
       ${task.error_code ? `<p class="error-text">${escape(reason(task.error_code))}</p>` : ""}
       <h3>执行记录</h3>${task.attempts.length ? `<ol class="attempts">${task.attempts.map((a) => `<li><strong>第 ${a.number} 次</strong><span>${escape(statusName(a.status))}</span>${a.error_code ? `<small>${escape(reason(a.error_code))}</small>` : ""}</li>`).join("")}</ol>` : '<p class="muted">尚未创建执行记录。</p>'}
       ${task.result_url ? '<a class="action-link" href="#compare">比较已登记结果 <span aria-hidden="true">→</span></a>' : ""}
-      ${task.status === "failed" ? '<button disabled title="待用户触发结对接入">原样重跑（待接入）</button>' : ""}
+      ${task.status === "failed" ? '<button disabled title="尚未实现">原样重跑（待接入）</button>' : ""}
       <details><summary>追溯信息</summary><dl><dt>任务编号</dt><dd class="mono">${escape(task.task_id)}</dd><dt>最新状态时间</dt><dd>${escape(auditTime(task.updated_at))}</dd><dt>错误码</dt><dd class="mono">${escape(task.error_code || "无")}</dd></dl></details>`;
   } catch (error) {
     if (token === detailToken) {

@@ -77,7 +77,7 @@ def preflight(record, output, checker):
     if not any(relative == p.rstrip("/") or relative.startswith(p.rstrip("/") + "/")
                for p in package["allowed_paths"]):
         raise ValueError("output_outside_package")
-    # 历史负载执行属于维护者工作包，不猜测兄弟仓库；纯分析函数仍可独立复用。
+    # 历史负载执行需要维护者保留的冻结输入；纯分析函数仍可独立复用。
     if checker is None or not checker.is_file():
         raise ValueError("maintainer_checker_required: pass --checker explicitly")
     command([sys.executable, str(checker), "--record", str(record), "--check-environment"], 30)
@@ -751,7 +751,7 @@ def main():
     parser.add_argument("action", choices=("prepare", "run", "analyze"))
     parser.add_argument("--record", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--checker", type=Path, help="维护者工作包检查器；历史负载入口不属于公开启动流程")
+    parser.add_argument("--checker", type=Path, help="维护者保留的检查器；历史负载入口不属于公开启动流程")
     parser.add_argument("--base-url", default=os.getenv("WIND_TEST_BASE_URL", "http://127.0.0.1:18000"))
     args = parser.parse_args()
     preflight(args.record.resolve(), args.output.resolve(), args.checker)

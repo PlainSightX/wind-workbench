@@ -1,0 +1,291 @@
+{
+  "status": "admitted",
+  "minimum_coverage": 0.8,
+  "scope": "fixed_roster_development_rolling_baseline_not_realtime_readiness",
+  "quality": {
+    "source_rows": 420480,
+    "grid_start": "2014-01-01T00:00:00+00:00",
+    "grid_end": "2015-12-31T23:50:00+00:00",
+    "source_offsets": {
+      "+02:00": 241920,
+      "+01:00": 178560
+    },
+    "per_turbine": [
+      {
+        "turbine": "R80711",
+        "source_rows": 105120,
+        "unique_keys": 105108,
+        "duplicate_keys": 12,
+        "backward_steps_in_source_order": 0,
+        "missing_keys": 12,
+        "nonfinite_required_rows": 475
+      },
+      {
+        "turbine": "R80721",
+        "source_rows": 105120,
+        "unique_keys": 105108,
+        "duplicate_keys": 12,
+        "backward_steps_in_source_order": 0,
+        "missing_keys": 12,
+        "nonfinite_required_rows": 1209
+      },
+      {
+        "turbine": "R80736",
+        "source_rows": 105120,
+        "unique_keys": 105108,
+        "duplicate_keys": 12,
+        "backward_steps_in_source_order": 0,
+        "missing_keys": 12,
+        "nonfinite_required_rows": 435
+      },
+      {
+        "turbine": "R80790",
+        "source_rows": 105120,
+        "unique_keys": 105108,
+        "duplicate_keys": 12,
+        "backward_steps_in_source_order": 0,
+        "missing_keys": 12,
+        "nonfinite_required_rows": 450
+      }
+    ],
+    "conflicting_keys": [
+      {
+        "time": "2014-03-30T01:00:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2014-03-30T01:00:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:00:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:00:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:10:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:10:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:10:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:10:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2014-03-30T01:20:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:20:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:20:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:20:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2014-03-30T01:30:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:30:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:30:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:30:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2014-03-30T01:40:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:40:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:40:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2014-03-30T01:40:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:50:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2014-03-30T01:50:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2014-03-30T01:50:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2014-03-30T01:50:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:00:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:00:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:00:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:00:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2015-03-29T01:10:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:10:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:10:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:10:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2015-03-29T01:20:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:20:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:20:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2015-03-29T01:20:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:30:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:30:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2015-03-29T01:30:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:30:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:40:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:40:00+00:00",
+        "turbine": "R80790"
+      },
+      {
+        "time": "2015-03-29T01:40:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:40:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:50:00+00:00",
+        "turbine": "R80721"
+      },
+      {
+        "time": "2015-03-29T01:50:00+00:00",
+        "turbine": "R80736"
+      },
+      {
+        "time": "2015-03-29T01:50:00+00:00",
+        "turbine": "R80711"
+      },
+      {
+        "time": "2015-03-29T01:50:00+00:00",
+        "turbine": "R80790"
+      }
+    ],
+    "duplicate_policy": "all_rows_at_duplicate_key_unavailable_no_selection_or_mean",
+    "missing_policy": "no_interpolation_no_zero_fill_fixed_roster",
+    "power_policy": "raw_kw_negative_and_low_power_not_removed",
+    "time_bucket_edge_confirmed": false,
+    "observed_arrival_times": false,
+    "holdout_value_distributions_computed": false,
+    "archive_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+    "scada_sha256": "9be32aabe7e6b911f58ad3a9f292aed1e5b48cdc603b35d3feccb94f4c043cf4",
+    "archive_bytes": 36762939,
+    "scada_bytes": 41443638,
+    "archive_crc": "passed",
+    "source_url": "https://raw.githubusercontent.com/NatLabRockies/OpenOA/9bfc7a3dc542b17bbfc06b692dbfb8b23c754975/examples/data/la_haute_borne.zip",
+    "license": "Etalab Open Licence 2.0; attribution ENGIE via OpenOA"
+  },
+  "quarters": {
+    "2014-Q2": {
+      "planned": 13104,
+      "input_valid": 12932,
+      "labels_complete": 12976,
+      "protected_label_boundary": 0,
+      "conflicting_input": 0,
+      "unavailable_input": 172,
+      "scoreable": 12880,
+      "scoreable_fraction": 0.9829059829059829
+    },
+    "2014-Q3": {
+      "planned": 13248,
+      "input_valid": 13248,
+      "labels_complete": 13248,
+      "protected_label_boundary": 0,
+      "conflicting_input": 0,
+      "unavailable_input": 0,
+      "scoreable": 13248,
+      "scoreable_fraction": 1.0
+    },
+    "2014-Q4": {
+      "planned": 13248,
+      "input_valid": 13045,
+      "labels_complete": 13075,
+      "protected_label_boundary": 6,
+      "conflicting_input": 0,
+      "unavailable_input": 203,
+      "scoreable": 12991,
+      "scoreable_fraction": 0.980600845410628
+    }
+  }
+}

@@ -18,4 +18,4 @@
 ENGIE四机组SCADA不随源码复制；从固定OpenOA提交获取数据，来源标注Open Licence 2.0。
 原开发/最终模型附件分别校验固定信任锚，准备时不拟合。
 具体获取方式、许可链接、ZIP与模型附件hash见 `docs/public-reproduction.md`。
-项目代码的MIT许可候选不重新定义第三方数据许可。
+项目代码的MIT许可不重新定义第三方数据许可。

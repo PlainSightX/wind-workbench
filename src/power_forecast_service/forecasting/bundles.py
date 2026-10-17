@@ -77,10 +77,8 @@ def save_packages(product, root: Path, task_id, attempt_id) -> list[PackageRegis
         outputs=Schema([ColSpec("datetime", "cutoff"), ColSpec("datetime", "target_time"),
                         ColSpec("double", "prediction")]),
     )
-    runtime = inference_runtime()
-    requirements = [f"{name}=={value}" for name, value in runtime["packages"].items()]
     registrations = []
-    # 不把项目的CUDA/Agent开发环境自动打入CPU推理工件。
+    # 不把项目的CUDA开发环境自动打入CPU推理工件。
     with local_packaging_environment():
         for key in result["model_set"]:
             identity = uuid4()
