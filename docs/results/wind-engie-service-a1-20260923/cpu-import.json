@@ -1,0 +1,57 @@
+{
+  "atol_kw": 1e-06,
+  "rtol": 1e-08,
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Linux",
+    "numpy": "2.5.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.0",
+    "lightgbm": "4.6.0",
+    "joblib": "1.6.0"
+  },
+  "packages": {
+    "2014-Q2-persistence": {
+      "issues": 12932,
+      "max_abs_difference_kw": 0.0
+    },
+    "2014-Q2-ridge": {
+      "issues": 12932,
+      "max_abs_difference_kw": 2.2737367544323206e-13
+    },
+    "2014-Q2-lightgbm": {
+      "issues": 12932,
+      "max_abs_difference_kw": 0.0
+    },
+    "2014-Q3-persistence": {
+      "issues": 13248,
+      "max_abs_difference_kw": 0.0
+    },
+    "2014-Q3-ridge": {
+      "issues": 13248,
+      "max_abs_difference_kw": 2.2737367544323206e-13
+    },
+    "2014-Q3-lightgbm": {
+      "issues": 13248,
+      "max_abs_difference_kw": 0.0
+    },
+    "2014-Q4-persistence": {
+      "issues": 13045,
+      "max_abs_difference_kw": 0.0
+    },
+    "2014-Q4-ridge": {
+      "issues": 13045,
+      "max_abs_difference_kw": 4.547473508864641e-13
+    },
+    "2014-Q4-lightgbm": {
+      "issues": 13045,
+      "max_abs_difference_kw": 0.0
+    }
+  },
+  "import_ids": [
+    "eee2d6a7-0fa0-52b9-a008-a4e5c7af7a11",
+    "d44d3043-120c-509a-9c6f-22579696aec1",
+    "2090728f-d80e-5d05-bba1-8d2e5a2fc230"
+  ],
+  "training_forbidden": true
+}

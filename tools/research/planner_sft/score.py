@@ -1,7 +1,7 @@
 """本地评分：复用原 supervision_evaluator_v2 的严格自动判定（schema、真实消费者、义务、顺序、范围）。
 
 pass = automatic_screen_passed（无 failures）。pending 项（分组/措辞差异）不算失败——
-在 Codex 的人工裁定中，自动通过者有 pending 时绝大多数被判通过（见 agree.py）。
+在此前的逐题复核中，自动通过但有 pending 的题绝大多数被判通过。
 另报 strict（无 pending）作为下界。所有比例附 Wilson 95% 区间与配对 McNemar 检验。
 """
 import argparse
@@ -12,8 +12,10 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-# 评测/监督工具链（原 SFT 工作包）；公开仓库未包含，可用 WIND_EVAL_HARNESS 指向本地副本。
-SRC = Path(os.environ.get("WIND_EVAL_HARNESS", Path(__file__).resolve().parent.parent / "inference-i1/sft-task-redesign-v1"))
+# 监督检查器未随公开源码分发；用 WIND_EVAL_HARNESS 指向本地副本。
+if "WIND_EVAL_HARNESS" not in os.environ:
+    raise SystemExit("set WIND_EVAL_HARNESS to the supervision checker directory")
+SRC = Path(os.environ["WIND_EVAL_HARNESS"])
 sys.path.insert(0, str(SRC))
 import supervision_evaluator_v2 as e  # noqa: E402
 

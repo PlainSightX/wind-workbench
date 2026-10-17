@@ -1,0 +1,420 @@
+{
+  "status": "passed",
+  "q1_database_unchanged": {
+    "experiment_tasks": {
+      "count": 17,
+      "sha256": "8adc208c8c2a22c45fd6b53a356fe0a65c7d00d4052a72ba34a4c8bac8a2a1f5"
+    },
+    "experiment_attempts": {
+      "count": 18,
+      "sha256": "2c8ebd12fa76487607b639c9265874af68ed3a8093cff6e675d406e34b1e1b95"
+    },
+    "experiment_runs": {
+      "count": 17,
+      "sha256": "e98f55adea8427c4e213b78d85bbd95388f0f86a31caf1992782e5591e284517"
+    },
+    "model_artifacts": {
+      "count": 23,
+      "sha256": "fed86b1f9cfc88dde5a2e3e2a962c8c726d1fbea5f721437edbed4a2c8145b51"
+    }
+  },
+  "q1_replay_unchanged": true,
+  "imports": [
+    {
+      "import_id": "eee2d6a7-0fa0-52b9-a008-a4e5c7af7a11",
+      "quarter": "2014-Q2",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-03-31T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "cc73d887-a3e5-5d7d-930b-7aca6a32bdae",
+          "family": "lightgbm",
+          "model_version": "2014-Q2-lightgbm-cdca24495c17",
+          "metrics": {
+            "mae": 475.29102670019495,
+            "bias": 131.08051488594407,
+            "rmse": 721.4737750330553,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "d90b5697-b486-5f97-b314-10c299c17f39",
+          "family": "persistence",
+          "model_version": "2014-Q2-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 431.0681527572765,
+            "bias": -0.13918801764460106,
+            "rmse": 705.3975790143735,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "5994bebf-e1e6-5948-a976-d11e667892fd",
+          "family": "ridge",
+          "model_version": "2014-Q2-ridge-17711bef78ec",
+          "metrics": {
+            "mae": 460.2694752884625,
+            "bias": 73.60471647036783,
+            "rmse": 682.0936710972162,
+            "samples": 77280
+          },
+          "coverage": {
+            "planned": 13104,
+            "scoreable": 12880,
+            "input_valid": 12932,
+            "output_count": 12932,
+            "labels_complete": 12976,
+            "conflicting_input": 0,
+            "unavailable_input": 172,
+            "scoreable_fraction": 0.9829059829059829,
+            "protected_label_boundary": 0
+          }
+        }
+      ]
+    },
+    {
+      "import_id": "d44d3043-120c-509a-9c6f-22579696aec1",
+      "quarter": "2014-Q3",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-06-30T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "976bf767-51cc-51e3-bfc1-6e51adfe70e7",
+          "family": "lightgbm",
+          "model_version": "2014-Q3-lightgbm-9bd363437639",
+          "metrics": {
+            "mae": 365.56591453719705,
+            "bias": 85.69709036826764,
+            "rmse": 543.6277497854736,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "054925d4-ce7c-5301-b687-070924ce71c6",
+          "family": "persistence",
+          "model_version": "2014-Q3-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 338.277593092227,
+            "bias": 0.27716699313042176,
+            "rmse": 571.5340340806096,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        },
+        {
+          "artifact_id": "8da1cfab-6fee-553d-a008-3b06be9cc029",
+          "family": "ridge",
+          "model_version": "2014-Q3-ridge-241e0ca69ea0",
+          "metrics": {
+            "mae": 357.7406090625253,
+            "bias": 60.38198452295172,
+            "rmse": 545.690233542987,
+            "samples": 79488
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 13248,
+            "input_valid": 13248,
+            "output_count": 13248,
+            "labels_complete": 13248,
+            "conflicting_input": 0,
+            "unavailable_input": 0,
+            "scoreable_fraction": 1.0,
+            "protected_label_boundary": 0
+          }
+        }
+      ]
+    },
+    {
+      "import_id": "2090728f-d80e-5d05-bba1-8d2e5a2fc230",
+      "quarter": "2014-Q4",
+      "protocol_version": "engie-rolling-raw-kw-v1",
+      "source_sha256": "be5ea66a3355286e491f5618250dc83e85252a8cb337748d7ba19edc50df6138",
+      "training_label_available": "2014-09-30T23:50:00+00:00",
+      "origin": "imported_offline",
+      "models": [
+        {
+          "artifact_id": "9b8a628b-80b8-553e-b591-9a835d7d315c",
+          "family": "lightgbm",
+          "model_version": "2014-Q4-lightgbm-597fe2903c73",
+          "metrics": {
+            "mae": 415.30400839453216,
+            "bias": -34.66481548739831,
+            "rmse": 671.411863477402,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "a7b046af-3f9c-510d-9688-046b75237820",
+          "family": "persistence",
+          "model_version": "2014-Q4-persistence-51f6036d6225",
+          "metrics": {
+            "mae": 398.60563091367425,
+            "bias": -0.6660314821509118,
+            "rmse": 682.0351257379134,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        },
+        {
+          "artifact_id": "e0ad242c-1f82-5169-9cd0-17b1d25ff736",
+          "family": "ridge",
+          "model_version": "2014-Q4-ridge-e7614101fc83",
+          "metrics": {
+            "mae": 415.6656137291707,
+            "bias": 5.32455761500868,
+            "rmse": 657.0638723609568,
+            "samples": 77946
+          },
+          "coverage": {
+            "planned": 13248,
+            "scoreable": 12991,
+            "input_valid": 13045,
+            "output_count": 13045,
+            "labels_complete": 13075,
+            "conflicting_input": 0,
+            "unavailable_input": 203,
+            "scoreable_fraction": 0.980600845410628,
+            "protected_label_boundary": 6
+          }
+        }
+      ]
+    }
+  ],
+  "http_checks": [
+    {
+      "quarter": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-04-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-05-16T16:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "lightgbm",
+      "issue_time": "2014-06-30T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-04-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-05-16T16:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "persistence",
+      "issue_time": "2014-06-30T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-04-01T00:00:00+00:00",
+      "max_abs_difference_kw": 1.7053025658242404e-13
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-05-16T16:50:00+00:00",
+      "max_abs_difference_kw": 1.1368683772161603e-13
+    },
+    {
+      "quarter": "2014-Q2",
+      "family": "ridge",
+      "issue_time": "2014-06-30T23:50:00+00:00",
+      "max_abs_difference_kw": 8.526512829121202e-14
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-07-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-08-16T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "lightgbm",
+      "issue_time": "2014-09-30T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-07-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-08-16T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "persistence",
+      "issue_time": "2014-09-30T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-07-01T00:00:00+00:00",
+      "max_abs_difference_kw": 5.684341886080802e-14
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-08-16T00:00:00+00:00",
+      "max_abs_difference_kw": 1.1368683772161603e-13
+    },
+    {
+      "quarter": "2014-Q3",
+      "family": "ridge",
+      "issue_time": "2014-09-30T23:50:00+00:00",
+      "max_abs_difference_kw": 1.7053025658242404e-13
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-10-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-11-16T01:20:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "lightgbm",
+      "issue_time": "2014-12-31T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-10-01T00:00:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-11-16T01:20:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "persistence",
+      "issue_time": "2014-12-31T23:50:00+00:00",
+      "max_abs_difference_kw": 0.0
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-10-01T00:00:00+00:00",
+      "max_abs_difference_kw": 5.684341886080802e-14
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-11-16T01:20:00+00:00",
+      "max_abs_difference_kw": 5.684341886080802e-14
+    },
+    {
+      "quarter": "2014-Q4",
+      "family": "ridge",
+      "issue_time": "2014-12-31T23:50:00+00:00",
+      "max_abs_difference_kw": 5.684341886080802e-14
+    }
+  ],
+  "http_checks_count": 27,
+  "direct_forecasts_equal_replays": true,
+  "holdout_actual_unavailable": true,
+  "scope": "same-source real HTTP/PG/CPU historical replay; no new model fitting or production SLA"
+}

@@ -1,0 +1,46 @@
+{
+  "stage": "refit",
+  "freeze_sha256": "e643018e4135f66fe86081a9be5b434149f5974865f0e95c204b17d50e9b3da2",
+  "started_at": "2026-09-24T03:16:21.716887+00:00",
+  "sealed_at": "2026-09-24T03:17:05.919812+00:00",
+  "selection_sha256": "ee2c4204cdab8ade04313357bb332233e8b05837124c6e4b432fbe2b5f5d3eca",
+  "artifacts": {
+    "persistence": {
+      "path": ".local/work-packages/wind-engie-a3-20260923/artifacts/2015-persistence.joblib",
+      "sha256": "d93a8e8bf49bcb62ce58a1987049c202ccc3ed45ec32b37bb38808bc1b399b83",
+      "bytes": 227
+    },
+    "ridge": {
+      "path": ".local/work-packages/wind-engie-a3-20260923/artifacts/2015-ridge.joblib",
+      "sha256": "90bae565c1c4a979e4ca028ba7b481ddb616514e4fe05de0cc3d436784efc76d",
+      "bytes": 20025
+    },
+    "lightgbm": {
+      "path": ".local/work-packages/wind-engie-a3-20260923/artifacts/2015-lightgbm.joblib",
+      "sha256": "ef69f7b13225012a3737336083e82acb21971238cefa8a2b5acaabe7135b4541",
+      "bytes": 9266496
+    },
+    "lightgbm_l1": {
+      "path": ".local/work-packages/wind-engie-a3-20260923/artifacts/2015-lightgbm_l1.joblib",
+      "sha256": "cc375c57bd0243fe384a2280191aa13769f2d1fc1294701b0d143abbe8be3edc",
+      "bytes": 13085863
+    },
+    "lightgbm_l1_shrink": {
+      "path": ".local/work-packages/wind-engie-a3-20260923/artifacts/2015-lightgbm_l1_shrink.joblib",
+      "sha256": "f0bd5a9a08c5ee067180eb143e0337ac0196a85f13fb1f1e832827c5915845ba",
+      "bytes": 13085870
+    }
+  },
+  "ridge": {
+    "fits": 4,
+    "seconds": 0.5586730999930296
+  },
+  "l2": {
+    "fits": 24,
+    "seconds": 17.55141200000071
+  },
+  "l1": {
+    "fits": 24,
+    "seconds": 25.73893610000232
+  }
+}

@@ -1,25 +1,25 @@
 {
   "schema_version": 1,
   "source_commit": "477afa08ca22bcd671ecaf949c4b00b70bd68147",
-  "sha256": "9d984e03f0d3b5961e605687d486ed86a483d813391d02944af8d7b0c31b0769",
+  "sha256": "331a022d4ac3659ad8a0f3dfc8b6bd66dc85c6d2f24ff74d9a441ce4500db973",
   "chunks": [
     {
-      "id": "a3-8f352bd1dee97182",
+      "id": "a3-d818e5a8b0e2945c",
       "title": "ENGIE最终留出与预测发布：A3交付 / ",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 2,
-      "text_sha256": "8f352bd1dee971828db727a378c6bb2f7bdd4d7e70d0faaf86cf56b9e410ed55",
+      "text_sha256": "d818e5a8b0e2945cd971dc5ee47548bd836bd983b0516acd0fd81e02a986d29e",
       "scopes": [
         "engie_final"
       ],
-      "text": "本轮完成事前冻结的2015最终评价、实际评分模型原字节服务交付，以及普通脚本与持久\n发布的正常/故障对照。**共享收缩候选相对持久性等季度MAE改善2.985%，四个季度均\n改善；五个最终模型已可在同一页面选择、回放和发布。**\n\n入口：[历史预测](http://127.0.0.1:18000/#predict)，选择ENGIE的`2015-final`。\n查看五模型对照，选择模型/时刻，运行六点预测；点击“发布本次预测”可获得数据库\n读回的发布身份。处理中可刷新原记录，失败重试沿用请求身份，不延长截止时间。\n\n这构成就业项目的新增实测成果。它不代表跨场站泛化、生产SLA、真实客户收益或全部\n原定功能已经完成。开发期3%采用门仍未通过，默认保持持久性，候选可显式选择。"
+      "text": "本轮完成事前冻结的2015最终评价、实际评分模型原字节服务交付，以及普通脚本与持久\n发布的正常/故障对照。**共享收缩候选相对持久性等季度MAE改善2.985%，四个季度均\n改善；五个最终模型已可在同一页面选择、回放和发布。**\n\n入口：启动后打开“历史预测”页面，选择ENGIE的`2015-final`。\n查看五模型对照，选择模型/时刻，运行六点预测；点击“发布本次预测”可获得数据库\n读回的发布身份。处理中可刷新原记录，失败重试沿用请求身份，不延长截止时间。\n\n这是本项目新增的实测成果，不代表跨场站泛化、生产SLA、真实客户收益或全部\n原定功能已经完成。开发期3%采用门仍未通过，默认保持持久性，候选可显式选择。"
     },
     {
       "id": "a3-a1dcda844cc094bb",
       "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 15,
       "text_sha256": "a1dcda844cc094bb5be0e3d1b98515f12b4205c9716a1d65187c6ce0692888e5",
       "scopes": [
@@ -31,7 +31,7 @@
       "id": "a3-e66678adf4adeb17",
       "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 24,
       "text_sha256": "e66678adf4adeb17bdc16ba0f312e05594d233277a713daa7b51413add2caeb9",
       "scopes": [
@@ -43,7 +43,7 @@
       "id": "a3-46766d47f35f86f1",
       "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 35,
       "text_sha256": "46766d47f35f86f1c6d2763716e7978555922d83e77ee9e304c8e44ded7de210",
       "scopes": [
@@ -55,7 +55,7 @@
       "id": "a3-2c998667ab7cddcd",
       "title": "ENGIE最终留出与预测发布：A3交付 / 1. 事前冻结和独立评价",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 49,
       "text_sha256": "2c998667ab7cddcd757e0349a4b7ebb2a62f3e8dffa72dd037566609a62f59fc",
       "scopes": [
@@ -67,7 +67,7 @@
       "id": "a3-bf0abc6e3361307e",
       "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 59,
       "text_sha256": "bf0abc6e3361307e85f13ffa6572f8df2a2f4f508b02e5c35dd311c748bcc461",
       "scopes": [
@@ -76,22 +76,22 @@
       "text": "最终来源另设可信hash锚，旧2014信任锚和序列化类不变。先验证来源链，才反序列化，\n在目标Linux CPU新进程禁止fit，全量重放后一次事务登记五包。原始模型字节就是\n生成最终评分的字节；不在服务侧另训一个看似相同的模型。\n\n- [独立复核](verification.json)：五策略完整重放最大差0；Ridge内层三alpha预测、\n  lambda选择、train-only scaler、标签时间、所有指标/分组/分母复算通过。\n  bootstrap另外用显式展开索引复算，不只调用同一个前缀和实现。\n- [Linux CPU导入](cpu-import.json)：五包各51,200个合法起报，最大差4.55e-13kW；\n  事前容差atol=1e-6、rtol=1e-8未放宽。[重复导入](cpu-reimport.json)返回同一身份。"
     },
     {
-      "id": "a3-f4a0e6720309a5d7",
+      "id": "a3-f1ae89ecdd78326f",
       "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 69,
-      "text_sha256": "f4a0e6720309a5d7e0531dfea5427b0f1bd2f2eb13c416ede3bdd4093a3d884a",
+      "text_sha256": "f1ae89ecdd78326f00ccad24edcff09726e27fffc0d8d53f390cf77ba391de82",
       "scopes": [
         "engie_final"
       ],
-      "text": "- [HTTP与交付](http-delivery.json)：新五包和旧九包各首/中/末，共42组实际预测，\n  直接输入与历史回放一致；旧Q4仍不开放2015实况。原Q1整行快照不变。\n- [20项后端定向检查](focused-tests.xml)：构造拟合预算、边界/抽样、真实专属PG、\n  迁移、导入、并发与发布、API轻量导入。没有重跑无关旧故障矩阵。\n- [4个浏览器场景](browser-tests.json)：1440/390视口，六点实值/非空曲线/无溢出，\n  发布并读回、选择隔离、可重试错误、pending原记录刷新。pending/错误响应是页面\n  控制测试；真实PG故障证据在后端测试，不能混作生产故障。\n- [重启读回](restart-readback.json)：API进程重启后15条场景记录、全部导入身份和\n  旧Q1快照不变。该15条包含10条已发布和5条过期，不把过期记录计为有效预测。"
+      "text": "- [HTTP与交付](http-delivery.json)：新五包和旧九包各首/中/末，共42组实际预测，\n  直接输入与历史回放一致；旧Q4仍不开放2015实况。原Q1整行快照不变。\n- [20项后端定向检查](focused-tests.xml)：构造拟合预算、边界/抽样、真实专属PG、\n  迁移、导入、并发与发布、API轻量导入。没有重跑无关旧故障矩阵。\n- 4个浏览器场景：1440/390视口，六点实值/非空曲线/无溢出，\n  发布并读回、选择隔离、可重试错误、pending原记录刷新。pending/错误响应是页面\n  控制测试；真实PG故障证据在后端测试，不能混作生产故障。\n- [重启读回](restart-readback.json)：API进程重启后15条场景记录、全部导入身份和\n  旧Q1快照不变。该15条包含10条已发布和5条过期，不把过期记录计为有效预测。"
     },
     {
       "id": "a3-25e611400659ba23",
       "title": "ENGIE最终留出与预测发布：A3交付 / 2. 评分模型就是页面使用的模型",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 79,
       "text_sha256": "25e611400659ba2386209c103ee06d69bc543c293936f408b7679a6d4fca11af",
       "scopes": [
@@ -103,7 +103,7 @@
       "id": "a3-8b37a18fc4eb0de9",
       "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 82,
       "text_sha256": "8b37a18fc4eb0de9dff3fc42b8dcf8094f32c1d8d60348976a65cac4bffbdfb1",
       "scopes": [
@@ -115,7 +115,7 @@
       "id": "a3-e342fbbe71110cca",
       "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 95,
       "text_sha256": "e342fbbe71110cca814c4c05bd08c741460954514b489601229e9d72ffc45e11",
       "scopes": [
@@ -127,7 +127,7 @@
       "id": "a3-8a4042e0f76ae334",
       "title": "ENGIE最终留出与预测发布：A3交付 / 3. 交付对照真正证明了什么",
       "source": "docs/results/wind-engie-a3-20260923/README.md",
-      "source_sha256": "fb575503cfc03a494b7b28937d11893f227ac033054d3ab4d3082f102173b46d",
+      "source_sha256": "7b3970af7ec9ecb5509d32ea0cf34be8af53247aa79539998694f29f56ed7268",
       "start_line": 107,
       "text_sha256": "8a4042e0f76ae3345c0bbb336ed994bb8cce3e23c4e1cf6181a0181183556de3",
       "scopes": [
@@ -139,7 +139,7 @@
       "id": "a2-e2c569d642c00b4a",
       "title": "ENGIE A2：L1训练与共享收缩对照 / 问题与实际改造",
       "source": "docs/results/wind-engie-a2-20260923/README.md",
-      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "source_sha256": "e55e9b2c1a54e896b3b008d031fd57ca49e50bac17249394ca594b3693a61851",
       "start_line": 12,
       "text_sha256": "e2c569d642c00b4ac4efdd1c1b06d70500c3103d3b94a03f792d1f65a9f3caf0",
       "scopes": [
@@ -151,7 +151,7 @@
       "id": "a2-2c7d91afec7ef44f",
       "title": "ENGIE A2：L1训练与共享收缩对照 / 问题与实际改造",
       "source": "docs/results/wind-engie-a2-20260923/README.md",
-      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "source_sha256": "e55e9b2c1a54e896b3b008d031fd57ca49e50bac17249394ca594b3693a61851",
       "start_line": 28,
       "text_sha256": "2c7d91afec7ef44f3ff8f822d8348e3504d2589095f192e584634e3721a88b37",
       "scopes": [
@@ -160,34 +160,22 @@
       "text": "没有按未来变化分组选择预测。旧Ridge、L2和持久性逐点输出直接复用，不增加原模型拟合。"
     },
     {
-      "id": "a2-a0e9352d9bbf7d09",
-      "title": "ENGIE A2：L1训练与共享收缩对照 / 采用决定与下一轮",
+      "id": "a2-451a752e0f6e463c",
+      "title": "ENGIE A2：L1训练与共享收缩对照 / 采用决定",
       "source": "docs/results/wind-engie-a2-20260923/README.md",
-      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
+      "source_sha256": "e55e9b2c1a54e896b3b008d031fd57ca49e50bac17249394ca594b3693a61851",
       "start_line": 80,
-      "text_sha256": "a0e9352d9bbf7d09f823c54fba52036a7fe0dfc51f850fdd05dfab94bafc3436",
+      "text_sha256": "451a752e0f6e463cdff885ecbd097e732c22ed3017ab50c0bb82ef1c9f41ccb1",
       "scopes": [
         "engie_final"
       ],
-      "text": "事前协议要求：至少两个季度改善、平均MAE改善至少3%、最差季度回退不超过2%、\n平均RMSE不恶化、完整覆盖不降。两种新策略只有“平均MAE至少3%”未通过。\n这3%是本项目的投入/采用门槛，不是行业标准或统计显著性线；本轮没有事后放宽。\n\n**本轮结论：机制有改善，默认采用门未通过，A2已完成。** 模型包和逐点预测保留，\n工作台继续保持原默认，不把1.80%写成已验证的2015收益或生产收益。\n\n建议下一轮进入原计划A3：冻结L1直接/内层共享收缩规则，保留持久性与原配方参照，\n在2015保留期作一次最终评价；随后把实际评分的最终包经A1路径交付，并完成正常/\n故障对照。先在揭示2015前固定比较成员、时间块区间和预算，失败不重开调参。\n候选未通过开发采用门的状态必须保留，不能靠正式期挑一张好表追认采用。\n\n不建议现在细化lambda或换神经架构。现有分组说明取舍，却没有证明另三台历史能补上"
-    },
-    {
-      "id": "a2-8e50f5cc856769b2",
-      "title": "ENGIE A2：L1训练与共享收缩对照 / 采用决定与下一轮",
-      "source": "docs/results/wind-engie-a2-20260923/README.md",
-      "source_sha256": "ffc9585cc56fef88714846d9cb4933edb1e4cc8a525b357f63fef0b17ad52d85",
-      "start_line": 94,
-      "text_sha256": "8e50f5cc856769b209ca83f1cba9bfd8270b1c43a079e99ebdcd9a30999f706f",
-      "scopes": [
-        "engie_final"
-      ],
-      "text": "剩余误差；条件信息增量分支仍保留，未执行也未被否定。本次不为启动它额外增加拟合。\nStage C结果助手与用户主动失败重跑结对继续保留，不成为本轮完成的隐藏门槛。"
+      "text": "事前协议要求：至少两个季度改善、平均MAE改善至少3%、最差季度回退不超过2%、\n平均RMSE不恶化、完整覆盖不降。两种新策略只有“平均MAE至少3%”未通过。\n这3%是本项目的投入/采用门槛，不是行业标准或统计显著性线；本轮没有事后放宽。\n\n**本轮结论：机制有改善，默认采用门未通过，A2已完成。** 模型包和逐点预测保留，\n工作台继续保持原默认，不把1.80%写成已验证的2015收益或生产收益。\n\n下一步是A3：冻结L1直接/内层共享收缩规则，保留持久性与原配方参照，在2015保留期只作\n一次最终评价，并在揭示2015前固定比较成员、时间块区间和预算。候选未通过开发采用门的\n状态必须保留，不能靠正式期结果追认采用。不在此时细化lambda或换神经架构：现有分组\n说明了取舍，但没有证明另三台机组的历史能补上剩余误差。"
     },
     {
       "id": "engie-69a256f9d3fe0f91",
       "title": "ENGIE四机组滚动预测：基线结果 / 1. 这轮交付了什么",
       "source": "docs/results/wind-engie-baseline-20260923/README.md",
-      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "start_line": 8,
       "text_sha256": "69a256f9d3fe0f914a9e2faa084c08ed6612e5e010ac29da963bd3360ba34be5",
       "scopes": [
@@ -200,7 +188,7 @@
       "id": "engie-1e630b893889c121",
       "title": "ENGIE四机组滚动预测：基线结果 / 2. 数据合同与真实问题",
       "source": "docs/results/wind-engie-baseline-20260923/README.md",
-      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "start_line": 18,
       "text_sha256": "1e630b893889c12173336afd7390b48266e3276646957cf8782213285df85f69",
       "scopes": [
@@ -213,7 +201,7 @@
       "id": "engie-5571ab3fa3d29383",
       "title": "ENGIE四机组滚动预测：基线结果 / 2. 数据合同与真实问题",
       "source": "docs/results/wind-engie-baseline-20260923/README.md",
-      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "start_line": 32,
       "text_sha256": "5571ab3fa3d2938367b85ad6e1f8f781d7271ed0ca9d0adefada416ce00e1d66",
       "scopes": [
@@ -226,7 +214,7 @@
       "id": "engie-9e86084950e1342a",
       "title": "ENGIE四机组滚动预测：基线结果 / 3. 覆盖不是只算成功样本",
       "source": "docs/results/wind-engie-baseline-20260923/README.md",
-      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "start_line": 43,
       "text_sha256": "9e86084950e1342aa9b9c6b02eddb8e1e381475fe6ab8df048937cddfa337b21",
       "scopes": [
@@ -239,7 +227,7 @@
       "id": "engie-a5eb5149580623a0",
       "title": "ENGIE四机组滚动预测：基线结果 / 3. 覆盖不是只算成功样本",
       "source": "docs/results/wind-engie-baseline-20260923/README.md",
-      "source_sha256": "2f205396735763c72a138ae40c92df9b258dc314848d5e0aa0bd963dc7189295",
+      "source_sha256": "70353c610a6f5a13f6194b38f55c1b35f145758153fe98202800be589fa46063",
       "start_line": 54,
       "text_sha256": "a5eb5149580623a0ce7f2a2948d5b7fcd122e5e171f9ec7da9c031e584ec43e8",
       "scopes": [
@@ -252,7 +240,7 @@
       "id": "q1-d8a125035d5c47ee",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / ",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 2,
       "text_sha256": "d8a125035d5c47ee24cab2107bf9c5a9e0fbc5bd28646ff6d83c2499aa050a5d",
       "scopes": [
@@ -264,7 +252,7 @@
       "id": "q1-10daf2f9717575c0",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 9,
       "text_sha256": "10daf2f9717575c0dcf2a940a4b1342195a26473649dada4d005330fa966f12d",
       "scopes": [
@@ -276,7 +264,7 @@
       "id": "q1-7e03be98f3c7e6eb",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 21,
       "text_sha256": "7e03be98f3c7e6ebab46d80dea31f279dd194d5e0a94be2945aace4dfa134811",
       "scopes": [
@@ -288,7 +276,7 @@
       "id": "q1-6423a9af56d6c7b5",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 1. 比较问题和选择顺序",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 31,
       "text_sha256": "6423a9af56d6c7b5c07ee3871fa09ada631cecae89a62444f382a95465a8a9b7",
       "scopes": [
@@ -300,7 +288,7 @@
       "id": "q1-8268c7c7ac0e2d51",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 2. 正式历史留出",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 37,
       "text_sha256": "8268c7c7ac0e2d5142e5ff55d7f535d724dfc5244fb7e4b6d68df00ba894e3e3",
       "scopes": [
@@ -309,22 +297,22 @@
       "text": "全部方法统一使用测试开始前标签已可得的21988行重新拟合，scaler一起重拟合。\n训练最后标签为2019-03-18 11:10，早于测试首cutoff；测试并非已完全未见的盲测，\n因为Q1曾用于旧原型。后续再针对该测试调优只能算探索，不能继续当独立测试。\n\n| 方法 | MAE | RMSE | 平均偏差（预测-实际） | 相对基线MAE改善 |\n|---|---:|---:|---:|---:|\n| 持续性基线 | 197.534 | 280.246 | -0.346 | 0 |\n| 固定180轮HGB | 206.642 | 285.773 | -19.561 | -4.61% |\n| **Ridge 0.1** | **183.187** | **254.403** | -42.357 | **7.26%** |"
     },
     {
-      "id": "q1-484d6e44163cdbae",
+      "id": "q1-43778078645cf643",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 2. 正式历史留出",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 47,
-      "text_sha256": "484d6e44163cdbae7d15787316cf1ca97f22f80f6e466d856c6b0c7af97c48e8",
+      "text_sha256": "43778078645cf643470fd5a71162664fcd32eb80fdaf49452cf95415ff96a8a3",
       "scopes": [
         "q1"
       ],
-      "text": "| 增量Transformer | 206.826 | 288.740 | -49.192 | -4.70% |\n\n四者都是相同3885行、100%覆盖；没有丢弃模型表现差的时刻。\n[完整汇总](results/wind-sequence-round4/summary.json)由保存结果生成，\n[逐点预测](results/wind-sequence-round4/final-predictions.csv)可重新核算全部指标。"
+      "text": "| 增量Transformer | 206.826 | 288.740 | -49.192 | -4.70% |\n\n四者都是相同3885行、100%覆盖；没有丢弃模型表现差的时刻。\n指标由保存的逐点结果生成，\n[逐点预测](results/wind-sequence-round4/final-predictions.csv)可重新核算全部指标。"
     },
     {
       "id": "q1-09b9e70d61c59448",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 3. 不能被均值藏起来的问题",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 54,
       "text_sha256": "09b9e70d61c594487fb572e322b43c0b4fee3c95cc1d93d29869b1b6d581fc5d",
       "scopes": [
@@ -336,7 +324,7 @@
       "id": "q1-b234acdaacde5317",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 3. 不能被均值藏起来的问题",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 66,
       "text_sha256": "b234acdaacde531753683d865f4a46a64f7b424f70d0900b308862ee7aff9248",
       "scopes": [
@@ -348,7 +336,7 @@
       "id": "q1-fa9f3e312396d759",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 4. 成本与实际交付",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 80,
       "text_sha256": "fa9f3e312396d759232c5581ae6f62066451ff1bb991084998152dfabc208523",
       "scopes": [
@@ -360,7 +348,7 @@
       "id": "q1-62346e3b32226992",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 4. 成本与实际交付",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 92,
       "text_sha256": "62346e3b32226992f0925aac31f08a5f5c56e4c2edb476462d32c36ab6e52759",
       "scopes": [
@@ -369,28 +357,16 @@
       "text": "同冻结协议用不同请求键再次提交仍返回原任务，不再次评分或挑结果。"
     },
     {
-      "id": "q1-34c01d5201638019",
+      "id": "q1-544b76ae4a83a1a4",
       "title": "第4轮结果：固定比较、正式留出与模型交付 / 5. 验证与保留的边界",
       "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
+      "source_sha256": "68890f2399b78177adf803dccc4dbac4c8f905fd9664f359d44b00298c1014a4",
       "start_line": 95,
-      "text_sha256": "34c01d52016380198a370413613b29fdaebbac39f52b33bf6c51bdca052e1e61",
+      "text_sha256": "544b76ae4a83a1a45b081087be640ee32bee4a9953e2c4802e5f5c1003f11e8b",
       "scopes": [
         "q1"
       ],
-      "text": "后端167项定向整合检查通过，包含真实PG事务/迁移、包校验和一条普通队列e2e。\n另有本轮真实开发/正式四模型交付。新增正式浏览器检查覆盖桌面1440、手机390、\n曲线像素、24点回放与再次提交去重；旧v1/v2工件部署后回放仍通过。\n不把这些数量累加成生产场景数量，不重跑无改动的完整故障矩阵。\n\n截图审查发现24点图表仍沿用13点横轴，导致历史画入未来区间。已将末输入固定于\ncutoff=0，补13/24点坐标断言，再部署与复验；原错误截图作为负例保留，不能用于\n演示当前行为。这个显示缺陷没有改变训练、预测或正式分数，没有重训覆盖结果。\n\n基础CI配置已落地，服务检查同命令在本地通过；未推送远端，不能说远端CI已绿。\nWindows锁定CUDA环境同步未完成，本轮已停止其专属下载进程，保留缓存与锁文件。\nCPU服务环境已实际验证；没有将未完成的Windows安装说成已可用。"
-    },
-    {
-      "id": "q1-899af21e21832979",
-      "title": "第4轮结果：固定比较、正式留出与模型交付 / 5. 验证与保留的边界",
-      "source": "docs/WIND-SEQUENCE-RESULTS.md",
-      "source_sha256": "44d0f85494af4f9d2e4784ea78d605abbc4a685a066e8346232e066136d4bb37",
-      "start_line": 109,
-      "text_sha256": "899af21e218329790e964fc2f1253f023ef2523875535e36667a6615ed1600cc",
-      "scopes": [
-        "q1"
-      ],
-      "text": "阶段B工程交付入口和简历候选稿见[阶段交付](WIND-STAGE-B-DELIVERY.md)。主动失败\n重跑仍保留用户触发结对；结果助手/24题属于未执行的第5轮，本轮不冒称完整增强版。"
+      "text": "后端167项定向整合检查通过，包含真实PG事务/迁移、包校验和一条普通队列e2e。\n另有本轮真实开发/正式四模型交付。新增正式浏览器检查覆盖桌面1440、手机390、\n曲线像素、24点回放与再次提交去重；旧v1/v2工件部署后回放仍通过。\n不把这些数量累加成生产场景数量，不重跑无改动的完整故障矩阵。\n\n截图审查发现24点图表仍沿用13点横轴，导致历史画入未来区间。已将末输入固定于\ncutoff=0，补13/24点坐标断言，再部署与复验；原错误截图作为负例保留，不能用于\n演示当前行为。这个显示缺陷没有改变训练、预测或正式分数，没有重训覆盖结果。\n\nCPU服务环境已实际验证；Windows锁定CUDA环境当时未完成同步，不算作已可用。\n结果助手属于后续阶段，不在本轮范围内。"
     }
   ]
 }

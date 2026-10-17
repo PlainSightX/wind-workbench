@@ -60,16 +60,16 @@ def execute_experiment(task_id: UUID, config: Settings):
                 purpose=execution_spec["purpose"], final_protocol=execution_spec.get("final_selection"))
         else:
             product = train_experiment(
-            snapshot, horizon_steps=execution_spec["horizon_steps"],
-            training_policy=execution_spec["training_policy"],
-            model_parameters=execution_spec["hgb"], random_seed=execution_spec["random_seed"],
-            candidate_key=execution_spec.get("candidate_key", "none"),
+                snapshot, horizon_steps=execution_spec["horizon_steps"],
+                training_policy=execution_spec["training_policy"],
+                model_parameters=execution_spec["hgb"], random_seed=execution_spec["random_seed"],
+                candidate_key=execution_spec.get("candidate_key", "none"),
             )
         result = product.result
         if result["input_file_sha256"] != spec["input_sha256"]:
             raise TaskConflict("dataset_snapshot_changed")
         result["execution"] = execution_provenance()
-        # 保留已接受的合同快照；legacy解析不回写任务，也不把旧合同伪装成v2。
+        # 保留已接受的合同快照；legacy解析不回写任务，也不把旧合同当作v2。
         result["frozen_spec"] = spec
         packaging_started = time.perf_counter()
         packages = save_packages(product, config.artifact_root, task_id, attempt_id)

@@ -1,0 +1,40 @@
+{
+  "atol_kw": 1e-06,
+  "rtol": 1e-08,
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Linux",
+    "numpy": "2.5.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.0",
+    "lightgbm": "4.6.0",
+    "joblib": "1.6.0"
+  },
+  "packages": {
+    "persistence": {
+      "issues": 51200,
+      "max_abs_difference_kw": 0.0
+    },
+    "ridge": {
+      "issues": 51200,
+      "max_abs_difference_kw": 4.547473508864641e-13
+    },
+    "lightgbm": {
+      "issues": 51200,
+      "max_abs_difference_kw": 0.0
+    },
+    "lightgbm_l1": {
+      "issues": 51200,
+      "max_abs_difference_kw": 0.0
+    },
+    "lightgbm_l1_shrink": {
+      "issues": 51200,
+      "max_abs_difference_kw": 0.0
+    }
+  },
+  "model_bytes": "same_as_final_scored",
+  "import_ids": [
+    "b9ae2524-9abb-5ba1-98c7-e80c066e15d9"
+  ],
+  "training_forbidden": true
+}

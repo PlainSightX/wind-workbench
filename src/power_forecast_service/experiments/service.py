@@ -1,4 +1,4 @@
-"""提交的事务边界；这里不调用 Redis，也不执行训练。重跑编排留给结对。"""
+"""提交的事务边界；这里不调用 Redis，也不执行训练。"""
 
 import asyncio
 from uuid import UUID, uuid4

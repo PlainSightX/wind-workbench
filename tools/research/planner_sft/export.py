@@ -5,8 +5,10 @@ import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-# 评测/监督工具链（原 SFT 工作包）；公开仓库未包含，可用 WIND_EVAL_HARNESS 指向本地副本。
-SRC = Path(os.environ.get("WIND_EVAL_HARNESS", Path(__file__).resolve().parent.parent / "inference-i1/sft-task-redesign-v1"))
+# 监督检查器未随公开源码分发；用 WIND_EVAL_HARNESS 指向本地副本。
+if "WIND_EVAL_HARNESS" not in os.environ:
+    raise SystemExit("set WIND_EVAL_HARNESS to the supervision checker directory")
+SRC = Path(os.environ["WIND_EVAL_HARNESS"])
 
 
 def load(p):

@@ -1,0 +1,291 @@
+{
+  "freeze_sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe",
+  "selections": {
+    "2014-Q2": {
+      "quarter": "2014-Q2",
+      "stage": "selection",
+      "freeze_sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe",
+      "started_at": "2026-09-24T02:43:07.418571+00:00",
+      "finished_at": "2026-09-24T02:43:19.381141+00:00",
+      "artifact": {
+        "path": ".local/work-packages/wind-engie-a2-20260923/artifacts/2014-Q2-inner.npz",
+        "sha256": "0d8687acbbb355ceef963e76fe3b44f038050d4238adb4ccad803c2aef74bc41",
+        "bytes": 866734
+      },
+      "boundaries": {
+        "inner_train_issues": 8884,
+        "inner_validation_issues": 3999,
+        "refit_issues": 12891,
+        "validation_start": "2014-03-04T00:00:00+00:00",
+        "outer_start": "2014-04-01T00:00:00+00:00",
+        "last_inner_training_label_available": "2014-03-03T23:50:00+00:00",
+        "last_refit_label_available": "2014-03-31T23:50:00+00:00"
+      },
+      "fit": {
+        "selected_iterations": [
+          [
+            133,
+            120,
+            110,
+            99,
+            107,
+            128
+          ],
+          [
+            109,
+            96,
+            103,
+            105,
+            89,
+            90
+          ],
+          [
+            110,
+            102,
+            104,
+            113,
+            93,
+            97
+          ],
+          [
+            118,
+            95,
+            85,
+            120,
+            84,
+            74
+          ]
+        ],
+        "parameters": {
+          "objective": "regression_l1",
+          "metric": "l1",
+          "learning_rate": 0.05,
+          "n_estimators": 400,
+          "num_leaves": 31,
+          "min_child_samples": 50,
+          "n_jobs": 2,
+          "random_state": 42,
+          "deterministic": true,
+          "force_col_wise": true,
+          "verbosity": -1
+        },
+        "fit_seconds": 11.883436599993729,
+        "estimator_fit_count": 24
+      },
+      "selected_lambda": 0.5,
+      "candidates": [
+        {
+          "lambda": 0.0,
+          "farm_mae": 404.6829874864965
+        },
+        {
+          "lambda": 0.25,
+          "farm_mae": 396.6312607793795
+        },
+        {
+          "lambda": 0.5,
+          "farm_mae": 394.8142702531427
+        },
+        {
+          "lambda": 0.75,
+          "farm_mae": 399.4218815635911
+        },
+        {
+          "lambda": 1.0,
+          "farm_mae": 410.2424743654818
+        }
+      ]
+    },
+    "2014-Q3": {
+      "quarter": "2014-Q3",
+      "stage": "selection",
+      "freeze_sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe",
+      "started_at": "2026-09-24T02:43:19.385142+00:00",
+      "finished_at": "2026-09-24T02:43:37.467272+00:00",
+      "artifact": {
+        "path": ".local/work-packages/wind-engie-a2-20260923/artifacts/2014-Q3-inner.npz",
+        "sha256": "bfbdbcf5deff42f0a551719704a20069b6215689de951c0c8c85c6cdc6e436d1",
+        "bytes": 893173
+      },
+      "boundaries": {
+        "inner_train_issues": 21810,
+        "inner_validation_issues": 3953,
+        "refit_issues": 25771,
+        "validation_start": "2014-06-03T00:00:00+00:00",
+        "outer_start": "2014-07-01T00:00:00+00:00",
+        "last_inner_training_label_available": "2014-06-02T23:50:00+00:00",
+        "last_refit_label_available": "2014-06-30T23:50:00+00:00"
+      },
+      "fit": {
+        "selected_iterations": [
+          [
+            107,
+            101,
+            174,
+            136,
+            118,
+            65
+          ],
+          [
+            138,
+            152,
+            141,
+            87,
+            83,
+            120
+          ],
+          [
+            123,
+            142,
+            88,
+            123,
+            62,
+            75
+          ],
+          [
+            143,
+            109,
+            112,
+            106,
+            109,
+            147
+          ]
+        ],
+        "parameters": {
+          "objective": "regression_l1",
+          "metric": "l1",
+          "learning_rate": 0.05,
+          "n_estimators": 400,
+          "num_leaves": 31,
+          "min_child_samples": 50,
+          "n_jobs": 2,
+          "random_state": 42,
+          "deterministic": true,
+          "force_col_wise": true,
+          "verbosity": -1
+        },
+        "fit_seconds": 18.00739920000342,
+        "estimator_fit_count": 24
+      },
+      "selected_lambda": 0.5,
+      "candidates": [
+        {
+          "lambda": 0.0,
+          "farm_mae": 380.7525266461348
+        },
+        {
+          "lambda": 0.25,
+          "farm_mae": 374.0035626351598
+        },
+        {
+          "lambda": 0.5,
+          "farm_mae": 371.4000118719842
+        },
+        {
+          "lambda": 0.75,
+          "farm_mae": 372.81139660910014
+        },
+        {
+          "lambda": 1.0,
+          "farm_mae": 378.35886246514804
+        }
+      ]
+    },
+    "2014-Q4": {
+      "quarter": "2014-Q4",
+      "stage": "selection",
+      "freeze_sha256": "6d181b316b54b1185cc3ba4d73c9043ff29f32ba3a55c42d4aa1b2d668a29afe",
+      "started_at": "2026-09-24T02:43:37.471275+00:00",
+      "finished_at": "2026-09-24T02:43:57.889861+00:00",
+      "artifact": {
+        "path": ".local/work-packages/wind-engie-a2-20260923/artifacts/2014-Q4-inner.npz",
+        "sha256": "183eea21f8dc870f929c86e03c4927584bc14bd6aabab5b979701c308aebe37a",
+        "bytes": 899979
+      },
+      "boundaries": {
+        "inner_train_issues": 34987,
+        "inner_validation_issues": 4024,
+        "refit_issues": 39019,
+        "validation_start": "2014-09-03T00:00:00+00:00",
+        "outer_start": "2014-10-01T00:00:00+00:00",
+        "last_inner_training_label_available": "2014-09-02T23:50:00+00:00",
+        "last_refit_label_available": "2014-09-30T23:50:00+00:00"
+      },
+      "fit": {
+        "selected_iterations": [
+          [
+            192,
+            156,
+            121,
+            101,
+            163,
+            107
+          ],
+          [
+            150,
+            154,
+            167,
+            150,
+            196,
+            126
+          ],
+          [
+            170,
+            183,
+            136,
+            118,
+            132,
+            150
+          ],
+          [
+            178,
+            161,
+            143,
+            136,
+            130,
+            154
+          ]
+        ],
+        "parameters": {
+          "objective": "regression_l1",
+          "metric": "l1",
+          "learning_rate": 0.05,
+          "n_estimators": 400,
+          "num_leaves": 31,
+          "min_child_samples": 50,
+          "n_jobs": 2,
+          "random_state": 42,
+          "deterministic": true,
+          "force_col_wise": true,
+          "verbosity": -1
+        },
+        "fit_seconds": 20.33853369999997,
+        "estimator_fit_count": 24
+      },
+      "selected_lambda": 1.0,
+      "candidates": [
+        {
+          "lambda": 0.0,
+          "farm_mae": 291.2496343271294
+        },
+        {
+          "lambda": 0.25,
+          "farm_mae": 284.63276408567754
+        },
+        {
+          "lambda": 0.5,
+          "farm_mae": 279.62419634683306
+        },
+        {
+          "lambda": 0.75,
+          "farm_mae": 276.56811091877455
+        },
+        {
+          "lambda": 1.0,
+          "farm_mae": 275.67411080951297
+        }
+      ]
+    }
+  },
+  "sealed_at": "2026-09-24T02:43:57.891861+00:00"
+}
