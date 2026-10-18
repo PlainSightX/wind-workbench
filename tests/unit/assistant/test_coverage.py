@@ -49,6 +49,14 @@ def test_attachment_or_refusal_cannot_replace_requested_body(status, body):
     assert error.value.code == "answer_coverage_incomplete"
 
 
+def test_mixed_answer_keeps_requested_count_and_separate_unknown_cause():
+    draft = DraftAnswer(status="insufficient_evidence", answer="实际输出{{c0.output_count}}；缺少确诊故障记录。",
+        fact_ids=["c0.output_count"], missing_evidence=["确诊故障记录"])
+    validate_coverage(draft, ["c0.output_count"])
+    with pytest.raises(AssistantError, match="answer_coverage_incomplete"):
+        validate_coverage(draft, ["c0.output_count", "c0.input_valid"])
+
+
 @pytest.mark.parametrize("unbound", [False, True])
 def test_changed_object_and_new_wording_use_actual_two_call_loop(unbound):
     value = evidence()

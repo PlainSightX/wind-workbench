@@ -40,6 +40,141 @@ class Provider:
         return AIMessage(content=json.dumps(draft))
 
 
+@pytest.mark.parametrize("question,temporal", [
+    ("请读取ridge_0_1的MAE，说明单位和所选评价期间。", False),
+    ("ridge_0_1对比persistence，MAE和RMSE两项是否均严格更小？请给原值。", False),
+    ("请说明合法输入与实际输出的次数和各自定义。", False),
+    ("解释模拟到达延迟规则，并给出生产实测延迟P98.5；缺少资料时列出具体缺口。", True),
+    ("23:45起报，最晚输入标签和目标时刻是什么？解释模拟到达延迟假设，再给出生产实测延迟P97。", True),
+])
+def test_compiled_workflow_uses_original_execution_and_all_validation_without_provider(question, temporal):
+    from tests.unit.assistant.test_query_compiler import evidence
+    from tests.unit.assistant.test_stages import projected
+    from power_forecast_service.assistant.retrieval import corpus
+    from power_forecast_service.assistant.evidence import digest
+
+    source = projected("engie") if temporal else evidence()
+    source["records"][0].setdefault("kind", "engie_import")
+    docs = corpus()["chunks"] if temporal else []
+    provider, captured = Provider([]), []
+    assistant = Assistant(None, provider=provider, response_mode="program_requested", capture_draft=captured.append)
+    state = {"question": Question(question=question, contexts=[{
+        "kind": source["records"][0]["kind"], "id": source["records"][0]["id"]}]),
+        "evidence": source, "documents": docs, "trace": {"model_calls": []}}
+    try:
+        result = asyncio.run(assistant.answer(state))["result"]
+    finally:
+        assistant.close()
+    contract = state["trace"]["deterministic_contract"]
+    assert provider.calls == 0 and state["trace"]["model_calls"] == []
+    assert result["status"] == ("insufficient_evidence" if temporal else "answered")
+    assert contract["validation"] == "passed"
+    assert contract["validation_checks"] == ["program", "facts_and_citations", "stage", "coverage", "temporal"]
+    assert contract["plan_sha256"] == digest(captured[0])
+    assert contract["question_sha256"] == digest(question)
+    assert contract["evidence_sha256"] == digest({"evidence": state["evidence"], "documents": state["documents"]})
+    assert "executable_sha256" in contract
+
+
+def test_unmatched_full_question_keeps_existing_model_path():
+    from tests.unit.assistant.test_query_compiler import evidence, READ
+    from power_forecast_service.assistant.query_compiler import compile_structured_query
+    source = evidence()
+    source["records"][0]["kind"] = "engie_import"
+    plan = compile_structured_query(source, [], READ)
+    provider = Provider([plan.model_dump(mode="json")])
+    assistant = Assistant(None, provider=provider, response_mode="program_requested")
+    state = {"question": Question(question="ridge_0_1的MAE是多少？请核对指标。", contexts=[{
+        "kind": "engie_import", "id": source["records"][0]["id"]}]),
+        "evidence": source, "documents": [], "trace": {"model_calls": []}}
+    try:
+        result = asyncio.run(assistant.answer(state))["result"]
+    finally:
+        assistant.close()
+    assert result["status"] == "answered" and provider.calls == 1
+    assert "deterministic_contract" not in state["trace"]
+
+
+def test_compiled_validation_failure_is_explicit_and_never_rescued_by_model(monkeypatch):
+    from tests.unit.assistant.test_query_compiler import evidence, READ
+    from power_forecast_service.assistant.contracts import AssistantError
+    source = evidence()
+    source["records"][0]["kind"] = "engie_import"
+    def reject(*args):
+        raise AssistantError("answer_fact_invalid", "injected validation rejection")
+    monkeypatch.setattr(workflow, "validate_answer", reject)
+    provider = Provider([])
+    assistant = Assistant(None, provider=provider, response_mode="program_requested")
+    state = {"question": Question(question=READ, contexts=[{
+        "kind": "engie_import", "id": source["records"][0]["id"]}]),
+        "evidence": source, "documents": [], "trace": {"model_calls": []}}
+    try:
+        with pytest.raises(AssistantError, match="answer_fact_invalid"):
+            asyncio.run(assistant.answer(state))
+    finally:
+        assistant.close()
+    assert provider.calls == 0
+    assert state["trace"]["deterministic_contract"]["validation"] == "failed"
+
+
+def test_provider_schema_rejection_is_known_return_for_request_journal():
+    import httpx
+    from power_forecast_service.assistant.contracts import AssistantError
+    from power_forecast_service.assistant.provider import VLLMProvider
+    from tests.unit.assistant.test_provider import stream
+
+    async def run():
+        provider = VLLMProvider("http://127.0.0.1:18112", "candidate", client=httpx.AsyncClient(
+            transport=httpx.MockTransport(lambda request: httpx.Response(200, text=stream(content='{"wrong":1}')))))
+        assistant = Assistant(None, provider=provider)
+        returned = []
+        class Journal:
+            async def dispatch(self, request_id, attempt):
+                return "known-call"
+
+            async def returned(self, *args, **kwargs):
+                returned.append((args, kwargs))
+        assistant.journal = Journal()
+        state = {"trace": {"request_id": "known-request", "model_calls": []}}
+        try:
+            with pytest.raises(AssistantError, match="answer_schema_invalid"):
+                await assistant.call(state, workflow.DraftAnswer, [("user", "test")],
+                                     output_schema={"type": "object", "required": ["status"]})
+            assert returned == [(("known-request", "known-call"), {})]
+            assert state["trace"]["model_calls"][0]["status"] == "answer_schema_invalid"
+        finally:
+            await provider.aclose()
+            assistant.close()
+    asyncio.run(run())
+
+
+def test_requested_workflow_repairs_invalid_presentation_and_keeps_request_contract():
+    from tests.unit.assistant.test_program import requested_evidence, presented
+    source = requested_evidence()
+    raw = presented([{"kind":"values", "fact_ids":["c0.ridge.bias"]}], {"bias_fact_ids":["c0.ridge.bias"]})
+    invalid = json.loads(json.dumps(raw))
+    invalid["requests"][0]["presentation"]["bias_fact_ids"] = ["c0.persistence.bias"]
+    calls, captured = [], []
+
+    class RecordedProvider:
+        async def ainvoke_structured(self, messages, *, schema, call_id):
+            calls.append((messages, schema))
+            return AIMessage(content=json.dumps(invalid if len(calls) == 1 else raw))
+
+    assistant = Assistant(None, provider=RecordedProvider(), response_mode="program_requested", capture_draft=captured.append)
+    state = {"question":Question(question="ridge BIAS原值是否为零？", contexts=[{"kind":"engie_import", "id":source["records"][0]["id"]}]),
+             "evidence":source, "documents":[], "trace":{"model_calls":[]}}
+    try:
+        result = asyncio.run(assistant.answer(state))["result"]
+    finally:
+        assistant.close()
+    assert len(calls) == 2 and "原值不为零" in result["answer"]
+    assert state["trace"]["model_calls"][0]["status"] == "schema_error"
+    assert state["trace"]["prompt_version"].endswith("requested-presentation")
+    assert captured[0]["requests"][0]["presentation"]["bias_fact_ids"] == ["c0.ridge.bias"]
+    assert calls[0][1] == calls[1][1]
+
+
 def run_answer(monkeypatch, provider, capture, *, stage=False, fail_audit=False, response_mode="legacy", documents=None):
     identity = str(uuid4())
     evidence = {"facts": [{"id": "c0.ridge.mae", "label": "MAE", "value": 12.5, "unit": "kW"}],

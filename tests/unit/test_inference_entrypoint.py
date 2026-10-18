@@ -37,10 +37,69 @@ def inspect(monkeypatch, settings, metadata=None, *, code=200):
     return result, seen
 
 
-def test_check_only_reads_metadata(monkeypatch, settings):
+@pytest.mark.parametrize("mode", ["references", "program", "program_requested"])
+def test_check_only_reads_metadata(monkeypatch, settings, mode):
+    settings = replace(settings, assistant_response_mode=mode)
     result, seen = inspect(monkeypatch, settings)
     assert seen == [("GET", "/v1/models")]
     assert result["generation_sent"] is False and result["database_revisions"] == ["current-head"]
+    assert result["response_mode"] == mode
+
+
+def test_lora_uses_unique_parent_context(monkeypatch, settings):
+    metadata = {"data": [
+        {"id": "base", "parent": None, "root": "/weights", "max_model_len": 32768},
+        {"id": "test-model", "parent": "base", "root": "/adapter", "max_model_len": None},
+    ]}
+    result, seen = inspect(monkeypatch, settings, metadata)
+    assert result["model"] == "test-model" and result["context_model"] == "base"
+    assert result["max_model_len"] == 32768 and seen == [("GET", "/v1/models")]
+
+
+@pytest.mark.parametrize("cards", [
+    [{"id": "test-model", "parent": "missing"}],
+    [{"id": "test-model", "parent": "test-model"}],
+    [{"id": "test-model", "parent": 1}],
+    [{"id": "test-model", "parent": "base"}, {"id": "base", "max_model_len": 32768},
+     {"id": "base", "max_model_len": 32768}],
+    [{"id": "test-model", "parent": "base"}, {"id": "base", "parent": "other", "max_model_len": 32768}],
+    [{"id": "test-model", "parent": "base"}, {"id": "base", "max_model_len": 8192}],
+    [{"id": "test-model", "parent": "base", "max_model_len": 8192},
+     {"id": "base", "max_model_len": 32768}],
+])
+def test_lora_cannot_borrow_unverified_or_larger_capacity(monkeypatch, settings, cards):
+    with pytest.raises(entry.EntryError, match="inference_(model_identity_mismatch|context_insufficient)"):
+        inspect(monkeypatch, settings, {"data": cards})
+
+
+def test_research_entry_propagates_explicit_profile(monkeypatch, settings):
+    monkeypatch.setattr(entry.Settings, "from_environment", lambda: settings)
+    monkeypatch.setattr(entry, "check_port", lambda port, url: None)
+    seen = []
+    async def check(config):
+        seen.append(config)
+        return {"generation_sent": False}
+    monkeypatch.setattr(entry, "check_configuration", check)
+    entry.main(["--provider-url", "http://127.0.0.1:18112", "--model", "candidate",
+        "--port", "18113", "--response-mode", "program", "--generation-profile", "offline-greedy-v1",
+        "--provider-timeout", "60", "--check"])
+    assert seen[0].inference_generation_profile == "offline-greedy-v1"
+    assert seen[0].inference_provider_timeout == 60
+    assert settings.assistant_response_mode == "references"
+    assert seen[0].inference_sort_schema_properties is False
+
+
+def test_research_entry_propagates_explicit_schema_property_order(monkeypatch, settings):
+    monkeypatch.setattr(entry.Settings, "from_environment", lambda: settings)
+    monkeypatch.setattr(entry, "check_port", lambda port, url: None)
+    seen = []
+    async def check(config):
+        seen.append(config)
+        return {"generation_sent": False}
+    monkeypatch.setattr(entry, "check_configuration", check)
+    entry.main(["--provider-url", "http://127.0.0.1:18112", "--model", "candidate",
+        "--port", "18113", "--response-mode", "program_requested", "--sort-schema-properties", "--check"])
+    assert seen[0].inference_sort_schema_properties is True
 
 
 @pytest.mark.parametrize("metadata,code,error", [
@@ -75,7 +134,8 @@ def test_port_never_reuses_ordinary_api_or_provider(monkeypatch):
 
 
 @pytest.mark.parametrize("check_only", [True, False])
-def test_cli_consumes_explicit_provider_and_port(monkeypatch, settings, capsys, check_only):
+@pytest.mark.parametrize("response_mode", ["references", "program", "program_requested"])
+def test_cli_consumes_explicit_provider_and_port(monkeypatch, settings, capsys, check_only, response_mode):
     original = replace(settings, assistant_backend="default")
     monkeypatch.setattr(entry.Settings, "from_environment", lambda: original)
     consumed, started = [], []
@@ -86,9 +146,10 @@ def test_cli_consumes_explicit_provider_and_port(monkeypatch, settings, capsys, 
     monkeypatch.setattr(entry, "check_configuration", check)
     monkeypatch.setattr(entry, "serve", lambda config, port: started.append((config, port)))
     args = ["--provider-url", "http://127.0.0.1:18210/v1", "--model", "explicit-model", "--port", "18213", "--capacity", "2"]
-    entry.main(args + (["--check"] if check_only else []))
+    entry.main(args + ["--response-mode", response_mode] + (["--check"] if check_only else []))
     assert consumed[0].assistant_vllm_model == "explicit-model"
     assert consumed[0].assistant_vllm_url == "http://127.0.0.1:18210/v1"
     assert consumed[0].assistant_capacity == 2 and original.assistant_backend == "default"
+    assert consumed[0].assistant_response_mode == response_mode
     assert started == ([] if check_only else [(consumed[0], 18213)])
     assert '"port": 18213' in capsys.readouterr().out

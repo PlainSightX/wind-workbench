@@ -27,6 +27,7 @@
 | [可选推理服务](inference-i3-20261007/README.md) | vLLM 经 HTTP / PostgreSQL 消费；过载、断连、未知结果与强杀恢复 |
 | [推理复现入口](inference-i4-20261007/README.md) | 宿主启动前检查、公开测试与复现范围 |
 | [查询规划微调](sft-obligation-8b-20261017/README.md) | Qwen3-8B LoRA 与 32B、DeepSeek-Flash 的首答规划对照 |
+| [查询规划接入服务](sft-service-integration-20261017/README.md) | 同一适配器在真实回答节点（校验、修复）上与原始 8B 的端到端对照 |
 
 ## 演示
 

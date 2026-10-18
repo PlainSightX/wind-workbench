@@ -530,7 +530,7 @@ def test_reference_schema_only_constrains_sources_not_answers():
     case = item()
     case["documents"] = [{"id": "doc", "source_sha256": "a" * 64}]
     schema = module.contract_schema(case, "references")
-    assert set(schema["properties"]) == {"status", "body"}
+    assert all(set(branch["properties"]) == {"status", "body"} for branch in schema["oneOf"])
     assert schema["$defs"]["CitationSelection"]["properties"]["document_id"]["enum"] == ["doc"]
     assert set(schema["$defs"]["CitationSelection"]["properties"]) == {"document_id"}
     assert schema["$defs"]["CitationSelection"]["additionalProperties"] is False

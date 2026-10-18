@@ -19,6 +19,25 @@ def test_numeric_identity_and_plain_output(evidence):
     assert result["answer"] == "该指标为ridge MAE：12.5 kW。"
 
 
+@pytest.mark.parametrize("label", ["P0", "p100", "p99.001"])
+def test_requested_quantile_label_is_case_insensitive_and_includes_endpoints(evidence, label):
+    from power_forecast_service.assistant.answerability import bind_nominal_identifiers
+    bound = bind_nominal_identifiers(evidence, "给出生产实测延迟" + label + "。")
+    assert label.upper() in bound["nominal_identifiers"]
+    draft = DraftAnswer(status="answered", answer="{{c0.ridge.mae}}；所问标签为" + label + "。",
+        fact_ids=["c0.ridge.mae"])
+    assert validate_answer(draft, bound, [])["status"] == "answered"
+
+
+@pytest.mark.parametrize("text", ["P97%", "P97.1", "P97.xxx", "P97为97分钟", "p98"])
+def test_nominal_quantile_never_whitelists_measurement_or_other_label(evidence, text):
+    from power_forecast_service.assistant.answerability import bind_nominal_identifiers
+    bound = bind_nominal_identifiers(evidence, "给出生产实测延迟p97。")
+    draft = DraftAnswer(status="answered", answer=text + "。")
+    with pytest.raises(AssistantError, match="answer_number_unbound"):
+        validate_answer(draft, bound, [])
+
+
 @pytest.mark.parametrize("sign", ["-", "−", "+", "±"])
 @pytest.mark.parametrize("label", ["ridge MAE：", "ridge MAE: ", "ridge MAE：ridge MAE："])
 def test_duplicate_labels_cannot_hide_external_sign(evidence, sign, label):
@@ -146,7 +165,7 @@ def test_document_number_cannot_lose_sign_or_unit(evidence, literal):
 
 
 def test_unused_fact_cannot_pass_as_answered_value(evidence):
-    answer = DraftAnswer(status="insufficient_evidence", answer="不能确定。", fact_ids=["c0.ridge.mae"])
+    answer = DraftAnswer(status="insufficient_evidence", answer="缺少原因证据，不能确定。", fact_ids=["c0.ridge.mae"], missing_evidence=["因果证据"])
     result = validate_answer(answer,evidence,[])
     assert result["facts"] == []
 

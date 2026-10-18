@@ -47,5 +47,5 @@ def validate_coverage(draft, required):
     body = "\n".join(claim.text for claim in draft.stage_claims) if draft.stage_claims else draft.answer
     used = set(re.findall(r"\{\{([^{}]+)\}\}", body)) & set(draft.fact_ids)
     missing = sorted(set(required) - used)
-    if draft.status != "answered" or missing:
+    if missing or (draft.status != "answered" and not draft.missing_evidence):
         raise AssistantError("answer_coverage_incomplete", "所问覆盖数量需在正文绑定：" + ",".join(missing or required))

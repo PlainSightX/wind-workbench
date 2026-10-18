@@ -26,6 +26,7 @@ class Settings:
     assistant_vllm_url: str = ""
     assistant_vllm_model: str = ""
     assistant_capacity: int = 1
+    assistant_response_mode: str = "references"
 
     @classmethod
     def from_environment(cls) -> "Settings":
@@ -53,4 +54,5 @@ class Settings:
             assistant_vllm_url=os.getenv("WIND_ASSISTANT_VLLM_URL", ""),
             assistant_vllm_model=os.getenv("WIND_ASSISTANT_VLLM_MODEL", ""),
             assistant_capacity=int(os.getenv("WIND_ASSISTANT_CAPACITY", "1")),
+            assistant_response_mode=os.getenv("WIND_ASSISTANT_RESPONSE_MODE", "references"),
         )
