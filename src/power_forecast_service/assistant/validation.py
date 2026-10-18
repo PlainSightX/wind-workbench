@@ -2,8 +2,9 @@
 
 import re
 
-from .contracts import AssistantError
+from .contracts import AssistantError, ComposedDraftAnswer
 from .stages import validate_stage_claims, stage_body
+from .answerability import QUARTERS, validate_refusal, validate_quarter_assignment
 
 
 FACT_TOKEN = re.compile(r"\{\{([^{}]+)\}\}")
@@ -79,7 +80,7 @@ def validate_fact_boundaries(body, facts, units):
         explicit = fact_unit_suffix(body[token.end():], units)
         if explicit and (explicit[1] != fact["unit"] or
                          fact_unit_suffix(body[token.end() + explicit.end():], units)):
-            raise AssistantError("answer_fact_unit_conflict", "占位符后单位与原事实不一致：" + token[1])
+            raise AssistantError("answer_fact_unit_conflict", "占位符是完整标签、数值与单位，不能接除法或其他单位：" + token[1] + "；直接解释数量关系，只有已有派生事实才能引用比例。")
 
 
 def unit_pattern(units):
@@ -96,6 +97,9 @@ def numeric_tokens(text, units):
 
 
 def validate_answer(draft, evidence, documents, question=""):
+    if isinstance(draft, ComposedDraftAnswer):
+        from .program import validate_composed_answer
+        return validate_composed_answer(draft, evidence, documents, question)
     facts = {f["id"]: f for f in evidence["facts"]}
     docs = {d["id"]: d for d in documents}
     # 规范化已知的无歧义占位符写法；不能把未知ID猜成最近的事实。
@@ -106,6 +110,8 @@ def validate_answer(draft, evidence, documents, question=""):
     body = "\n".join(c.text for c in draft.stage_claims) if draft.stage_claims else draft.answer
     if not body.strip():
         raise AssistantError("answer_body_missing")
+    validate_refusal(draft, evidence, question)
+    validate_quarter_assignment(body, evidence)
     referenced = re.findall(r"\{\{([^{}]+)\}\}", body)
     if any(f not in facts for f in draft.fact_ids + referenced) or set(referenced) - set(draft.fact_ids):
         raise AssistantError("answer_fact_invalid")
@@ -131,8 +137,19 @@ def validate_answer(draft, evidence, documents, question=""):
     if draft.citations and any(c not in draft.quotes for c in draft.citations):
         raise AssistantError("answer_quote_missing")
     raw = re.sub(r"\{\{[^{}]+\}\}", "", body)
+    if draft.status == "insufficient_evidence":
+        # partial已逐段校验后才展开标题；只认本请求登记的完整行首标题，
+        # 不把其中的年份放进通用数字白名单，正文和缺口中的数字仍须绑定。
+        for option in evidence.get("stage_options", []):
+            raw = re.sub(r"(?m)^" + re.escape(option["label"] + "："), "", raw)
+    for name in sorted(evidence.get("nominal_identifiers", []), key=len, reverse=True):
+        # 分位数标签不是实测数值；只消费请求已绑定的同一完整标签及其大小写写法。
+        quantile = re.fullmatch(r"P\d{1,3}(?:\.\d+)?", name) is not None
+        boundary = r"(?![A-Za-z0-9_.%])" if quantile else r"(?![A-Za-z0-9_.])"
+        raw = re.sub(r"(?<![A-Za-z0-9_.])" + re.escape(name) + boundary, "", raw,
+            flags=re.IGNORECASE if quantile else 0)
     # 技术名字允许数字；其他自由书写数字不作为可信指标输出。
-    raw = re.sub(r"(?<![a-zA-Z0-9_])(?:Q[1-4]|L[12])(?![a-zA-Z0-9_])", "", raw)
+    raw = re.sub(r"(?<![a-zA-Z0-9_])(?:" + "|".join(QUARTERS) + r"|L[12])(?![a-zA-Z0-9_])", "", raw)
     model_names = {name for record in evidence["records"] for name in record["models"]}
     for name in sorted(model_names, key=len, reverse=True):
         raw = raw.replace(name, "")

@@ -152,7 +152,7 @@ def test_individually_valid_stage_citations_cannot_overflow_aggregate_limit():
 ])
 def test_plain_decoder_grammar_requires_real_fact_tokens(text, valid):
     schema = reference_schema(evidence(), [document()], ["fresh_object.gain"])
-    assert schema["properties"]["body"] == {"$ref": "#/$defs/PlainReferenceBody"}
+    assert schema["oneOf"][0]["properties"]["body"] == {"$ref": "#/$defs/PlainReferenceBody"}
     assert "StagedReferenceBody" not in schema["$defs"]
     value = schema["$defs"]["PlainReferenceBody"]["properties"]["text"]
     assert bool(re.fullmatch(value["pattern"], text)) is valid

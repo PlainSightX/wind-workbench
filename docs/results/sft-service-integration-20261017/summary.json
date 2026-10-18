@@ -1,0 +1,1550 @@
+{
+ "date": "2026-10-17",
+ "pipeline": "Assistant(sessions=None, provider=VLLMProvider, response_mode='program_requested').answer(state)；证据/文档由测试行payload提供，不经数据库检索",
+ "metric_definitions": {
+  "delivered": "answer节点通过全部服务校验并返回结果（含至多一次修复）",
+  "e2e_auto": "delivered 且最终计划 evaluate_plan.automatic_screen_passed",
+  "e2e_strict": "delivered 且 evaluate_plan.passed（无pending）",
+  "e2e_soft": "delivered 且 score.py lenient（只比语义原子序列，忽略分组与缺口措辞）",
+  "first_*": "首个模型调用原始返回文本按同一评测器评分（与离线score.py同口径）",
+  "p_exact": "同题配对 McNemar 精确双侧"
+ },
+ "arms": {
+  "lora_sorted": {
+   "identity": {
+    "backend": "vllm",
+    "url": "http://127.0.0.1:18110/v1",
+    "model": "wind-planner",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "max_tokens": 1024,
+    "seed": 42,
+    "min_p": 0.0,
+    "enable_thinking": false,
+    "generation_profile": "offline-greedy-v1",
+    "timeout_seconds": 60,
+    "timeout_semantics": "total_and_io_v1",
+    "schema_transport": "finite-unique-arrays-v1",
+    "schema_property_order": "sorted-properties-v1"
+   },
+   "concurrency": 8,
+   "panels": {
+    "test300": {
+     "delivered": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 233,
+      "n": 300,
+      "pct": 77.7,
+      "wilson95": [
+       72.6,
+       82.0
+      ]
+     },
+     "e2e_strict": {
+      "k": 213,
+      "n": 300,
+      "pct": 71.0,
+      "wilson95": [
+       65.6,
+       75.8
+      ]
+     },
+     "e2e_soft": {
+      "k": 295,
+      "n": 300,
+      "pct": 98.3,
+      "wilson95": [
+       96.2,
+       99.3
+      ]
+     },
+     "first_auto": {
+      "k": 232,
+      "n": 300,
+      "pct": 77.3,
+      "wilson95": [
+       72.3,
+       81.7
+      ]
+     },
+     "first_strict": {
+      "k": 212,
+      "n": 300,
+      "pct": 70.7,
+      "wilson95": [
+       65.3,
+       75.5
+      ]
+     },
+     "first_soft": {
+      "k": 294,
+      "n": 300,
+      "pct": 98.0,
+      "wilson95": [
+       95.7,
+       99.1
+      ]
+     },
+     "repaired": {
+      "k": 1,
+      "n": 300,
+      "pct": 0.3,
+      "wilson95": [
+       0.1,
+       1.9
+      ]
+     },
+     "repair_success": {
+      "k": 1,
+      "n": 1,
+      "pct": 100.0,
+      "wilson95": [
+       20.7,
+       100.0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 67,
+      "n": 300,
+      "pct": 22.3,
+      "wilson95": [
+       18.0,
+       27.4
+      ]
+     },
+     "routes": {
+      "model": 300
+     },
+     "errors": {},
+     "repair_reasons": {
+      "answer_schema_invalid": 1
+     },
+     "model_calls_mean": 1.003,
+     "model_calls_hist": {
+      "1": 299,
+      "2": 1
+     },
+     "latency_seconds": {
+      "p50": 15.92,
+      "p95": 24.27,
+      "mean": 16.24,
+      "max": 57.26
+     },
+     "per_call_latency_seconds": {
+      "p50": 15.94,
+      "p95": 24.41
+     },
+     "tokens_per_call": {
+      "input_mean": 23223,
+      "output_mean": 98.0
+     },
+     "panel_wall_seconds": 610.8,
+     "first_request_matches_training_prompt": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "explicit_request_order_mismatch": 66,
+      "operation_obligations_differ": 3,
+      "presentation_obligations_differ": 2,
+      "delivered_facts_differ": 1
+     }
+    },
+    "dev32": {
+     "delivered": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "e2e_strict": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "e2e_soft": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "first_auto": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "first_strict": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "first_soft": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "repaired": {
+      "k": 1,
+      "n": 32,
+      "pct": 3.1,
+      "wilson95": [
+       0.6,
+       15.7
+      ]
+     },
+     "repair_success": {
+      "k": 1,
+      "n": 1,
+      "pct": 100.0,
+      "wilson95": [
+       20.7,
+       100.0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 2,
+      "n": 32,
+      "pct": 6.2,
+      "wilson95": [
+       1.7,
+       20.1
+      ]
+     },
+     "routes": {
+      "model": 32
+     },
+     "errors": {},
+     "repair_reasons": {
+      "answer_coverage_incomplete": 1
+     },
+     "model_calls_mean": 1.031,
+     "model_calls_hist": {
+      "1": 31,
+      "2": 1
+     },
+     "latency_seconds": {
+      "p50": 15.45,
+      "p95": 25.92,
+      "mean": 15.41,
+      "max": 27.67
+     },
+     "per_call_latency_seconds": {
+      "p50": 15.41,
+      "p95": 21.9
+     },
+     "tokens_per_call": {
+      "input_mean": 22041,
+      "output_mean": 88.9
+     },
+     "panel_wall_seconds": 63.1,
+     "first_request_matches_training_prompt": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "operation_obligations_differ": 2,
+      "explicit_request_order_mismatch": 2
+     }
+    }
+   }
+  },
+  "base": {
+   "identity": {
+    "backend": "vllm",
+    "url": "http://127.0.0.1:18110/v1",
+    "model": "qwen3-8b",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "max_tokens": 1024,
+    "seed": 42,
+    "min_p": 0.0,
+    "enable_thinking": false,
+    "generation_profile": "offline-greedy-v1",
+    "timeout_seconds": 60,
+    "timeout_semantics": "total_and_io_v1",
+    "schema_transport": "finite-unique-arrays-v1"
+   },
+   "concurrency": 8,
+   "panels": {
+    "test300": {
+     "delivered": {
+      "k": 277,
+      "n": 300,
+      "pct": 92.3,
+      "wilson95": [
+       88.8,
+       94.8
+      ]
+     },
+     "e2e_auto": {
+      "k": 57,
+      "n": 300,
+      "pct": 19.0,
+      "wilson95": [
+       15.0,
+       23.8
+      ]
+     },
+     "e2e_strict": {
+      "k": 30,
+      "n": 300,
+      "pct": 10.0,
+      "wilson95": [
+       7.1,
+       13.9
+      ]
+     },
+     "e2e_soft": {
+      "k": 103,
+      "n": 300,
+      "pct": 34.3,
+      "wilson95": [
+       29.2,
+       39.9
+      ]
+     },
+     "first_auto": {
+      "k": 57,
+      "n": 300,
+      "pct": 19.0,
+      "wilson95": [
+       15.0,
+       23.8
+      ]
+     },
+     "first_strict": {
+      "k": 30,
+      "n": 300,
+      "pct": 10.0,
+      "wilson95": [
+       7.1,
+       13.9
+      ]
+     },
+     "first_soft": {
+      "k": 103,
+      "n": 300,
+      "pct": 34.3,
+      "wilson95": [
+       29.2,
+       39.9
+      ]
+     },
+     "repaired": {
+      "k": 23,
+      "n": 300,
+      "pct": 7.7,
+      "wilson95": [
+       5.2,
+       11.2
+      ]
+     },
+     "repair_success": {
+      "k": 5,
+      "n": 23,
+      "pct": 21.7,
+      "wilson95": [
+       9.7,
+       41.9
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 220,
+      "n": 300,
+      "pct": 73.3,
+      "wilson95": [
+       68.1,
+       78.0
+      ]
+     },
+     "routes": {
+      "model": 300
+     },
+     "errors": {
+      "provider_result_unknown": 5,
+      "answer_number_unbound": 3,
+      "answer_program_stage": 9,
+      "answer_program_gap_in_explanation": 2,
+      "answer_citation_invalid": 3,
+      "answer_evidence_missing": 1
+     },
+     "repair_reasons": {
+      "answer_number_unbound": 3,
+      "answer_schema_invalid": 4,
+      "answer_program_stage": 9,
+      "answer_program_gap_in_explanation": 2,
+      "answer_citation_invalid": 3,
+      "answer_evidence_missing": 1,
+      "answer_reference_limit": 1
+     },
+     "model_calls_mean": 1.077,
+     "model_calls_hist": {
+      "1": 277,
+      "2": 23
+     },
+     "latency_seconds": {
+      "p50": 16.58,
+      "p95": 32.01,
+      "mean": 18.31,
+      "max": 60.02
+     },
+     "per_call_latency_seconds": {
+      "p50": 15.69,
+      "p95": 26.48
+     },
+     "tokens_per_call": {
+      "input_mean": 23257,
+      "output_mean": 183.3
+     },
+     "panel_wall_seconds": 689.0,
+     "first_request_matches_training_prompt": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "explicit_request_order_mismatch": 171,
+      "operation_obligations_differ": 140,
+      "presentation_obligations_differ": 67,
+      "delivered_facts_differ": 53,
+      "delivered_citations_differ": 45,
+      "delivered_stage_roles_differ": 30,
+      "consumer_rejected": 18,
+      "no_parsed_plan": 5
+     }
+    },
+    "dev32": {
+     "delivered": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 9,
+      "n": 32,
+      "pct": 28.1,
+      "wilson95": [
+       15.6,
+       45.4
+      ]
+     },
+     "e2e_strict": {
+      "k": 1,
+      "n": 32,
+      "pct": 3.1,
+      "wilson95": [
+       0.6,
+       15.7
+      ]
+     },
+     "e2e_soft": {
+      "k": 9,
+      "n": 32,
+      "pct": 28.1,
+      "wilson95": [
+       15.6,
+       45.4
+      ]
+     },
+     "first_auto": {
+      "k": 9,
+      "n": 32,
+      "pct": 28.1,
+      "wilson95": [
+       15.6,
+       45.4
+      ]
+     },
+     "first_strict": {
+      "k": 1,
+      "n": 32,
+      "pct": 3.1,
+      "wilson95": [
+       0.6,
+       15.7
+      ]
+     },
+     "first_soft": {
+      "k": 9,
+      "n": 32,
+      "pct": 28.1,
+      "wilson95": [
+       15.6,
+       45.4
+      ]
+     },
+     "repaired": {
+      "k": 0,
+      "n": 32,
+      "pct": 0.0,
+      "wilson95": [
+       0.0,
+       10.7
+      ]
+     },
+     "repair_success": {
+      "k": 0,
+      "n": 0,
+      "pct": null,
+      "wilson95": [
+       0,
+       0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 23,
+      "n": 32,
+      "pct": 71.9,
+      "wilson95": [
+       54.6,
+       84.4
+      ]
+     },
+     "routes": {
+      "model": 32
+     },
+     "errors": {},
+     "repair_reasons": {},
+     "model_calls_mean": 1,
+     "model_calls_hist": {
+      "1": 32
+     },
+     "latency_seconds": {
+      "p50": 15.25,
+      "p95": 27.99,
+      "mean": 17.24,
+      "max": 45.09
+     },
+     "per_call_latency_seconds": {
+      "p50": 15.24,
+      "p95": 27.98
+     },
+     "tokens_per_call": {
+      "input_mean": 21956,
+      "output_mean": 200.3
+     },
+     "panel_wall_seconds": 72.3,
+     "first_request_matches_training_prompt": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "operation_obligations_differ": 19,
+      "delivered_citations_differ": 13,
+      "presentation_obligations_differ": 8,
+      "explicit_request_order_mismatch": 8,
+      "delivered_stage_roles_differ": 7,
+      "delivered_facts_differ": 1
+     }
+    }
+   }
+  },
+  "lora_unsorted": {
+   "identity": {
+    "backend": "vllm",
+    "url": "http://127.0.0.1:18110/v1",
+    "model": "wind-planner",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "max_tokens": 1024,
+    "seed": 42,
+    "min_p": 0.0,
+    "enable_thinking": false,
+    "generation_profile": "offline-greedy-v1",
+    "timeout_seconds": 60,
+    "timeout_semantics": "total_and_io_v1",
+    "schema_transport": "finite-unique-arrays-v1"
+   },
+   "concurrency": 8,
+   "panels": {
+    "test300": {
+     "delivered": {
+      "k": 296,
+      "n": 300,
+      "pct": 98.7,
+      "wilson95": [
+       96.6,
+       99.5
+      ]
+     },
+     "e2e_auto": {
+      "k": 150,
+      "n": 300,
+      "pct": 50.0,
+      "wilson95": [
+       44.4,
+       55.6
+      ]
+     },
+     "e2e_strict": {
+      "k": 135,
+      "n": 300,
+      "pct": 45.0,
+      "wilson95": [
+       39.5,
+       50.7
+      ]
+     },
+     "e2e_soft": {
+      "k": 197,
+      "n": 300,
+      "pct": 65.7,
+      "wilson95": [
+       60.1,
+       70.8
+      ]
+     },
+     "first_auto": {
+      "k": 148,
+      "n": 300,
+      "pct": 49.3,
+      "wilson95": [
+       43.7,
+       55.0
+      ]
+     },
+     "first_strict": {
+      "k": 134,
+      "n": 300,
+      "pct": 44.7,
+      "wilson95": [
+       39.1,
+       50.3
+      ]
+     },
+     "first_soft": {
+      "k": 195,
+      "n": 300,
+      "pct": 65.0,
+      "wilson95": [
+       59.4,
+       70.2
+      ]
+     },
+     "repaired": {
+      "k": 6,
+      "n": 300,
+      "pct": 2.0,
+      "wilson95": [
+       0.9,
+       4.3
+      ]
+     },
+     "repair_success": {
+      "k": 5,
+      "n": 6,
+      "pct": 83.3,
+      "wilson95": [
+       43.6,
+       97.0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 146,
+      "n": 300,
+      "pct": 48.7,
+      "wilson95": [
+       43.1,
+       54.3
+      ]
+     },
+     "routes": {
+      "model": 300
+     },
+     "errors": {
+      "provider_result_unknown": 3,
+      "answer_program_stage": 1
+     },
+     "repair_reasons": {
+      "answer_program_comparison": 2,
+      "answer_time_fact_missing": 1,
+      "answer_program_stage": 1,
+      "answer_coverage_incomplete": 2
+     },
+     "model_calls_mean": 1.02,
+     "model_calls_hist": {
+      "1": 294,
+      "2": 6
+     },
+     "latency_seconds": {
+      "p50": 14.18,
+      "p95": 39.88,
+      "mean": 16.36,
+      "max": 69.34
+     },
+     "per_call_latency_seconds": {
+      "p50": 14.12,
+      "p95": 31.27
+     },
+     "tokens_per_call": {
+      "input_mean": 23242,
+      "output_mean": 97.1
+     },
+     "panel_wall_seconds": 615.0,
+     "first_request_matches_training_prompt": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "explicit_request_order_mismatch": 117,
+      "presentation_obligations_differ": 68,
+      "operation_obligations_differ": 41,
+      "delivered_facts_differ": 24,
+      "delivered_citations_differ": 11,
+      "omitted_all_requested_gaps": 7,
+      "delivered_stage_roles_differ": 7,
+      "no_parsed_plan": 3,
+      "consumer_rejected": 1,
+      "unrequested_gap": 1
+     }
+    },
+    "dev32": {
+     "delivered": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "e2e_strict": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "e2e_soft": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "first_auto": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "first_strict": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "first_soft": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "repaired": {
+      "k": 0,
+      "n": 32,
+      "pct": 0.0,
+      "wilson95": [
+       0.0,
+       10.7
+      ]
+     },
+     "repair_success": {
+      "k": 0,
+      "n": 0,
+      "pct": null,
+      "wilson95": [
+       0,
+       0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 16,
+      "n": 32,
+      "pct": 50.0,
+      "wilson95": [
+       33.6,
+       66.4
+      ]
+     },
+     "routes": {
+      "model": 32
+     },
+     "errors": {},
+     "repair_reasons": {},
+     "model_calls_mean": 1,
+     "model_calls_hist": {
+      "1": 32
+     },
+     "latency_seconds": {
+      "p50": 14.04,
+      "p95": 24.55,
+      "mean": 14.75,
+      "max": 31.28
+     },
+     "per_call_latency_seconds": {
+      "p50": 14.03,
+      "p95": 24.55
+     },
+     "tokens_per_call": {
+      "input_mean": 21956,
+      "output_mean": 84.5
+     },
+     "panel_wall_seconds": 61.1,
+     "first_request_matches_training_prompt": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "presentation_obligations_differ": 8,
+      "operation_obligations_differ": 7,
+      "explicit_request_order_mismatch": 6,
+      "omitted_all_requested_gaps": 4,
+      "delivered_facts_differ": 3
+     }
+    }
+   }
+  },
+  "lora_sorted_rerun": {
+   "identity": {
+    "backend": "vllm",
+    "url": "http://127.0.0.1:18110/v1",
+    "model": "wind-planner",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": -1,
+    "max_tokens": 1024,
+    "seed": 42,
+    "min_p": 0.0,
+    "enable_thinking": false,
+    "generation_profile": "offline-greedy-v1",
+    "timeout_seconds": 60,
+    "timeout_semantics": "total_and_io_v1",
+    "schema_transport": "finite-unique-arrays-v1",
+    "schema_property_order": "sorted-properties-v1"
+   },
+   "concurrency": 8,
+   "panels": {
+    "test300": {
+     "delivered": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 234,
+      "n": 300,
+      "pct": 78.0,
+      "wilson95": [
+       73.0,
+       82.3
+      ]
+     },
+     "e2e_strict": {
+      "k": 213,
+      "n": 300,
+      "pct": 71.0,
+      "wilson95": [
+       65.6,
+       75.8
+      ]
+     },
+     "e2e_soft": {
+      "k": 296,
+      "n": 300,
+      "pct": 98.7,
+      "wilson95": [
+       96.6,
+       99.5
+      ]
+     },
+     "first_auto": {
+      "k": 233,
+      "n": 300,
+      "pct": 77.7,
+      "wilson95": [
+       72.6,
+       82.0
+      ]
+     },
+     "first_strict": {
+      "k": 212,
+      "n": 300,
+      "pct": 70.7,
+      "wilson95": [
+       65.3,
+       75.5
+      ]
+     },
+     "first_soft": {
+      "k": 295,
+      "n": 300,
+      "pct": 98.3,
+      "wilson95": [
+       96.2,
+       99.3
+      ]
+     },
+     "repaired": {
+      "k": 1,
+      "n": 300,
+      "pct": 0.3,
+      "wilson95": [
+       0.1,
+       1.9
+      ]
+     },
+     "repair_success": {
+      "k": 1,
+      "n": 1,
+      "pct": 100.0,
+      "wilson95": [
+       20.7,
+       100.0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 66,
+      "n": 300,
+      "pct": 22.0,
+      "wilson95": [
+       17.7,
+       27.0
+      ]
+     },
+     "routes": {
+      "model": 300
+     },
+     "errors": {},
+     "repair_reasons": {
+      "answer_schema_invalid": 1
+     },
+     "model_calls_mean": 1.003,
+     "model_calls_hist": {
+      "1": 299,
+      "2": 1
+     },
+     "latency_seconds": {
+      "p50": 16.25,
+      "p95": 23.74,
+      "mean": 16.34,
+      "max": 57.39
+     },
+     "per_call_latency_seconds": {
+      "p50": 16.25,
+      "p95": 23.86
+     },
+     "tokens_per_call": {
+      "input_mean": 23223,
+      "output_mean": 98.0
+     },
+     "panel_wall_seconds": 614.7,
+     "first_request_matches_training_prompt": {
+      "k": 300,
+      "n": 300,
+      "pct": 100.0,
+      "wilson95": [
+       98.7,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "explicit_request_order_mismatch": 66,
+      "presentation_obligations_differ": 2,
+      "operation_obligations_differ": 2
+     }
+    },
+    "dev32": {
+     "delivered": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_auto": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "e2e_strict": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "e2e_soft": {
+      "k": 30,
+      "n": 32,
+      "pct": 93.8,
+      "wilson95": [
+       79.9,
+       98.3
+      ]
+     },
+     "first_auto": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "first_strict": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "first_soft": {
+      "k": 29,
+      "n": 32,
+      "pct": 90.6,
+      "wilson95": [
+       75.8,
+       96.8
+      ]
+     },
+     "repaired": {
+      "k": 1,
+      "n": 32,
+      "pct": 3.1,
+      "wilson95": [
+       0.6,
+       15.7
+      ]
+     },
+     "repair_success": {
+      "k": 1,
+      "n": 1,
+      "pct": 100.0,
+      "wilson95": [
+       20.7,
+       100.0
+      ]
+     },
+     "delivered_not_auto": {
+      "k": 2,
+      "n": 32,
+      "pct": 6.2,
+      "wilson95": [
+       1.7,
+       20.1
+      ]
+     },
+     "routes": {
+      "model": 32
+     },
+     "errors": {},
+     "repair_reasons": {
+      "answer_coverage_incomplete": 1
+     },
+     "model_calls_mean": 1.031,
+     "model_calls_hist": {
+      "1": 31,
+      "2": 1
+     },
+     "latency_seconds": {
+      "p50": 16.41,
+      "p95": 22.86,
+      "mean": 15.59,
+      "max": 26.08
+     },
+     "per_call_latency_seconds": {
+      "p50": 15.62,
+      "p95": 22.56
+     },
+     "tokens_per_call": {
+      "input_mean": 22041,
+      "output_mean": 88.9
+     },
+     "panel_wall_seconds": 64.1,
+     "first_request_matches_training_prompt": {
+      "k": 32,
+      "n": 32,
+      "pct": 100.0,
+      "wilson95": [
+       89.3,
+       100.0
+      ]
+     },
+     "e2e_failure_kinds": {
+      "operation_obligations_differ": 2,
+      "explicit_request_order_mismatch": 2
+     }
+    }
+   }
+  }
+ },
+ "pairs": {
+  "lora_sorted:base": {
+   "test300": {
+    "e2e_auto": {
+     "only_lora_sorted": 177,
+     "only_base": 1,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 183,
+     "only_base": 0,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 193,
+     "only_base": 1,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "delivered": {
+     "only_lora_sorted": 23,
+     "only_base": 0,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "first_auto": {
+     "only_lora_sorted": 176,
+     "only_base": 1,
+     "p_exact": 0.0,
+     "n": 300
+    }
+   },
+   "dev32": {
+    "e2e_auto": {
+     "only_lora_sorted": 21,
+     "only_base": 0,
+     "p_exact": 1e-06,
+     "n": 32
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 29,
+     "only_base": 0,
+     "p_exact": 0.0,
+     "n": 32
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 21,
+     "only_base": 0,
+     "p_exact": 1e-06,
+     "n": 32
+    },
+    "delivered": {
+     "only_lora_sorted": 0,
+     "only_base": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "first_auto": {
+     "only_lora_sorted": 20,
+     "only_base": 0,
+     "p_exact": 2e-06,
+     "n": 32
+    }
+   }
+  },
+  "lora_sorted:lora_unsorted": {
+   "test300": {
+    "e2e_auto": {
+     "only_lora_sorted": 83,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 78,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 98,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.0,
+     "n": 300
+    },
+    "delivered": {
+     "only_lora_sorted": 4,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.125,
+     "n": 300
+    },
+    "first_auto": {
+     "only_lora_sorted": 84,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.0,
+     "n": 300
+    }
+   },
+   "dev32": {
+    "e2e_auto": {
+     "only_lora_sorted": 14,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.000122,
+     "n": 32
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 14,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.000122,
+     "n": 32
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 14,
+     "only_lora_unsorted": 0,
+     "p_exact": 0.000122,
+     "n": 32
+    },
+    "delivered": {
+     "only_lora_sorted": 0,
+     "only_lora_unsorted": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "first_auto": {
+     "only_lora_sorted": 14,
+     "only_lora_unsorted": 1,
+     "p_exact": 0.000977,
+     "n": 32
+    }
+   }
+  },
+  "lora_sorted:lora_sorted_rerun": {
+   "test300": {
+    "e2e_auto": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 1,
+     "p_exact": 1.0,
+     "n": 300
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 300
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 1,
+     "p_exact": 1.0,
+     "n": 300
+    },
+    "delivered": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 300
+    },
+    "first_auto": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 1,
+     "p_exact": 1.0,
+     "n": 300
+    }
+   },
+   "dev32": {
+    "e2e_auto": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "e2e_strict": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "e2e_soft": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "delivered": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 32
+    },
+    "first_auto": {
+     "only_lora_sorted": 0,
+     "only_lora_sorted_rerun": 0,
+     "p_exact": 1.0,
+     "n": 32
+    }
+   }
+  }
+ },
+ "offline_consistency": {
+  "lora_sorted": {
+   "test300": {
+    "offline_dir": "offline-r1s",
+    "n": 300,
+    "same_first_plan_json": 297,
+    "same_auto_verdict": 300,
+    "offline_auto_pass": 232,
+    "offline_n": 300
+   },
+   "dev32": {
+    "offline_dir": "offline-r1s",
+    "n": 32,
+    "same_first_plan_json": 32,
+    "same_auto_verdict": 32,
+    "offline_auto_pass": 29,
+    "offline_n": 32
+   }
+  },
+  "base": {
+   "test300": {
+    "offline_dir": "offline-base8",
+    "n": 300,
+    "same_first_plan_json": 231,
+    "same_auto_verdict": 296,
+    "offline_auto_pass": 55,
+    "offline_n": 300
+   },
+   "dev32": {
+    "offline_dir": "offline-base8",
+    "n": 32,
+    "same_first_plan_json": 26,
+    "same_auto_verdict": 29,
+    "offline_auto_pass": 12,
+    "offline_n": 32
+   }
+  },
+  "lora_unsorted": {
+   "test300": {
+    "offline_dir": "offline-r1",
+    "n": 300,
+    "same_first_plan_json": 293,
+    "same_auto_verdict": 298,
+    "offline_auto_pass": 148,
+    "offline_n": 300
+   },
+   "dev32": {
+    "offline_dir": "offline-r1",
+    "n": 32,
+    "same_first_plan_json": 31,
+    "same_auto_verdict": 32,
+    "offline_auto_pass": 16,
+    "offline_n": 32
+   }
+  }
+ },
+ "http_e2e": [
+  {
+   "panel": "dev32",
+   "id": "redesign-composition_dev-heldout-01-1",
+   "http_status": 200,
+   "status": "answered",
+   "error": null,
+   "route": "model",
+   "facts_match_gold": true,
+   "client_elapsed_seconds": 3.73,
+   "delivered_fact_ids": [
+    "c0.lightgbm.bias",
+    "c0.output_count",
+    "c0.scoreable"
+   ],
+   "model_calls": [
+    {
+     "status": "returned",
+     "elapsed_seconds": 3.6719999999986612,
+     "usage": {
+      "input_tokens": 24071,
+      "output_tokens": 76,
+      "total_tokens": 24147
+     },
+     "model": "wind-planner"
+    }
+   ],
+   "journal_status": "completed",
+   "journal_outcome": "answered"
+  },
+  {
+   "panel": "test300",
+   "id": "redesign-test-te-00001-1",
+   "http_status": 200,
+   "status": "answered",
+   "error": null,
+   "route": "model",
+   "facts_match_gold": true,
+   "client_elapsed_seconds": 4.58,
+   "delivered_fact_ids": [
+    "c0.lightgbm_l1.bias",
+    "c0.lightgbm_l1_shrink.mae",
+    "c0.lightgbm_l1_shrink.rmse",
+    "c0.persistence.mae",
+    "c0.persistence.rmse"
+   ],
+   "model_calls": [
+    {
+     "status": "returned",
+     "elapsed_seconds": 4.578000000001339,
+     "usage": {
+      "input_tokens": 23963,
+      "output_tokens": 124,
+      "total_tokens": 24087
+     },
+     "model": "wind-planner"
+    }
+   ],
+   "journal_status": "completed",
+   "journal_outcome": "answered"
+  },
+  {
+   "panel": "test300",
+   "id": "redesign-test-te-00002-1",
+   "http_status": 200,
+   "status": "answered",
+   "error": null,
+   "route": "model",
+   "facts_match_gold": true,
+   "client_elapsed_seconds": 4.2,
+   "delivered_fact_ids": [
+    "c0.evaluation_period",
+    "c0.lightgbm.rmse",
+    "c0.persistence.mae",
+    "c0.persistence.rmse"
+   ],
+   "model_calls": [
+    {
+     "status": "returned",
+     "elapsed_seconds": 4.187000000005355,
+     "usage": {
+      "input_tokens": 23335,
+      "output_tokens": 114,
+      "total_tokens": 23449
+     },
+     "model": "wind-planner"
+    }
+   ],
+   "journal_status": "completed",
+   "journal_outcome": "answered"
+  }
+ ],
+ "identities": {
+  "repo_head": "开发仓库工作区（有未提交改动）；助手源码与本次公开版本相同",
+  "base_model": "Qwen3-8B（config.json sha256 f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30）",
+  "adapter": "LoRA 适配器（adapter_model.safetensors sha256 e6c5012482d37f6e22318c76f1e0f6f6977290123db297d2f4778d588aa67fb7，未上传）",
+  "engine": "vLLM 0.11.2, torch 2.9.0, xgrammar 0.1.25, RTX PRO 6000 Blackwell 96GB, bf16, max-model-len 32768, max-num-seqs 8, prefix caching, LoRA max-rank 64",
+  "frozen_corpus_sha256": "740a0157131643bc1a5d292a4873687e07c6118343127da3cf797fb11530b1e8",
+  "frozen_stage_sources_sha256": "e0974e9598b4c84e5958f7986b74b1e8ceedee032cfb9236abf498660e81656e",
+  "eval_script_sha256_unpublished": "7591a3d28f0f10de582da8c6457cfeb693292e84c7dfc12d5b69e0de81fc8742"
+ }
+}

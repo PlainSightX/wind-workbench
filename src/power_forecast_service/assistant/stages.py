@@ -89,7 +89,7 @@ def prepare_stage_requirements(evidence, documents, question):
             add("selection_basis", "事前开发选型", dev, needed, record["pre_selection_evidence"], record["pre_selection_evidence"], selection_question)
         else:
             dev_question = gain and any(word in query for word in ("开发", "a2", "事前", "当时"))
-            gate_question = any(word in query for word in ("采用门", "开发门", "采用门槛")) or (
+            gate_question = any(word in query for word in ("采用门", "开发门", "采用门槛", "采用状态")) or (
                 causal and any(word in query for word in ("默认", "不采用", "采用候选", "采用模型", "采用共享收缩")))
             # 事前门槛可用于解释开发改善，不等于允许正式结果或采用状态混入开发指标。
             thresholds = [f["id"] for f in facts if f["stage"] == "adoption_gate"
@@ -100,7 +100,21 @@ def prepare_stage_requirements(evidence, documents, question):
             add("adoption_decision", "开发采用决定（未通过，默认持久性）", dev + gates,
                 [prefix + "development.mae_gain_gate", prefix + "adopted"], record["development_evidence"], record["development_evidence"], gate_question)
         final_question = gain and any(word in query for word in ("最终", "正式", "留出", "a3", "2015", "后来"))
-        needed = [prefix + "lightgbm_l1_shrink.mae_gain"] if record["scope"] == "engie_final" else []
+        # 问题中不同分句不能共享数值义务：问开发改善，再问正式结果能否追认采用，
+        # 并不等于要求正式改善原值。阶段解释仍保留，完整事实仍在输入中。
+        clauses = re.split(r"[，,。；;！？!?\n]|(?:并说明|再解释|再说明)", query)
+        final_metric = any(
+            any(word in clause for word in ("最终", "正式", "留出", "a3", "2015", "后来"))
+            and any(word in clause for word in ("改善", "提升", "收益"))
+            and not re.search(r"(?:不要|不需要|不要求|无需)(?:报告|给出|列出|提供)?[^，。；]*?(?:正式|最终|留出)[^，。；]*?(?:改善|提升|收益)", clause)
+            for clause in clauses)
+        needed = [prefix + "lightgbm_l1_shrink.mae_gain"] if record["scope"] == "engie_final" and final_metric else []
+        interval = [prefix + "gain_ci_low", prefix + "gain_ci_high"]
+        if needed and all(key in final for key in interval) and any(word in query for word in ("区间", "置信", "confidence")):
+            # 区间问题应覆盖区间，不因缺少未询问的点估计拒绝一份正确解释。
+            # 同时明确问点值时仍保留点值合同；其他阶段和来源绑定不变。
+            point_requested = any(word in query for word in ("点估计", "点值", "改善多少", "改善率", "改善值", "改善和", "改善与", "改善及", "改善、"))
+            needed = [*needed, *interval] if point_requested else interval
         add("final_holdout_result", "正式留出核验（不用于事前选择）", final, needed,
             record["final_holdout_evidence"], record["final_holdout_evidence"][:1], final_question)
     # 强制阶段证据优先进入同一版本上下文；不改语料、不借机会替换检索算法。
@@ -132,6 +146,15 @@ def restrict_adoption_output(evidence, question):
 
 
 def validate_stage_claims(draft, evidence):
+    from .contracts import ComposedDraftAnswer
+    if isinstance(draft, ComposedDraftAnswer):
+        from .program import validate_composed_stages
+        return validate_composed_stages(draft, evidence)
+    # 证据不足由独立状态校验检查，仍经过共同数值、引用和对象边界。
+    if draft.status == "insufficient_evidence":
+        if draft.stage_claims:
+            raise AssistantError("answer_refusal_structure", "证据不足不能伪装为完整阶段回答。")
+        return
     required = {(r["object_id"], r["role"]) for r in evidence.get("stage_requirements", [])}
     if not required and not draft.stage_claims:
         return

@@ -112,6 +112,38 @@ def interval_projection():
     return data
 
 
+@pytest.mark.parametrize("question", [
+    "共享收缩的开发MAE改善是否大于采用门槛？列出开发原值、门槛、是否采用，并说明最终成绩能否倒过来改变当时门槛。",
+    "开发改善是多少？正式结果能否追认采用？",
+    "开发改善原值和采用门是多少；正式成绩能否修改门槛？",
+])
+def test_stage_boundary_explanation_does_not_require_unasked_final_metric(question):
+    data, documents = setup_question("engie", question)
+    final = next(o for o in data["stage_options"] if o["role"] == "final_holdout_result")
+    assert final["required_fact_ids"] == []
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    draft.stage_claims[-1].text = "正式留出只用于事后核验，不能反向修改冻结门槛或追认开发采用。"
+    result = validate_answer(draft, data, documents, question)
+    assert result["status"] == "answered"
+
+
+@pytest.mark.parametrize("question", [
+    "开发与最终评价改善分别是多少，为什么默认仍是持久性？",
+    "开发改善原值是多少？正式改善原值是多少？",
+    "给正式改善和开发改善原值。",
+])
+def test_actual_final_metric_request_keeps_completeness(question):
+    data, _ = setup_question("engie", question)
+    final = next(o for o in data["stage_options"] if o["role"] == "final_holdout_result")
+    assert "c0.lightgbm_l1_shrink.mae_gain" in final["required_fact_ids"]
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    draft.stage_claims[-1].text = "正式结果不能追认采用。"
+    with pytest.raises(AssistantError, match="answer_stage_metric_missing"):
+        validate_stage_claims(draft, data)
+
+
 def test_reference_adoption_question_keeps_full_evidence_but_not_unrequested_interval_output():
     from power_forecast_service.assistant.references import reference_schema
     question = "开发采用门与最终留出结果的改善如何区分？"
@@ -156,6 +188,29 @@ def test_interval_gate_guard_does_not_reject_explicit_negation():
     draft.answer = ""
     draft.stage_claims[-1].text += "置信区间并非开发采用门的{{c0.gain_ci_low}}至{{c0.gain_ci_high}}范围。"
     validate_stage_claims(draft, data)
+
+
+@pytest.mark.parametrize("question,point_required", [
+    ("开发采用门与最终MAE改善的置信区间如何区分？", False),
+    ("最终改善的点估计与置信区间是多少？", True),
+    ("最终改善和置信区间各是多少？", True),
+])
+def test_interval_contract_requires_requested_endpoints_not_unrequested_point(question, point_required):
+    data, documents = prepare_stage_requirements(interval_projection(), [], question)
+    final = next(option for option in data["stage_options"] if option["role"] == "final_holdout_result")
+    assert {"c0.gain_ci_low", "c0.gain_ci_high"} <= set(final["required_fact_ids"])
+    assert ("c0.lightgbm_l1_shrink.mae_gain" in final["required_fact_ids"]) is point_required
+    draft = valid_draft("engie", data)
+    draft.answer = ""
+    draft.stage_claims[-1].text = "正式改善的区间为{{c0.gain_ci_low}}至{{c0.gain_ci_high}}，不是开发采用门。"
+    if point_required:
+        with pytest.raises(AssistantError, match="answer_stage_metric_missing"):
+            validate_stage_claims(draft, data)
+        draft.stage_claims[-1].text += "点估计为{{c0.lightgbm_l1_shrink.mae_gain}}。"
+    validate_stage_claims(draft, data)
+    draft.stage_claims[-1].text = draft.stage_claims[-1].text.replace("{{c0.gain_ci_high}}", "未知")
+    with pytest.raises(AssistantError, match="answer_stage_metric_missing"):
+        validate_stage_claims(draft, data)
 
 
 @pytest.mark.parametrize("suffix,code", [
@@ -303,7 +358,7 @@ def test_development_value_only_in_fact_list_is_not_coverage():
 
 
 @pytest.mark.parametrize("defect,code", [("extra_body", "answer_stage_body_mismatch"), ("wrong_object", "answer_stage_identity_invalid"),
-    ("wrong_citation", "answer_stage_citation_conflict"), ("missing_gate", "answer_stage_incomplete"), ("refusal", "answer_stage_incomplete")])
+    ("wrong_citation", "answer_stage_citation_conflict"), ("missing_gate", "answer_stage_incomplete"), ("refusal", "answer_refusal_structure")])
 def test_stage_metadata_cannot_hide_bad_body(defect, code):
     evidence, _ = setup_question("engie")
     draft = valid_draft("engie", evidence)

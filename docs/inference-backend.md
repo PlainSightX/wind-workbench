@@ -69,6 +69,34 @@ pwsh -File tools/dev/run-local.ps1 -Command @(
 被 `run-local.ps1` 注入的普通API端口覆盖。按Ctrl+C关闭此API，再结束自己的隧道；
 云GPU需要另行停机，不会随本机API自动关闭。
 
+可选参数（默认值即原行为，不显式添加就不改变请求或身份记录）：
+
+- `--response-mode`：`references`（默认）、`program` 或 `program_requested`。后两者让模型输出受限查询
+  计划（[program.py](../src/power_forecast_service/assistant/program.py)），由代码执行比较、计数、时间
+  和阶段边界并校验；`program_requested` 的呈现只限问题显式请求的内容，是查询规划微调所用的接口。
+- `--generation-profile`：`ordinary`（默认）或 `offline-greedy-v1`（temperature 0、seed 42、
+  max_tokens 1024、非思考模式，与离线评测同一采样）。
+- `--provider-timeout`：单次 provider 调用预算，默认 35 秒；75 秒总预算不变。
+- `--sort-schema-properties`：默认关闭。开启后只把发给 vLLM 的约束 schema 中 `properties` 按键名排序，
+  `enum`、`default` 等数据不动；业务校验仍用原 schema。用于以 `sort_keys` 序列化目标训练的适配器，
+  否则约束解码按原字段顺序生成，模型会系统性漏写排在后面的字段。开启时 provider 的 `identity`
+  与每次返回的 `response_metadata` 记录 `schema_property_order: sorted-properties-v1`。
+  LoRA 适配器的模型卡没有上下文字段时，`--check` 继承唯一父底座的 `max_model_len`。
+
+接入查询规划 LoRA 的示例（vLLM 以 `--enable-lora --lora-modules wind-planner=<适配器目录>` 启动）：
+
+```powershell
+pwsh -File tools/dev/run-local.ps1 -Command @(
+  '.venv/Scripts/python.exe', '-B', 'tools/dev/serve_inference.py',
+  '--provider-url', 'http://127.0.0.1:18110/v1', '--model', 'wind-planner', '--port', '18113',
+  '--response-mode', 'program_requested', '--generation-profile', 'offline-greedy-v1',
+  '--provider-timeout', '60', '--sort-schema-properties', '--check'
+)
+```
+
+该配置的端到端对照见[查询规划接入服务](results/sft-service-integration-20261017/README.md)；
+适配器未随仓库发布。
+
 典型错误码：`inference_database_migration_required` 表示当前连接的数据库不是
 源码迁移head或缺请求表；检查不会替你升级。`inference_model_identity_mismatch`
 表示服务名不符；`inference_context_insufficient`表示未报告至少32768上下文。

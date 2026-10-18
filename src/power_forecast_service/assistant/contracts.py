@@ -3,7 +3,7 @@
 from typing import Annotated, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 MAX_ANSWER_FACTS = 15
 MAX_ANSWER_CITATIONS = 8
@@ -55,6 +55,22 @@ class DraftAnswer(BaseModel):
     citations: list[str] = Field(default_factory=list, max_length=MAX_ANSWER_CITATIONS)
     quotes: dict[str, str] = Field(default_factory=dict, max_length=MAX_ANSWER_CITATIONS)
     stage_claims: list[StageClaim] = Field(default_factory=list, max_length=8)
+    missing_evidence: list[str] = Field(default_factory=list, max_length=6)
+
+
+class RequestAnswerPart(BaseModel):
+    """解释器内部片段；请求序号用于追溯，不把模型写的请求标题当成可信正文。"""
+
+    request_index: int = Field(ge=0, lt=12)
+    draft: DraftAnswer
+
+
+class ComposedDraftAnswer(DraftAnswer):
+    """仅由program解释器构造；旧provider的DraftAnswer协议保持不变。"""
+
+    parts: list[RequestAnswerPart] = Field(min_length=1, max_length=120, exclude=True)
+    missing_evidence: list[str] = Field(default_factory=list, max_length=12)
+    group_gaps: bool = Field(default=False, exclude=True)
 
 
 class CitationSelection(BaseModel):
@@ -85,12 +101,28 @@ class StagedReferenceBody(BaseModel):
     claims: list[ReferenceStageClaim] = Field(min_length=1, max_length=8)
 
 
+class InsufficientReferenceBody(BaseModel):
+    """说明本请求缺失的依据；状态不是跳过事实校验的通行证。"""
+
+    model_config = ConfigDict(extra="forbid")
+    kind: Literal["insufficient"]
+    text: str = Field(min_length=1, max_length=3500)
+    missing_evidence: list[Annotated[str, Field(min_length=2, max_length=160)]] = Field(min_length=1, max_length=6)
+    citations: list[CitationSelection] = Field(default_factory=list, max_length=MAX_ANSWER_CITATIONS)
+
+
 class ReferenceAnswer(BaseModel):
     """可选生成合同；正文只能选一种表示，事实列表和原文由程序解析。"""
 
     model_config = ConfigDict(extra="forbid")
     status: Literal["answered", "insufficient_evidence"]
-    body: Annotated[PlainReferenceBody | StagedReferenceBody, Field(discriminator="kind")]
+    body: Annotated[PlainReferenceBody | StagedReferenceBody | InsufficientReferenceBody, Field(discriminator="kind")]
+
+    @model_validator(mode="after")
+    def coherent_status(self):
+        if (self.status == "insufficient_evidence") != isinstance(self.body, InsufficientReferenceBody):
+            raise ValueError("insufficient_evidence requires insufficient body; answered requires plain or staged body")
+        return self
 
 
 class AssistantError(Exception):

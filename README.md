@@ -24,7 +24,7 @@
 | ENGIE 2015 年留出评价，L1 + 持续性收缩 | 全场 MAE 较持续性 **−2.99%**（七天块 95% CI 2.75%–3.66%），RMSE **−4.04%** | 开发期改善 1.80%，未达预设的 3% 采用门，默认仍保留持续性 |
 | Q1 单序列历史留出，Ridge | MAE 较持续性 **−7.26%** | 小型 Transformer 完成训练与交付，但未胜出 |
 | 原模型跨环境回放 | 五个模型各 51,200 个合法起报，与原预测最大差 **4.55e-13 kW** | Linux CPU 容器中独立重载 |
-| 查询规划微调 | Qwen3-8B + LoRA 首答通过率 **77.3%**，DeepSeek-Flash 41.3%、Qwen3-32B 33.7% | 300 题留出测试，[详见](docs/results/sft-obligation-8b-20261017/README.md) |
+| 查询规划微调 | Qwen3-8B + LoRA 首答通过率 **77.3%**，DeepSeek-Flash 41.3%、Qwen3-32B 33.7%；接入服务后端到端 **77.7%**（原始 8B 19.0%） | 300 题留出测试，[首答](docs/results/sft-obligation-8b-20261017/README.md) · [接入服务](docs/results/sft-service-integration-20261017/README.md) |
 
 两组预测结果属于不同任务和数据合同，不能合并排名。全部结果与限制见 [精选结果](docs/public-results.md)。
 

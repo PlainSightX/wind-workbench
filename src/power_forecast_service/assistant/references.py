@@ -6,6 +6,7 @@ import re
 from .contracts import (AssistantError, DraftAnswer, ReferenceAnswer, StageClaim, StagedReferenceBody,
                         MAX_ANSWER_FACTS, MAX_ANSWER_CITATIONS)
 from .validation import FACT_TOKEN, normalize_fact_tokens
+from .answerability import QUARTERS
 
 
 def reference_schema(evidence, documents, required_facts=()):
@@ -21,7 +22,8 @@ def reference_schema(evidence, documents, required_facts=()):
         # 自由文字可用中文表达方法数字；阿拉伯指标及计算表达式不能绕过真实fact ID。
         # 这只约束可生成的字节，不验证模型选择的事实是否支持其自然语言结论。
         tokens = [r"\{\{" + re.escape(identity) + r"\}\}" for identity in allowed]
-        tokens += [re.escape(name) for name in models] + ["Q1", "L1", "L2"]
+        tokens += [re.escape(name) for name in models] + list(QUARTERS) + ["L1", "L2"]
+        tokens += [re.escape(name) for name in evidence.get("nominal_identifiers", [])]
         # XGrammar 0.1.25把pattern直接放入字符串语法，不与JSON转义规则求交。
         # 排除原始引号、反斜杠和控制字符，否则成功编译仍可生成非法JSON。
         atom = r'(?:[^0-9{}"\\\x00-\x1f]|' + "|".join(tokens) + r")"
@@ -71,7 +73,22 @@ def reference_schema(evidence, documents, required_facts=()):
         definitions["StagedReferenceBody"]["properties"]["claims"] = {
             "type": "array", "prefixItems": claims, "items": False, "minItems": len(claims), "maxItems": len(claims)}
         schema["properties"]["body"] = {"$ref": "#/$defs/StagedReferenceBody"}
-    # 不呈现无法被当前body分支使用的另一种回答，减少无关模式选择。
+    # 状态与正文分支同时选择；关键词推导的阶段要求不证明问题可回答。
+    answered_body = schema["properties"].pop("body")
+    schema["properties"].pop("status")
+    schema.pop("required", None)
+    schema.pop("additionalProperties", None)
+    gap = definitions["InsufficientReferenceBody"]
+    gap["properties"]["text"] = text_schema([f["id"] for f in evidence["facts"]], [])
+    gap["properties"]["text"]["description"] = "直接说明所问结论缺少什么证据及推断边界；不能只列无关阶段事实，不捏造原因或金额。"
+    schema["oneOf"] = [
+        {"type": "object", "additionalProperties": False, "required": ["status", "body"],
+         "properties": {"status": {"const": "answered", "type": "string"}, "body": answered_body}},
+        {"type": "object", "additionalProperties": False, "required": ["status", "body"],
+         "properties": {"status": {"const": "insufficient_evidence", "type": "string"},
+                        "body": {"$ref": "#/$defs/InsufficientReferenceBody"}}},
+    ]
+    # 非当前阶段的正常回答分支不可用，证据不足分支始终保留。
     unused = "StagedReferenceBody" if not stages else "PlainReferenceBody"
     definitions.pop(unused)
     return schema
@@ -112,4 +129,5 @@ def resolve_reference_answer(response, documents):
         raise AssistantError("answer_reference_limit", "同一回答最多绑定十五项事实、八份文档，请精简到所问内容。")
     return DraftAnswer(status=response.status, answer="" if staged else texts[0],
                        fact_ids=fact_ids, citations=citations,
-                       quotes=quotes, stage_claims=claims)
+                       quotes=quotes, stage_claims=claims,
+                       missing_evidence=getattr(body, "missing_evidence", []))
