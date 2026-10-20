@@ -10,6 +10,7 @@
 | [ENGIE 原包接入](wind-engie-service-a1-20260923/README.md) | 实际评分模型原字节接入服务，禁止重新拟合 |
 | [ENGIE L1 与共享收缩](wind-engie-a2-20260923/README.md) | 开发期 MAE 改善 1.80%，未过预设 3% 采用门 |
 | [ENGIE 2015 最终评价](wind-engie-a3-20260923/README.md) | 冻结后一次评价：MAE −2.985%、RMSE −4.038%；五模型页面回放与发布 |
+| [气象信息按时距的价值](nwp-horizon-2026-10-20/README.md) | 事前冻结的 SCADA / +GFS / +ERA5 对照：GFS 在 1–4 h 显著改善（4 h MAE −22%），10 min 变差 |
 | [Q1 序列模型比较](../WIND-SEQUENCE-RESULTS.md) | Ridge、HGB、增量 Transformer 与持续性的历史留出对照 |
 
 ## 持续评价与可靠性

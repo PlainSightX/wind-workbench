@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" font-family="sans-serif" font-size="12">
+<rect width="100%" height="100%" fill="white"/>
+<line x1="70" y1="240.0" x2="620" y2="240.0" stroke="#888"/>
+<text x="62" y="314.0" text-anchor="end">-9.0</text>
+<text x="62" y="258.0" text-anchor="end">-1.8</text>
+<text x="62" y="202.0" text-anchor="end">5.4</text>
+<text x="62" y="146.0" text-anchor="end">12.6</text>
+<text x="62" y="90.0" text-anchor="end">19.8</text>
+<text x="62" y="34.0" text-anchor="end">27.0</text>
+<text x="70.0" y="328" text-anchor="middle">10</text>
+<text x="161.7" y="328" text-anchor="middle">20</text>
+<text x="253.3" y="328" text-anchor="middle">30</text>
+<text x="345.0" y="328" text-anchor="middle">60</text>
+<text x="436.7" y="328" text-anchor="middle">120</text>
+<text x="528.3" y="328" text-anchor="middle">180</text>
+<text x="620.0" y="328" text-anchor="middle">240</text>
+<text x="345.0" y="350" text-anchor="middle">时距（分钟，非等距排列）</text>
+<text x="16" y="170.0" transform="rotate(-90 16 170.0)" text-anchor="middle">MAE 相对 (a) SCADA 改善 %</text>
+<line x1="67.0" y1="296.9" x2="67.0" y2="245.6" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="67.0" cy="274.2" r="3" fill="#1f77b4"/>
+<line x1="158.7" y1="269.2" x2="158.7" y2="223.1" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="158.7" cy="249.2" r="3" fill="#1f77b4"/>
+<line x1="250.3" y1="249.6" x2="250.3" y2="209.7" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="250.3" cy="232.5" r="3" fill="#1f77b4"/>
+<line x1="342.0" y1="221.7" x2="342.0" y2="178.2" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="342.0" cy="202.4" r="3" fill="#1f77b4"/>
+<line x1="433.7" y1="173.3" x2="433.7" y2="111.6" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="433.7" cy="144.2" r="3" fill="#1f77b4"/>
+<line x1="525.3" y1="127.0" x2="525.3" y2="64.1" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="525.3" cy="97.2" r="3" fill="#1f77b4"/>
+<line x1="617.0" y1="96.3" x2="617.0" y2="39.8" stroke="#1f77b4" stroke-width="2"/>
+<circle cx="617.0" cy="69.0" r="3" fill="#1f77b4"/>
+<polyline points="67.0,274.2 158.7,249.2 250.3,232.5 342.0,202.4 433.7,144.2 525.3,97.2 617.0,69.0" fill="none" stroke="#1f77b4"/>
+<text x="80" y="20" fill="#1f77b4">(b) +GFS</text>
+<line x1="73.0" y1="295.3" x2="73.0" y2="254.9" stroke="#d62728" stroke-width="2"/>
+<circle cx="73.0" cy="273.1" r="3" fill="#d62728"/>
+<line x1="164.7" y1="268.5" x2="164.7" y2="234.6" stroke="#d62728" stroke-width="2"/>
+<circle cx="164.7" cy="250.8" r="3" fill="#d62728"/>
+<line x1="256.3" y1="250.8" x2="256.3" y2="221.5" stroke="#d62728" stroke-width="2"/>
+<circle cx="256.3" cy="235.9" r="3" fill="#d62728"/>
+<line x1="348.0" y1="224.9" x2="348.0" y2="191.2" stroke="#d62728" stroke-width="2"/>
+<circle cx="348.0" cy="207.3" r="3" fill="#d62728"/>
+<line x1="439.7" y1="182.4" x2="439.7" y2="129.3" stroke="#d62728" stroke-width="2"/>
+<circle cx="439.7" cy="154.3" r="3" fill="#d62728"/>
+<line x1="531.3" y1="133.4" x2="531.3" y2="80.8" stroke="#d62728" stroke-width="2"/>
+<circle cx="531.3" cy="105.8" r="3" fill="#d62728"/>
+<line x1="623.0" y1="105.0" x2="623.0" y2="55.7" stroke="#d62728" stroke-width="2"/>
+<circle cx="623.0" cy="79.8" r="3" fill="#d62728"/>
+<polyline points="73.0,273.1 164.7,250.8 256.3,235.9 348.0,207.3 439.7,154.3 531.3,105.8 623.0,79.8" fill="none" stroke="#d62728"/>
+<text x="220" y="20" fill="#d62728">(c) +ERA5 先知</text>
+</svg>

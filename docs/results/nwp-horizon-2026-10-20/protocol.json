@@ -1,0 +1,175 @@
+{
+  "frozen_at": "2026-10-20T06:50:16.388281+00:00",
+  "protocol": {
+    "version": "nwp-horizon-v1",
+    "question": "At which forecast horizons does weather information add skill for aggregate wind-farm power, and how much of the oracle upper bound does a genuinely available forecast capture?",
+    "horizons_min": [
+      10,
+      20,
+      30,
+      60,
+      120,
+      180,
+      240
+    ],
+    "horizon_mapping": {
+      "15min": "between 10 and 20 (both reported)",
+      "30min": 30,
+      "1h": 60,
+      "2h": 120,
+      "3h": 180,
+      "4h": 240
+    },
+    "arms": {
+      "persistence": "latest available power (issue - 20 min) per turbine, summed; reference",
+      "scada": "existing 60-dim own-turbine history + horizon_min",
+      "gfs": "scada + GFS ws_hub,dir_sin,dir_cos,ws10,gust,t2m,sp at target valid time",
+      "era5": "scada + ERA5 ws_hub,dir_sin,dir_cos,ws10,gust,t2m,sp at target valid time; ORACLE upper bound, not a forecast"
+    },
+    "model": {
+      "family": "LightGBM regression_l1, one pooled-horizon model per turbine, farm = sum",
+      "parameters": {
+        "objective": "regression_l1",
+        "metric": "l1",
+        "learning_rate": 0.05,
+        "n_estimators": 400,
+        "num_leaves": 31,
+        "min_child_samples": 50,
+        "n_jobs": 2,
+        "random_state": 42,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      },
+      "early_stopping_rounds": 40,
+      "selection": "inner early stopping on last 28 training days, then refit all training rows with selected trees",
+      "no_tuning_on_test": true
+    },
+    "gfs_rule": {
+      "publication_delay_hours": 5.0,
+      "eligibility": "reftime + delay <= issue",
+      "choice": "latest eligible run",
+      "fallback": "previous eligible runs, at most 2, if a needed step file is missing",
+      "time_interpolation": "linear between 3 h steps of the same run, on u/v components",
+      "space_interpolation": "bilinear over enclosing 0.25 deg cell, on u/v components",
+      "hub_wind": "GFS 80 m u/v directly (hub height 80 m)",
+      "temperature": "2 m",
+      "gust": "surface gust",
+      "pressure": "surface"
+    },
+    "era5_rule": {
+      "source": "Open-Meteo ERA5 archive, 4 enclosing grid points, bilinear",
+      "time_interpolation": "linear between hourly values",
+      "hub_wind": "100 m speed * (80/100)^alpha, alpha = median log-ratio of 100 m/10 m speed on hours before test start",
+      "direction": "100 m"
+    },
+    "split": {
+      "train": [
+        "2015-01-15T00:00:00+00:00",
+        "2015-09-01T00:00:00+00:00"
+      ],
+      "inner_validation_days": 28,
+      "test": [
+        "2015-09-01T00:00:00+00:00",
+        "2016-01-01T00:00:00+00:00"
+      ],
+      "label_rule": "row (issue,h) enters a training set only if issue + h + 20 min < boundary",
+      "exposure": "2015 was the A3 final evaluation year; not a blind test of earlier models"
+    },
+    "rows": "identical keys for all arms: label complete for all 4 turbines AND SCADA, GFS and ERA5 inputs all valid; applies to training and scoring; dropped counts reported",
+    "metrics": {
+      "per_horizon": [
+        "mae_kw",
+        "rmse_kw",
+        "bias_kw",
+        "accuracy = 1 - RMSE / 8200 kW"
+      ],
+      "accuracy_note": "approximates, does not replicate, Chinese provincial assessment rules",
+      "improvement": "MAE % vs persistence and vs scada arm",
+      "bootstrap": {
+        "block_steps": 1008,
+        "samples": 2000,
+        "seed": 42,
+        "confidence": 0.95,
+        "method": "paired non-circular 7-day blocks over full test calendar, percentile CI",
+        "differences": [
+          "gfs - scada",
+          "era5 - scada",
+          "scada - persistence",
+          "gfs - persistence",
+          "era5 - persistence"
+        ]
+      },
+      "capture": "(MAE_scada - MAE_gfs) / (MAE_scada - MAE_era5), only where era5-scada CI < 0"
+    },
+    "decision_wording": {
+      "gfs": "'GFS 在 h 显著改善' only if the 95% CI of MAE(gfs) - MAE(scada) is entirely < 0; 'GFS 在 h 显著变差' if entirely > 0; else '未检出差异（区间含0）'",
+      "era5": "same rule with '先知 ERA5' wording; never called a forecast",
+      "summary": "list the horizons satisfying each statement; no pooled significance claim"
+    },
+    "inputs": {
+      "gfs_site_2015.csv": {
+        "path": "docs/results/nwp-horizon-2026-10-20/inputs/gfs_site_2015.csv",
+        "sha256": "c4ecb6d1b554e011757aab2ba730c6cd1763242b93a09ff8aadbdde1b74014e5",
+        "bytes": 498921
+      },
+      "era5_site_2015.csv": {
+        "path": "docs/results/nwp-horizon-2026-10-20/inputs/era5_site_2015.csv",
+        "sha256": "4fe4c4c7aa06048223efbdb2bf2828c30ae93d9e77fd8a611ac424ad4f4b8b08",
+        "bytes": 596981
+      },
+      "sources.json": {
+        "path": "docs/results/nwp-horizon-2026-10-20/inputs/sources.json",
+        "sha256": "05c68e0ff29fae3c6dd496ab6c440f7b7d519628146c83979ada9f63f64e8cf2",
+        "bytes": 3566
+      }
+    },
+    "code": [
+      {
+        "path": "tools/research/nwp_horizon/study.py",
+        "sha256": "fa6ba1d62abf70a92c91a8e76f8514af6c118db7e74681b05d556c21524732b5",
+        "bytes": 29659
+      },
+      {
+        "path": "tools/research/nwp_horizon/timing.py",
+        "sha256": "37ff2cdc1266778dd9b434a63f478ef74e842b682b55f4eb1a62b89745096a4d",
+        "bytes": 4584
+      },
+      {
+        "path": "tools/research/nwp_horizon/build_inputs.py",
+        "sha256": "703fcf080ba4b2387c15a1637aa30fa40ef883c52a431dd397f24b95d8c61122",
+        "bytes": 8176
+      },
+      {
+        "path": "tools/research/nwp_horizon/fetch_gfs.py",
+        "sha256": "5e61378d0acee4b3620c26b9690cce6c900c73515d0ff897e554a15f6370ae8d",
+        "bytes": 5066
+      },
+      {
+        "path": "tools/research/nwp_horizon/fetch_era5.py",
+        "sha256": "44044982c62115c9c9bd256f571cc8aff941de31d3baba1da8ece9d50d1d4129",
+        "bytes": 2213
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_contract.py",
+        "sha256": "7babb5a329544fe5bd3068eed46da144558f240be101d8e6190484664a5d8df3",
+        "bytes": 10898
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_l1.py",
+        "sha256": "8d243d436697c1f4259fd5e20d428675c95171ce952723a817869b74795c380b",
+        "bytes": 5736
+      },
+      {
+        "path": "src/power_forecast_service/forecasting/engie_baselines.py",
+        "sha256": "7504bb79f3679587c92ed46c23f2d5714cb22aebf80a17767cbddecc74adc89c",
+        "bytes": 8054
+      }
+    ],
+    "environment": {
+      "numpy": "2.5.2",
+      "pandas": "2.3.3",
+      "lightgbm": "4.6.0"
+    }
+  }
+}
