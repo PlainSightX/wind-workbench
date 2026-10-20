@@ -1,0 +1,108 @@
+{
+  "freeze_sha256": "88a128b4f96c59d53c3268ae1d1722cab6b5ce22d0a4e82982c0b339867b9743",
+  "started_at": "2026-10-20T06:51:05.915648+00:00",
+  "alpha": 0.22369016475620093,
+  "scada": [
+    {
+      "turbine": "R80711",
+      "iterations": 60,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 7.9232258000047295
+    },
+    {
+      "turbine": "R80721",
+      "iterations": 97,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 10.499995400001353
+    },
+    {
+      "turbine": "R80736",
+      "iterations": 98,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 8.012406099995133
+    },
+    {
+      "turbine": "R80790",
+      "iterations": 77,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 7.024826900000335
+    }
+  ],
+  "gfs": [
+    {
+      "turbine": "R80711",
+      "iterations": 130,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 10.490346899998258
+    },
+    {
+      "turbine": "R80721",
+      "iterations": 99,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 9.099123300002248
+    },
+    {
+      "turbine": "R80736",
+      "iterations": 156,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 13.535375599996769
+    },
+    {
+      "turbine": "R80790",
+      "iterations": 117,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 9.510733700000856
+    }
+  ],
+  "era5": [
+    {
+      "turbine": "R80711",
+      "iterations": 63,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 6.507757799998217
+    },
+    {
+      "turbine": "R80721",
+      "iterations": 59,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 6.3195293999960995
+    },
+    {
+      "turbine": "R80736",
+      "iterations": 56,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 6.266330799997377
+    },
+    {
+      "turbine": "R80790",
+      "iterations": 97,
+      "inner_rows": 192329,
+      "validation_rows": 28144,
+      "refit_rows": 220553,
+      "seconds": 8.188162899998133
+    }
+  ],
+  "sealed_at": "2026-10-20T06:52:49.897526+00:00"
+}

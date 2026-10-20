@@ -1,0 +1,96 @@
+{
+  "site": {
+    "latitude": 48.452,
+    "longitude": 5.588,
+    "source": "OpenOA la-haute-borne_asset_table.csv, mean of 4 turbines",
+    "interpolation": "bilinear on u/v components over the enclosing 0.25 deg cell",
+    "grid_lats": [
+      48.25,
+      48.5
+    ],
+    "grid_lons": [
+      5.5,
+      5.75
+    ]
+  },
+  "gfs": {
+    "file": "gfs_site_2015.csv",
+    "sha256": "c4ecb6d1b554e011757aab2ba730c6cd1763242b93a09ff8aadbdde1b74014e5",
+    "bytes": 498921,
+    "rows": 7075,
+    "runs": 1404,
+    "dataset": "NCAR RDA d084001 NCEP GFS 0.25 Degree Global Forecast Grids Historical Archive",
+    "doi": "https://doi.org/10.5065/D65D8PWK",
+    "access": "THREDDS NetcdfSubset, bbox {\"north\": 48.5, \"south\": 48.25, \"west\": 5.5, \"east\": 5.75}",
+    "example_url": "https://thredds.rda.ucar.edu/thredds/ncss/grid/files/g/d084001/2015/20150115/gfs.0p25.2015011500.f003.grib2?var=u-component_of_wind_height_above_ground&var=v-component_of_wind_height_above_ground&var=Wind_speed_gust_surface&var=Pressure_surface&var=Temperature_height_above_ground&north=48.5&south=48.25&west=5.5&east=5.75&accept=netcdf3",
+    "leads_h": "3-15 for every run; 18-27 only for runs needed as fallback",
+    "unavailable_files": [
+      {
+        "reftime": "2015-03-21T06:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-04-04T00:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-04-28T12:00:00+00:00",
+        "lead_h": 9,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-05-22T00:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-06-07T06:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_400"
+      },
+      {
+        "reftime": "2015-07-14T00:00:00+00:00",
+        "lead_h": 15,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-07-15T00:00:00+00:00",
+        "lead_h": 15,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-08-12T06:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-09-02T06:00:00+00:00",
+        "lead_h": 12,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-09-22T00:00:00+00:00",
+        "lead_h": 12,
+        "error": "http_404"
+      },
+      {
+        "reftime": "2015-12-01T12:00:00+00:00",
+        "lead_h": 6,
+        "error": "http_404"
+      }
+    ],
+    "licence": "NOAA/NCEP GFS output: US public domain; cite the RDA dataset DOI"
+  },
+  "era5": {
+    "file": "era5_site_2015.csv",
+    "sha256": "4fe4c4c7aa06048223efbdb2bf2828c30ae93d9e77fd8a611ac424ad4f4b8b08",
+    "bytes": 596981,
+    "rows": 8784,
+    "dataset": "ERA5 hourly single levels via Open-Meteo Historical Weather API (models=era5)",
+    "request_url": "https://archive-api.open-meteo.com/v1/archive?latitude=48.25,48.25,48.5,48.5&longitude=5.5,5.75,5.5,5.75&start_date=2015-01-01&end_date=2016-01-01&hourly=wind_speed_10m,wind_direction_10m,wind_speed_100m,wind_direction_100m,wind_gusts_10m,temperature_2m,surface_pressure&models=era5&timezone=GMT&wind_speed_unit=ms",
+    "licence": "Contains modified Copernicus Climate Change Service information 2015; neither the European Commission nor ECMWF is responsible for any use. Open-Meteo data CC BY 4.0, https://open-meteo.com/",
+    "note": "surface_pressure as delivered by Open-Meteo (elevation-adjusted)"
+  }
+}
