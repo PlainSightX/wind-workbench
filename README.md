@@ -4,81 +4,113 @@
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-**评分用的模型字节，就是服务加载的模型字节。** 这是面向预测研发人员的实验工作台：在页面或 API
-提交训练任务，异步执行、比较模型，按模型版本回放历史预测，并由结果助手解释指标和选型依据。
-数据来自公开的 ENGIE 风电场 SCADA，预测四台机组聚合功率未来 10–60 分钟；这是离线历史场景，
-没有生产客户或电网接入。
+**评分用的模型字节，就是服务加载的模型字节。** 这是一套复合研究与交付平台：可靠异步实验执行、风电功率预测建模（ENGIE 四机组）、NWP 气象信息价值研究、结果助手的大模型查询规划微调、推理服务工程，五个部分共同构成。在页面或 API 提交训练任务，异步执行、比较模型，按模型版本回放历史预测，并由结果助手解释指标和选型依据。数据来自公开的 ENGIE 风电场 SCADA，预测四台机组聚合功率；这是离线历史场景，没有生产客户或电网接入。
+
+## 项目摘要
+
+**主要工作**：搭建 Outbox+租约+心跳的可靠异步任务执行底座；在 ENGIE 风电数据上完成 baseline→A1→A2→A3 四轮递进建模，并独立做一条跨时距架构的 NWP 气象信息价值研究；为结果助手的查询规划子步骤做 Qwen3-8B LoRA 微调并接入服务端到端；围绕推理延迟做前缀缓存与请求布局的工程对照。
+
+**成果**：A3 全年最终评价相对持久性 MAE 改善 2.99%，但未过预设 3% 开发采用门，默认模型仍是持久性；NWP 研究发现 GFS 在 4 小时时距改善 22.0%、10 分钟时距反而变差 6.8%；查询规划微调后端到端准确率从原始 8B 的 19.0% 升到 77.7%；定位出一个序列化顺序 bug，无需重训仅调整推理期字段顺序就把同一适配器从 50.0% 提到 77.7%。
+
+**架构**：Outbox 任务提交 → Dispatcher 轮询 → worker 租约+心跳领取 → `clock_timestamp()` 判超时 → 模型包（manifest.json + SHA-256）独立子进程重放核验 → 结果落库；"评分字节=服务字节"由独立重放进程强制验证，而不是约定。
+
+**关键技术**：FastAPI + Celery/Redis 异步执行、PostgreSQL（Outbox/租约/`clock_timestamp()`）、LightGBM/scikit-learn 预测建模、GFS/ERA5 气象数据对照、LangGraph 结果助手、PEFT/LoRA + vLLM 微调与推理、Docker、GitHub Actions。
 
 ![历史预测页面：五个模型的 2015 年留出结果对照与一次六点预测](docs/results/wind-engie-a3-20260923/final-1440.png)
 
-## 解决什么问题
+## ENGIE 主线：10–60 分钟功率预测
 
-- **实验可靠执行。** 提交与投递消息同事务落库（outbox），worker 用租约和执行批次校验完成任务；
-  进程被强杀后可安全重跑，重复投递只登记一个有效结果。
-- **评分模型就是服务模型。** 模型包用 Hash 绑定训练配置、预处理和数据协议；预测服务加载原包，不重新训练。
-- **结果有据可查。** 结果助手只读取已登记的指标和文档，由模型选择引用、程序绑定数值，再校验数值、单位与阶段。
+四个轮次递进：baseline 确立数据合同（Persistence vs Ridge vs LightGBM，两个学习模型全部弱于持久性）→ A1 把 baseline 模型接入真实服务（独立 Linux CPU 容器禁止重新拟合重放，最大差 4.5e-13 kW）→ A2 把训练目标从 L2 改成与评估一致的 L1，叠加持久性收缩机制 → A3 用冻结协议对 2015 全年做唯一一次最终评价。
 
-## 关键结果
+| 轮次 | 结果 |
+| --- | --- |
+| A2（开发期机制实验） | L1+持久性收缩相对持久性改善 **+1.80%**，RMSE 降 3.35%，三季度均改善，但未达预设的 3% 开发采用门 |
+| A3（2015 全年最终评价） | 相对持久性等季度 MAE 改善 **2.99%**（七天块 95% CI 2.75%–3.66%），RMSE 改善 4.04%；开发期采用门依然未通过，默认模型仍是持久性 |
+| 模型可复现性验证 | 五个模型包各 51,200 个合法起报，独立进程禁止重新拟合全量重放，与原预测最大差 **4.55e-13 kW** |
 
-| 结果 | 数值 | 说明 |
-| --- | --- | --- |
-| ENGIE 2015 年留出评价，L1 + 持续性收缩 | 全场 MAE 较持续性 **−2.99%**（七天块 95% CI 2.75%–3.66%），RMSE **−4.04%** | 开发期改善 1.80%，未达预设的 3% 采用门，默认仍保留持续性 |
-| Q1 单序列历史留出，Ridge | MAE 较持续性 **−7.26%** | 小型 Transformer 完成训练与交付，但未胜出 |
-| 原模型跨环境回放 | 五个模型各 51,200 个合法起报，与原预测最大差 **4.55e-13 kW** | Linux CPU 容器中独立重载 |
-| 查询规划微调 | Qwen3-8B + LoRA 首答通过率 **77.3%**，DeepSeek-Flash 41.3%、Qwen3-32B 33.7%；接入服务后端到端 **77.7%**（原始 8B 19.0%） | 300 题留出测试，[首答](docs/results/sft-obligation-8b-20261017/README.md) · [接入服务](docs/results/sft-service-integration-20261017/README.md) |
+这是一条如实记录"未达标也不放宽标准"的轮次：A2 没过 3% 门槛，A3 的最终评价结果同样没有追认采用——事前定好的门槛不因为后续结果好看就回头改。完整数据见 [baseline](docs/results/wind-engie-baseline-20260923/README.md)、[A2](docs/results/wind-engie-a2-20260923/README.md)、[A3](docs/results/wind-engie-a3-20260923/README.md)。
 
-两组预测结果属于不同任务和数据合同，不能合并排名。全部结果与限制见 [精选结果](docs/public-results.md)。
+## NWP 气象信息价值研究：另一个模型架构，10 分钟–4 小时
+
+**这是独立于 ENGIE 主线之外的第二个研究，模型架构不同——A2/A3 是逐时距独立训练，这里是每台机组训练一个跨时距合并模型，时距作为一列特征**，覆盖 10/20/30/60/120/180/240 分钟。对照纯 SCADA / +GFS 历史预报 / +ERA5 再分析三种输入：
+
+- 4 小时时，+GFS 相对 SCADA 臂 MAE 改善 **22.0%**，相对持久性改善 27.2%；准确率（1 − RMSE/装机容量）从 85.2% 升到 88.1%。
+- 10 分钟时 GFS 反而显著变差（-6.8%）；20–30 分钟未检出差异。
+- ERA5"先知"并未超过 GFS（捕获比 1.06–1.15，区间包含 1），说明再分析在这个配置下不构成信息上界。
+
+数据细节：GFS 0.25° 历史预报经 NCAR RDA d084001 获取，1,404 次运行抓取 7,020 个文件；发布延迟 5 小时是假设值，未实测到达时间；2015 年数据此前已用于 A3 最终评价，这次是同配方下换特征做的对照，不是新的盲测。完整设计与结果见 [时距研究](docs/results/nwp-horizon-2026-10-20/README.md)。
+
+## 结果助手：查询规划微调 + 推理工程
+
+**第三个独立任务线**：用 Qwen3-8B + LoRA 微调结果助手的"查询规划"子步骤（把问题转成结构化 `requests`），对比 Qwen3-32B 原始模型、DeepSeek-Flash。
+
+| 实验 | 结果 |
+| --- | --- |
+| 首答规划（300 题留出） | Qwen3-8B+LoRA **77.3%**，DeepSeek-Flash 41.3%，Qwen3-32B 原始 33.7% |
+| 接入服务端到端 | LoRA **77.7%**（233/300），原始 8B **19.0%**（57/300） |
+
+两个工程发现：① 23k token 长样本反向传播时显式传因果掩码会退回内存高效内核，改用 `is_causal=True` 走 flash 路径后单次前反向从 29 秒降到 9 秒；② 训练目标用 `sort_keys` 序列化但约束解码按 schema 原序生成，导致模型系统性漏写字段，推理时把 schema 属性按字母序排列后同一适配器从 50.0% 升到 77.7%，无需重训。接入服务后的 67 题"交付但不通过"里，62 题其实是缺口措辞不一致被严格检查器误判为顺序错误，只有约 4 题是真正的语义失败——服务校验通过不等于回答语义正确，这条边界在报告里写明了。
+
+推理工程另有一组前缀缓存对照：四种"提示布局×缓存"组合里，开启缓存整组用时降 10.2%，但逐题中位数仅降 0.43%，收益集中在两道纠错题；另一方案前缀复用率更高（67.5%）却多耗 25% 调用、多 50.7% 输出 token，评估后未采用——比"用了缓存、提速 10%"更值得说的是"识别出收益集中在哪、拒绝了看起来更快但综合成本更高的方案"。
+
+详情见 [首答规划](docs/results/sft-obligation-8b-20261017/README.md)、[接入服务](docs/results/sft-service-integration-20261017/README.md)、[推理布局对照](docs/results/inference-i2-20261006/README.md)、[服务可靠性验证](docs/results/inference-i3-20261007/README.md)。
+
+## 延迟实况监测与其他实验
+
+- **延迟到达实况监测**（W1/W2）：主用/候选模型做滚动窗口对照评分，区分累计指标与当前窗口样本完整性，避免把不完整窗口误读为稳定对照；复核规则在首轮运行前冻结。W2 是纯工程改进——给 CLI/报告加窗口完整性展示，不否定 W1 结论。
+- **Q1 单序列模型比较**（独立数据集）：Ridge（α=0.1）MAE 较持续性降 7.26%；小型 Transformer 完成真实训练与交付，但 MAE 反而恶化，不采用。
+- 全部 16 份实验结果见 [结果索引](docs/results/README.md)。
 
 ## 快速开始
 
-需要 PowerShell 7、Docker Desktop 和 [uv](https://docs.astral.sh/uv/)；容器使用 CPU，不需要 CUDA。
+需要 PowerShell 7、Docker Desktop、[uv](https://docs.astral.sh/uv/)；容器用 CPU，不需要 CUDA。
 
 ```powershell
 pwsh -File tools/dev/start-app.ps1 -Build      # 启动 API、worker、PostgreSQL、Redis
-pwsh -File tools/dev/check-service.ps1         # 可选：单测、真实 PG 与三个端到端实验
+pwsh -File tools/dev/check-service.ps1         # 单测、真实 PG 与三个端到端实验
 ```
 
-打开 `http://127.0.0.1:18000/`，在「实验任务」提交、在「结果比较」查看、在「历史预测」回放。
-原 ENGIE 模型包与数据的获取步骤见 [独立复现](docs/public-reproduction.md)。
+打开 `http://127.0.0.1:18000/`：三个功能区——提交实验任务、比较结果、历史预测回放。
 
-## 架构
+复现 NWP 时距研究（CPU，不需要账号或付费 API）：
 
-```mermaid
-flowchart LR
-  UI[页面] --> API[FastAPI]
-  API --> PG[(PostgreSQL)]
-  PG --> Dispatcher[Outbox dispatcher]
-  Dispatcher --> Redis[(Redis)]
-  Redis --> Worker[Celery worker]
-  Worker --> PG
-  Worker --> Files[校验后的模型包]
-  API --> Files
-  API --> Assistant[结果助手]
-  Assistant --> Provider[DeepSeek API 或可选 vLLM]
+```powershell
+python tools/research/nwp_horizon/fetch_gfs.py --cache .local/nwp-horizon/gfs
+python tools/research/nwp_horizon/study.py --run
 ```
 
-沿主流程读代码：
-[api/routes.py](src/power_forecast_service/api/routes.py) 提交与查询 →
-[experiments/service.py](src/power_forecast_service/experiments/service.py) 冻结配置、幂等与 outbox 事务 →
-[jobs/dispatcher.py](src/power_forecast_service/jobs/dispatcher.py) 投递 →
-[experiments/execution.py](src/power_forecast_service/experiments/execution.py) 领取、租约与恢复 →
-[jobs/worker.py](src/power_forecast_service/jobs/worker.py) 训练与登记 →
-[forecasting/bundles.py](src/power_forecast_service/forecasting/bundles.py) 打包与独立重载 →
-[api/forecasts.py](src/power_forecast_service/api/forecasts.py) 选版预测。
-结果助手见 [assistant/workflow.py](src/power_forecast_service/assistant/workflow.py) 与
-[validation.py](src/power_forecast_service/assistant/validation.py)。更多见 [架构说明](docs/public-architecture.md)。
+## 架构：三条可靠性设计
+
+```
+提交 ──► Outbox（任务与消息同事务落库）──► Dispatcher（SKIP LOCKED 轮询）──► Redis/Celery
+                                                                              │
+                                                                       worker 领取（租约 + 心跳）
+                                                                              │
+                                                              锁行 → clock_timestamp() 判超时 → 登记结果
+```
+
+**Outbox + 幂等**：任务提交与消息投递在同一事务落库；消息发送失败不删除记录，只推迟重试；重复投递由数据库唯一约束仲裁，只登记一个有效结果。
+
+**租约 + 心跳**：worker 领取时绑定 `attempt_id` 和到期时间；进程被强杀后，到期的孤儿任务由定期扫描标记为过期并重新入队，不会静默卡死。
+
+**`clock_timestamp()` 而非 `now()`**：PostgreSQL 的 `now()` 在同一事务内固定为事务开始时刻。如果等锁等了几秒才判断是否超时，用 `now()` 会得到过时的时间戳。项目在发布与查询的截止判断上都显式改用 `clock_timestamp()`，并在文档里写明了这个坑。
+
+**模型包即服务**：训练产物打包时写入 `manifest.json`（含训练配置、代码哈希、全部文件 SHA-256）；独立子进程把 `fit()`、网络连接等显式替换成抛异常的函数，强制证明重放过程没有重新训练、没有联网；登记结果前核验候选哈希与独立验证产出一致，全部通过才在一个事务里落库——这正是"评分字节=服务字节"这句核心主张的实现方式。
+
+## 技术栈
+
+FastAPI、PostgreSQL、Celery + Redis、scikit-learn / LightGBM（预测建模）、PyTorch（序列模型对照）、mlflow（模型打包）、LangGraph（结果助手）、PEFT/LoRA + vLLM（查询规划微调与推理）、Docker、GitHub Actions。
 
 ## 局限
 
-- 离线历史场景：2015 年数据已用于正式评价，不能再当盲测；整体改善不代表所有工况或其他场站。
-- 实况到达延迟为模拟参数，不是真实遥测；没有生产部署、SLA 或客户收益。
-- 结果助手的 24 题为开发题，不代表开放问答准确率；数值绑定不能代替语义判断。
+- 两组预测任务的模型架构不同，数值不能直接混用：A3 是逐时距独立训练的 10–60 分钟模型；NWP 研究是跨时距合并训练的 10 分钟–4 小时模型，用的是同一批 2015 年数据做特征对照。
+- 全部实验是离线历史场景：无生产客户、无电网接入；到达延迟是模拟参数。
+- 起报窗口高度重叠（滚动预测），不能当独立样本数；置信区间只反映该场站、该年度。
+- 结果助手的检索与微调评测大多与训练同一生成器；NWP 的发布延迟是假设值，非实测到达时间。
+- I2 的 10.2% 提速结论随后续请求合同变化，不能直接引用为当前服务的生产收益。
 
 ## 文档
 
-- [独立复现](docs/public-reproduction.md) · [复现核验记录](docs/public-verification.md) · [测试与 CI](docs/public-tests.md)
-- [架构](docs/public-architecture.md) · [延迟实况监测](docs/engie-monitor.md) · [可选 vLLM 后端](docs/inference-backend.md)
-- [精选结果](docs/public-results.md) · [结果报告索引](docs/results/README.md) · [助手困难案例](docs/public-assistant-case.md)
-- [数据出处](data/README.md) · [第三方许可](THIRD-PARTY-NOTICES.md) · [模型附件说明](docs/third-party/MODEL-ARTIFACT-NOTICE.md)
-
-自有代码采用 [MIT](LICENSE)。原模型附件随 [Releases](https://github.com/PlainSightX/wind-workbench/releases) 提供。
+- [结果索引（16 份完整实验报告）](docs/results/README.md)
+- [NWP 时距价值研究设计](docs/results/nwp-horizon-2026-10-20/DESIGN.md)
+- [推理后端配置](docs/inference-backend.md)
